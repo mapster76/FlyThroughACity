@@ -148,6 +148,10 @@ private:
    osg::Group*             mNoNav;
    osg::MatrixTransform*   mNavTrans;
    osg::MatrixTransform*   mModelTrans;
+   osg::MatrixTransform*   mModelTrans2;
+   osg::MatrixTransform*   mModelTrans3;
+   osg::MatrixTransform*   mModelTrans4;
+   osg::MatrixTransform*   mModelTrans5;
    osg::Node*              mModel;
 
    OsgNavigator  mNavigator;       /** Navigation class */

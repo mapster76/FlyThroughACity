@@ -255,10 +255,30 @@ void OsgNavGrab::myInit()
 
    // Transform node for the model
    mModelTrans  = new osg::MatrixTransform();
-   //This can be used if the model orientation needs to change
-   mModelTrans->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
-   mModelTrans->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans2  = new osg::MatrixTransform();
+   mModelTrans3  = new osg::MatrixTransform();
+   mModelTrans4  = new osg::MatrixTransform();
+   mModelTrans5  = new osg::MatrixTransform();
 
+   //This can be used if the model orientation needs to change
+
+   
+   mModelTrans->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) ); //Mise a l'echelle
+   mModelTrans->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans->preMult( osg::Matrix::translate(10.0f, 0.0f, 0.0f) );
+   
+   mModelTrans2->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans2->preMult( osg::Matrix::translate(1000.0f, 0.0f, 0.0f) );
+
+   mModelTrans3->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans3->preMult( osg::Matrix::translate(-1000.0f, 0.0f, 0.0f) );
+
+   mModelTrans4->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans4->preMult( osg::Matrix::translate(2000.0f, 0.0f, 0.0f) );
+
+   mModelTrans5->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans5->preMult( osg::Matrix::translate(-2000.0f, 0.0f, 0.0f) );
+   
 
    if(NULL == mModel)
    {
@@ -267,12 +287,24 @@ void OsgNavGrab::myInit()
    else
    {
       // Add model to the transform
-      mModelTrans->addChild(mModel);
+      mModelTrans->addChild(mModel); 
+      mModelTrans2->addChild(mModel);
+      mModelTrans3->addChild(mModel);
+      mModelTrans4->addChild(mModel);
+      mModelTrans5->addChild(mModel);
    }
    mObjects.push_back(makeGrabbable(mModel, mModelTrans));
-   
+   mObjects.push_back(makeGrabbable(mModel, mModelTrans2));
+   mObjects.push_back(makeGrabbable(mModel, mModelTrans3));
+   mObjects.push_back(makeGrabbable(mModel, mModelTrans4));
+   mObjects.push_back(makeGrabbable(mModel, mModelTrans5));
+
    // Add the transform to the tree
    mNavTrans->addChild( mModelTrans );
+   mNavTrans->addChild( mModelTrans2 );
+   mNavTrans->addChild( mModelTrans3 );
+   mNavTrans->addChild( mModelTrans4 );
+   mNavTrans->addChild( mModelTrans5 );
 
    // run optimization over the scene graph
    // NOTE: Using the optimizer may cause problems with textures not showing
