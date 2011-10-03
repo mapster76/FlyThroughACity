@@ -169,9 +169,9 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
             wandMatrix[2][0],wandMatrix[2][1],wandMatrix[2][2],wandMatrix[2][3],
             wandMatrix[3][0],wandMatrix[3][1],wandMatrix[3][2],wandMatrix[3][3]);
    const osg::Matrix wand_matrix = vw_M_w * osg_wandMatrix;
-   
-   const osg::Vec3 wand_point(wand_matrix.getTrans());
-   
+   //std::cout << wandMatrix << std::endl;
+   //const osg::Vec3 wand_point(wand_matrix.getTrans());
+   const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
    const osg::Matrix wand_matrix_rowmajor(wandMatrix.mData);
    
    // Only perform the intersection testing when we are not already grabbing
@@ -182,13 +182,19 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
 
       // Find the first object--if any--in mObjects with which the wand
       // intersects.
+      int cptr=0;
       for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
             o != mObjects.end();
             ++o )
       {
+    	  cptr++;
          const osg::BoundingSphere& bbox2 = (*o)->xformNode->getBound();
-         osg::Vec3 center =bbox2.center();
-         osg::BoundingSphere bbox = osg::BoundingSphere(center, bbox2.radius()*0.01);
+         float nouveauRayon=bbox2.radius()*0.01;
+         osg::BoundingSphere bbox = osg::BoundingSphere(bbox2.center(), bbox2.radius()*0.01f);
+         std::cout << "rayon " << cptr << " : " << bbox2.radius() << "nouveau rayon" << nouveauRayon << std::endl;
+
+         std::cout << "centre : " << bbox2.center().x() << " " << bbox2.center().y() << " "<< bbox2.center().z() << " " << std::endl;
+         std::cout << "wand : " << wand_point.x() << " " << wand_point.y() << " "<< wand_point.z() << " " << std::endl;
          if ( bbox.contains(wand_point) )
          {
             intersect_obj = *o;
