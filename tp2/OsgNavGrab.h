@@ -93,16 +93,23 @@ public:
    //
    //  while (drawing)
    //  {
-   //        preFrame();
-   //       <Application Data Syncronization>
-   //        latePreFrame();
-   //       draw();
-   //        intraFrame();     // Drawing is happening while here
-   //       sync();
-   //        postFrame();      // Drawing is now done
-   //
-   //       UpdateTrackers();
-   //  }
+//           preFrame();
+//          
+//           static vpr::Interval last_frame;
+//           vpr::Interval current_frame = mHead->getTimeStamp();
+//           vpr::Interval diff(current_frame-last_frame);
+//           last_frame = current_frame;
+//           // pour accéder au delta_t en microsecondes :
+//           vpr::Uint64 delta = diff.usec();
+//           
+//          latePreFrame();
+//          draw();
+//           intraFrame();     // Drawing is happening while here
+//          sync();
+//           postFrame();      // Drawing is now done
+//           	  rot2+=1;
+//          UpdateTrackers();
+//     }
    //------------------------------------
 
    //: Function called after tracker update but before start of drawing<BR><BR>

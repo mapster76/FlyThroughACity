@@ -40,6 +40,8 @@
 
 #include <string>
 
+float rot2 = 45;
+
 OsgNavGrab::OsgNavGrab(vrj::Kernel* kern, int& argc, char** argv) : vrj::OsgApp(kern)
 {
    mFileToLoad = std::string("");
@@ -53,7 +55,7 @@ void OsgNavGrab::latePreFrame()
    osg::Matrix osg_current_matrix;
    osg_current_matrix.set(world_transform.getData());
    mNavTrans->setMatrix(osg_current_matrix);
-
+   
    // Finish updating the scene graph.
    vrj::OsgApp::latePreFrame();
 }
@@ -128,6 +130,8 @@ void OsgNavGrab::initScene()
    const std::string but3("VJButton3");
    const std::string but4("VJButton4");
    const std::string but5("VJButton5");
+   
+   mHead.init("VJHead");
 
    mWand.init(wand);
    mHead.init(vjhead);
@@ -151,6 +155,7 @@ OsgNavGrab::GrabObject* OsgNavGrab::makeGrabbable(osg::Node* model,
 
 void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
 {
+
    // The navigation matrix is w_M_vw, so invert it for use here.
    const osg::Matrix& nav_mat(mNavTrans->getMatrix());
    osg::Matrix vw_M_w;
@@ -181,8 +186,9 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
             o != mObjects.end();
             ++o )
       {
-         const osg::BoundingSphere& bbox = (*o)->xformNode->getBound();
-
+         const osg::BoundingSphere& bbox2 = (*o)->xformNode->getBound();
+         osg::Vec3 center =bbox2.center();
+         osg::BoundingSphere bbox = osg::BoundingSphere(center, bbox2.radius()*0.01);
          if ( bbox.contains(wand_point) )
          {
             intersect_obj = *o;
@@ -268,6 +274,7 @@ void OsgNavGrab::myInit()
    mModelTrans->preMult( osg::Matrix::translate(10.0f, 0.0f, 0.0f) );
    
    mModelTrans2->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans2->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -rot2 ), 1.0f, 1.0f, 0.0f) );
    mModelTrans2->preMult( osg::Matrix::translate(1000.0f, 0.0f, 0.0f) );
 
    mModelTrans3->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
