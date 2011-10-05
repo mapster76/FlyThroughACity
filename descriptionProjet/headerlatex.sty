@@ -1,0 +1,114 @@
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm, right=2cm, top=1.8cm, bottom=1.8cm, marginparwidth=1.2cm]{geometry}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{listings}%code 
+\usepackage{graphicx}
+\usepackage{amssymb}%pour écrire les ensemble de nombre Z, R , N, C ...
+\usepackage{amsmath}
+\usepackage[usenames]{color}
+\usepackage{fancyvrb}
+\usepackage{subfig}
+
+\newcommand{\initlisting}[1][sh] {
+\definecolor{MyDarkGreen}{rgb}{0.05098,0.51373,0.05098}
+   \lstset{ %
+   language=#1,                % choose the language of the code
+   basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+   numbers=left,                   % where to put the line-numbers
+   numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+   stepnumber=2,                   % the step between two line-numbers. If it's 1 each line will be numbered
+   numbersep=5pt,                  % how far the line-numbers are from the code
+   backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+   showspaces=false,               % show spaces adding particular underscores
+   %showstringspaces=false,         % underline spaces within strings
+   %showtabs=false,                 % show tabs within strings adding particular underscores
+   frame=single,	                % adds a frame around the code
+   tabsize=2,	                % sets default tabsize to 2 spaces
+   captionpos=b,                   % sets the caption-position to bottom
+   breaklines=true,                % sets automatic line breaking
+   breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+   keywordstyle=\color{blue},
+   commentstyle=\color{MyDarkGreen},
+   stringstyle=\color{red}
+   }
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commande pour ajouter des images rapidement               %%
+%%  #1 argument optionnel pour faire référence a des images  %%
+%%  #2 emplacement de l'image                                %%
+%%  #3 Titre de l'image                                      %%
+%%  #4 largeur de l'image par rapport à la page              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\image}[4][reference]{
+  	\begin{figure}[h!]
+	\centering
+	\includegraphics[width=#4\textwidth]{#2}
+	\caption{#3}
+        \label{#1}
+	\end{figure}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commande pour ajouter des images rapidement               %%
+%%  #1 argument optionnel pour faire référence a des images  %%
+%%  #2 emplacement de l'image                                %%
+%%  #3 Titre de l'image                                      %%
+%%  #4 HAUTEUR de l'image par rapport à la page              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\imageh}[4][reference]{
+  	\begin{figure}[h!]
+	\centering
+	\includegraphics[height=#4\textheight]{#2}
+	\caption{#3}
+        \label{#1}
+	\end{figure}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commande pour ajouter des images flottante rapidement     %%
+%%  #1 argument optionnel pour faire référence a des images  %%
+%%  #2 emplacement de l'image                                %%
+%%  #3 Titre de l'image                                      %%
+%%  #4 largeur de l'image par rapport à la page              %%
+%%  #5 mettre l'image à gauche(l) ou a droite (r)            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\imageflottante}[5][reference]{
+  \begin{wrapfigure}{#5}{#4\textwidth}
+    \vspace{-20pt}
+    \begin{center}
+      \includegraphics[width=#4\textwidth]{#2}
+    \end{center}
+    \vspace{-20pt}
+    \caption{#3}
+    \label{#1}
+    \vspace{-10pt}
+  \end{wrapfigure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commande pour ajouter des images flottante rapidement     %%
+%%  #1 argument optionnel pour faire référence a des images  %%
+%%  #2 emplacement de l'image                                %%
+%%  #3 Titre de l'image                                      %%
+%%  #4 largeur de l'image par rapport à la page              %%
+%%  #5 Hauteur de l'image par rapport à la page              %%
+%%  #6 mettre l'image à gauche(l) ou a droite (r)            %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\imageflottanteh}[6][reference]{
+  \begin{wrapfigure}{#6}{#4\textwidth}
+    \vspace{-20pt}
+    \begin{center}
+      \includegraphics[height=#5\textheight]{#2}
+    \end{center}
+    \vspace{-20pt}
+    \caption{#3}
+    \label{#1}
+    \vspace{-30pt}
+  \end{wrapfigure}
+}
