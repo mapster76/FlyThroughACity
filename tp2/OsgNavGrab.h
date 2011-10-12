@@ -71,6 +71,10 @@ public:
 
    void myInit();
 
+//   void InitialisationSonore();
+
+//   osg::PositionAttitudeTransform *createSoundNode(const std::string& file, bool occlude, osg::Node *root, bool is_stream);
+
    virtual osg::Group* getScene()
    {
       return mRootNode;
@@ -148,7 +152,7 @@ private:
    osg::MatrixTransform*   mModelTrans3;
    osg::MatrixTransform*   mModelTrans4;
    osg::MatrixTransform*   mModelTrans5;
-   osg::Node*              mModel;
+   osg::Node  *mModel, *mModel2, *mModel3, *mModel4, *mModel5;
 
    OsgNavigator  mNavigator;       /** Navigation class */
 
