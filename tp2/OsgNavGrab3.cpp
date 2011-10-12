@@ -1,6 +1,6 @@
 /*************** <auto-copyright.pl BEGIN do not edit this line> **************
  *
- * VR Juggler is (C) Copyright 1998-2007 by Iowa State University
+ * VR Juggler is (C) Copyright 1998-2010 by Iowa State University
  *
  * Original Authors:
  *   Allen Bierbaum, Christopher Just,
@@ -19,8 +19,8 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
  *
  *************** <auto-copyright.pl END do not edit this line> ***************/
 
@@ -40,9 +40,8 @@
 
 #include <string>
 
-float rot2 = 45;
-
-OsgNavGrab::OsgNavGrab(vrj::Kernel* kern, int& argc, char** argv) : vrj::OsgApp(kern)
+OsgNavGrab::OsgNavGrab(vrj::Kernel* kern, int& argc, char** argv)
+   : vrj::osg::App(kern)
 {
    mFileToLoad = std::string("");
 }
@@ -55,9 +54,9 @@ void OsgNavGrab::latePreFrame()
    osg::Matrix osg_current_matrix;
    osg_current_matrix.set(world_transform.getData());
    mNavTrans->setMatrix(osg_current_matrix);
-   
+
    // Finish updating the scene graph.
-   vrj::OsgApp::latePreFrame();
+   vrj::osg::App::latePreFrame();
 }
 
 void OsgNavGrab::preFrame()
@@ -108,6 +107,7 @@ void OsgNavGrab::preFrame()
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
    updateGrabbing(wand_mat);
+   rotateObjects();
    // Update the navigation using the time delta between
    mNavigator.update(time_delta);
    
@@ -130,8 +130,6 @@ void OsgNavGrab::initScene()
    const std::string but3("VJButton3");
    const std::string but4("VJButton4");
    const std::string but5("VJButton5");
-   
-   mHead.init("VJHead");
 
    mWand.init(wand);
    mHead.init(vjhead);
@@ -152,10 +150,18 @@ OsgNavGrab::GrabObject* OsgNavGrab::makeGrabbable(osg::Node* model,
    return new GrabObject(model, modelPos, modelPos->getMatrix());
 }
 
+//Méthode permettant de faire tourner les objets
+void OsgNavGrab::rotateObjects() {
+   mVarAngle+=0.0001;
+   mModelTrans->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( mVarAngle ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans2->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( mVarAngle ), 1.0f, 1.0f, 0.0f) );
+   mModelTrans3->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( mVarAngle ), 1.0f, .0f, 1.0f) );
+   mModelTrans4->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( mVarAngle ), .0f, 1.0f, 0.0f) );
+   mModelTrans5->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( mVarAngle ), .0f, 1.0f, 1.0f) );
+}
 
 void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
 {
-
    // The navigation matrix is w_M_vw, so invert it for use here.
    const osg::Matrix& nav_mat(mNavTrans->getMatrix());
    osg::Matrix vw_M_w;
@@ -169,9 +175,10 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
             wandMatrix[2][0],wandMatrix[2][1],wandMatrix[2][2],wandMatrix[2][3],
             wandMatrix[3][0],wandMatrix[3][1],wandMatrix[3][2],wandMatrix[3][3]);
    const osg::Matrix wand_matrix = vw_M_w * osg_wandMatrix;
-   //std::cout << wandMatrix << std::endl;
-   //const osg::Vec3 wand_point(wand_matrix.getTrans());
+   
+   //On récupère la position du wand que l'on stocke dans wand_point
    const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+   
    const osg::Matrix wand_matrix_rowmajor(wandMatrix.mData);
    
    // Only perform the intersection testing when we are not already grabbing
@@ -182,20 +189,13 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
 
       // Find the first object--if any--in mObjects with which the wand
       // intersects.
-      int cptr=0;
       for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
             o != mObjects.end();
             ++o )
       {
-    	  cptr++;
-         const osg::BoundingSphere& bbox2 = (*o)->xformNode->getBound();
-         float nouveauRayon=bbox2.radius()*0.01;
-         osg::BoundingSphere bbox = osg::BoundingSphere(bbox2.center(), bbox2.radius()*0.01f);
-         std::cout << "rayon " << cptr << " : " << bbox2.radius() << "nouveau rayon" << nouveauRayon << std::endl;
-		 bbox.set(bbox.center(),bbox.radius*0.01);
-
-         std::cout << "centre : " << bbox2.center().x() << " " << bbox2.center().y() << " "<< bbox2.center().z() << " " << std::endl;
-         std::cout << "wand : " << wand_point.x() << " " << wand_point.y() << " "<< wand_point.z() << " " << std::endl;
+		 //on récupère la boundingbox de la matrice de transformation MatrixTransform
+         const osg::BoundingSphere& bbox = (*o)->xformCore->getBound();
+		 
          if ( bbox.contains(wand_point) )
          {
             intersect_obj = *o;
@@ -243,13 +243,18 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
 }
 
 
+
 void OsgNavGrab::myInit()
 {
+   mVarAngle=0;
    //
    //          /-- mNoNav
    // mRootNode
-   //         \-- mNavTrans -- mModelTrans -- mModel
-
+   //         \-- mNavTrans -- mModelTrans -- --- mModel
+   //					    \-- mModelTrans2 /
+   //					    \-- mModelTrans3 /
+   //					    \-- mModelTrans4 /
+   //					    \-- mModelTrans5 /
    //The top level nodes of the tree
    mRootNode = new osg::Group();
    mNoNav    = new osg::Group();
@@ -272,28 +277,25 @@ void OsgNavGrab::myInit()
    mModelTrans3  = new osg::MatrixTransform();
    mModelTrans4  = new osg::MatrixTransform();
    mModelTrans5  = new osg::MatrixTransform();
-
    //This can be used if the model orientation needs to change
-
-   
-   mModelTrans->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) ); //Mise a l'echelle
    mModelTrans->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
-   mModelTrans->preMult( osg::Matrix::translate(10.0f, 0.0f, 0.0f) );
-   
-   mModelTrans2->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
-   mModelTrans2->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -rot2 ), 1.0f, 1.0f, 0.0f) );
-   mModelTrans2->preMult( osg::Matrix::translate(1000.0f, 0.0f, 0.0f) );
+   //mModelTrans->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) ); //Mise a l'echelle
+    
+   //mModelTrans2->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans2->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans2->preMult( osg::Matrix::translate(10.0f, 0.0f, 0.0f) );
 
-   mModelTrans3->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
-   mModelTrans3->preMult( osg::Matrix::translate(-1000.0f, 0.0f, 0.0f) );
+   //mModelTrans3->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans3->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans3->preMult( osg::Matrix::translate(-10.0f, 0.0f, 0.0f) );
 
-   mModelTrans4->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
-   mModelTrans4->preMult( osg::Matrix::translate(2000.0f, 0.0f, 0.0f) );
+   //mModelTrans4->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans4->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans4->preMult( osg::Matrix::translate(20.0f, 0.0f, 0.0f) );
 
-   mModelTrans5->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
-   mModelTrans5->preMult( osg::Matrix::translate(-2000.0f, 0.0f, 0.0f) );
-   
-
+   //mModelTrans5->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+   mModelTrans5->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
+   mModelTrans5->preMult( osg::Matrix::translate(-20.0f, 0.0f, 0.0f) );
    if(NULL == mModel)
    {
       std::cout << "ERROR: Could not load file: " << mFileToLoad << std::endl;
@@ -312,7 +314,7 @@ void OsgNavGrab::myInit()
    mObjects.push_back(makeGrabbable(mModel, mModelTrans3));
    mObjects.push_back(makeGrabbable(mModel, mModelTrans4));
    mObjects.push_back(makeGrabbable(mModel, mModelTrans5));
-
+   
    // Add the transform to the tree
    mNavTrans->addChild( mModelTrans );
    mNavTrans->addChild( mModelTrans2 );

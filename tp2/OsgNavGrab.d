@@ -1,114 +1,115 @@
 $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/vrjConfig.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/vrjDefines.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/AutoLink.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/iostream \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/c++config.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/os_defines.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/vrjConfig.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/vrjDefines.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/AutoLink.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/iostream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/c++config.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
- /usr/include/gnu/stubs-32.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/cpu_defines.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ostream \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ios \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/iosfwd \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stringfwd.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/postypes.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cwchar \
+ /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/cpu_defines.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ostream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ios \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/iosfwd \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stringfwd.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/postypes.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cwchar \
  /usr/include/wchar.h /usr/include/stdio.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/stdarg.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdarg.h \
  /usr/include/bits/wchar.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/stddef.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stddef.h \
  /usr/include/xlocale.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/exception \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/char_traits.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_algobase.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/functexcept.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/exception_defines.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/cpp_type_traits.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ext/type_traits.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ext/numeric_traits.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_pair.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/move.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/concept_check.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_iterator_base_types.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_iterator_base_funcs.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_iterator.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/debug/debug.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/localefwd.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/c++locale.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/clocale \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/exception \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/char_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_algobase.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/functexcept.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/exception_defines.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/cpp_type_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ext/type_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ext/numeric_traits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_pair.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/move.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/concept_check.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_iterator_base_types.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_iterator_base_funcs.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_iterator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/debug/debug.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/localefwd.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/c++locale.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/clocale \
  /usr/include/locale.h /usr/include/bits/locale.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cctype \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cctype \
  /usr/include/ctype.h /usr/include/bits/types.h \
  /usr/include/bits/typesizes.h /usr/include/endian.h \
  /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/ios_base.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ext/atomicity.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/gthr.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/gthr-default.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/ios_base.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ext/atomicity.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/gthr.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/gthr-default.h \
  /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h \
  /usr/include/bits/sched.h /usr/include/bits/time.h \
  /usr/include/bits/timex.h /usr/include/bits/pthreadtypes.h \
  /usr/include/bits/setjmp.h /usr/include/unistd.h \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/getopt.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/atomic_word.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/locale_classes.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/string \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/allocator.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/c++allocator.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ext/new_allocator.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/new \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/ostream_insert.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/cxxabi_forced.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_function.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/backward/binders.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/range_access.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/basic_string.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/initializer_list \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/basic_string.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/locale_classes.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/streambuf \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/streambuf.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/basic_ios.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/locale_facets.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cwctype \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/atomic_word.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_classes.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/string \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/c++allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ext/new_allocator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/new \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/ostream_insert.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/cxxabi_forced.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_function.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/backward/binders.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/range_access.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/basic_string.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/initializer_list \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/basic_string.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_classes.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/streambuf \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/streambuf.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/basic_ios.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_facets.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cwctype \
  /usr/include/wctype.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/ctype_base.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/streambuf_iterator.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/ctype_inline.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/locale_facets.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/basic_ios.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/ostream.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/istream \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/istream.tcc \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/iomanip \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/ctype_base.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/streambuf_iterator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/ctype_inline.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_facets.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/basic_ios.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/ostream.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/istream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/istream.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/iomanip \
  /usr/include/math.h /usr/include/bits/huge_val.h \
  /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h \
  /usr/include/bits/inf.h /usr/include/bits/nan.h \
  /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlApp.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/Config.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Kernel/App.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/RTRC/ConfigElementHandler.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/jcclConfig.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/jcclDefines.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/AutoLink.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/Config/ConfigElementPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OGL/GlApp.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/App.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/Config.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Kernel/App.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/RTRC/ConfigElementHandler.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/jcclConfig.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/jcclDefines.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/AutoLink.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/Config/ConfigElementPtr.h \
  /usr/include/boost/smart_ptr.hpp /usr/include/boost/config.hpp \
  /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/select_compiler_config.hpp \
  /usr/include/boost/config/compiler/gcc.hpp \
  /usr/include/boost/config/select_stdlib_config.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cstddef \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cstddef \
  /usr/include/boost/config/no_tr1/utility.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/utility \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_relops.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/utility \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_relops.h \
  /usr/include/boost/config/stdlib/libstdcpp3.hpp \
  /usr/include/boost/config/select_platform_config.hpp \
  /usr/include/boost/config/platform/linux.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cstdlib \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cstdlib \
  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
  /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
@@ -117,15 +118,14 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/config/suffix.hpp /usr/include/boost/scoped_ptr.hpp \
  /usr/include/boost/smart_ptr/scoped_ptr.hpp \
  /usr/include/boost/assert.hpp /usr/include/assert.h \
- /usr/include/boost/current_function.hpp \
  /usr/include/boost/checked_delete.hpp \
  /usr/include/boost/detail/workaround.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/memory \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_construct.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_uninitialized.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_tempbuf.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_raw_storage_iter.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/backward/auto_ptr.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/memory \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_construct.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_uninitialized.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_tempbuf.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_raw_storage_iter.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/backward/auto_ptr.h \
  /usr/include/boost/smart_ptr/detail/operator_bool.hpp \
  /usr/include/boost/scoped_array.hpp \
  /usr/include/boost/smart_ptr/scoped_array.hpp \
@@ -135,25 +135,26 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/throw_exception.hpp \
  /usr/include/boost/exception/detail/attribute_noreturn.hpp \
  /usr/include/boost/exception/exception.hpp \
+ /usr/include/boost/current_function.hpp \
  /usr/include/boost/smart_ptr/detail/shared_count.hpp \
  /usr/include/boost/smart_ptr/bad_weak_ptr.hpp \
  /usr/include/boost/smart_ptr/detail/sp_counted_base.hpp \
  /usr/include/boost/smart_ptr/detail/sp_has_sync.hpp \
  /usr/include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
  /usr/include/boost/detail/sp_typeinfo.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/typeinfo \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/typeinfo \
  /usr/include/boost/smart_ptr/detail/sp_counted_impl.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/functional \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/functional \
  /usr/include/boost/smart_ptr/detail/sp_convertible.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock_pool.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock.hpp \
  /usr/include/boost/smart_ptr/detail/spinlock_sync.hpp \
  /usr/include/boost/smart_ptr/detail/yield_k.hpp \
  /usr/include/boost/memory_order.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/algorithm \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_algo.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/algorithmfwd.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_heap.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/algorithm \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_algo.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/algorithmfwd.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_heap.h \
  /usr/include/boost/shared_array.hpp \
  /usr/include/boost/smart_ptr/shared_array.hpp \
  /usr/include/boost/weak_ptr.hpp \
@@ -163,32 +164,34 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/config/no_tr1/functional.hpp \
  /usr/include/boost/enable_shared_from_this.hpp \
  /usr/include/boost/smart_ptr/enable_shared_from_this.hpp \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Position/PositionUnitConversion.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/Projection.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Matrix.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Defines.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Math.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Util/Assert.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Util/StaticAssert.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Vec.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Config.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/VecBase.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Util/Meta.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Helpers.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/Frustum.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/vector \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_vector.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_bvector.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/vector.tcc \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/Viewport.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/DisplayPtr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/PositionInterface.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/PositionProxy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/gadgetConfig.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/gadgetDefines.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/AutoLink.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Position.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Input.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Position/PositionUnitConversion.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/Projection.h \
+ /usr/include/boost/noncopyable.hpp \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Matrix.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Defines.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Math.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Util/Assert.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Util/StaticAssert.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Vec.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Config.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/VecBase.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Util/Meta.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Helpers.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Point.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/Frustum.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/vector \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_vector.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_bvector.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/vector.tcc \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/ViewportPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/ProjectionPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/PositionInterface.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/PositionProxy.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/gadgetConfig.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/gadgetDefines.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/AutoLink.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Position.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Input.h \
  /usr/include/boost/concept_check.hpp \
  /usr/include/boost/concept/assert.hpp \
  /usr/include/boost/concept/detail/general.hpp \
@@ -267,8 +270,8 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/mpl/aux_/config/overload_resolution.hpp \
  /usr/include/boost/mpl/aux_/lambda_support.hpp \
  /usr/include/boost/iterator.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/iterator \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stream_iterator.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/iterator \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stream_iterator.h \
  /usr/include/boost/type_traits/conversion_traits.hpp \
  /usr/include/boost/type_traits/is_convertible.hpp \
  /usr/include/boost/type_traits/intrinsics.hpp \
@@ -317,28 +320,10 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/preprocessor/tuple/rem.hpp \
  /usr/include/boost/preprocessor/seq/enum.hpp \
  /usr/include/boost/concept/detail/concept_undef.hpp \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/vpr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/vprConfig.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/vprDefines.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/vprDomain.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/AutoLink.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/vprTypes.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/Mutex.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/Sync/MutexPosix.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/boost/noncopyable.hpp \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/LockException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/Exception.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/stdexcept \
- /usr/include/boost/preprocessor/stringize.hpp \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/DeadlockException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/NullMutex.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/Thread.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/BaseThread.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/vpr.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/vprConfig.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/vprDefines.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/vprDomain.h \
  /usr/include/boost/function.hpp \
  /usr/include/boost/preprocessor/iterate.hpp \
  /usr/include/boost/preprocessor/iteration/iterate.hpp \
@@ -348,19 +333,20 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/preprocessor/slot/slot.hpp \
  /usr/include/boost/preprocessor/slot/detail/def.hpp \
  /usr/include/boost/function/detail/prologue.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cassert \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cassert \
  /usr/include/boost/function/function_base.hpp \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/stdexcept \
  /usr/include/boost/integer.hpp /usr/include/boost/integer_fwd.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/climits \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/limits.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/syslimits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/climits \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
- /usr/include/boost/limits.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/limits \
+ /usr/include/bits/stdio_lim.h /usr/include/boost/limits.hpp \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/limits \
  /usr/include/boost/cstdint.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/stdint.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/boost/integer_traits.hpp \
  /usr/include/boost/type_traits/has_trivial_copy.hpp \
  /usr/include/boost/type_traits/is_pod.hpp \
@@ -384,7 +370,7 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/utility/enable_if.hpp \
  /usr/include/boost/function_equal.hpp \
  /usr/include/boost/function/function_fwd.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cstring \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cstring \
  /usr/include/string.h /usr/include/boost/mem_fn.hpp \
  /usr/include/boost/bind/mem_fn.hpp /usr/include/boost/get_pointer.hpp \
  /usr/include/boost/bind/mem_fn_template.hpp \
@@ -401,6 +387,22 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/function/detail/maybe_include.hpp \
  /usr/include/boost/function/function_template.hpp \
  /usr/include/boost/detail/no_exceptions_support.hpp \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/AutoLink.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/vprTypes.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/Mutex.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/Sync/MutexPosix.h \
+ /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/bits/sys_errlist.h /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/LockException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/Exception.h \
+ /usr/include/boost/preprocessor/stringize.hpp \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/DeadlockException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/NullMutex.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/Thread.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/BaseThread.h \
  /usr/include/boost/signal.hpp \
  /usr/include/boost/type_traits/function_traits.hpp \
  /usr/include/boost/type_traits/is_function.hpp \
@@ -415,9 +417,9 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/signals/detail/config.hpp \
  /usr/include/boost/config/auto_link.hpp /usr/include/boost/operators.hpp \
  /usr/include/boost/any.hpp /usr/include/boost/static_assert.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/list \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_list.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/list.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/list \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_list.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/list.tcc \
  /usr/include/boost/utility.hpp \
  /usr/include/boost/utility/base_from_member.hpp \
  /usr/include/boost/preprocessor/repetition/enum_binary_params.hpp \
@@ -469,10 +471,10 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/type_traits/is_base_of.hpp \
  /usr/include/boost/type_traits/is_class.hpp \
  /usr/include/boost/type_traits/is_complex.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/complex \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cmath \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/sstream \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/sstream.tcc \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/complex \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cmath \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/sstream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/sstream.tcc \
  /usr/include/boost/type_traits/is_compound.hpp \
  /usr/include/boost/type_traits/is_fundamental.hpp \
  /usr/include/boost/type_traits/is_empty.hpp \
@@ -551,21 +553,16 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp \
  /usr/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp \
  /usr/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/map \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_tree.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_map.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_multimap.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/map \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_tree.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_map.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_multimap.h \
  /usr/include/boost/signals/detail/slot_call_iterator.hpp \
  /usr/include/boost/optional.hpp /usr/include/boost/optional/optional.hpp \
  /usr/include/boost/type.hpp \
  /usr/include/boost/detail/reference_content.hpp \
  /usr/include/boost/none.hpp /usr/include/boost/none_t.hpp \
- /usr/include/boost/utility/swap.hpp \
  /usr/include/boost/utility/compare_pointees.hpp \
- /usr/include/boost/utility/in_place_factory.hpp \
- /usr/include/boost/utility/detail/in_place_factory_prefix.hpp \
- /usr/include/boost/preprocessor/punctuation/paren.hpp \
- /usr/include/boost/utility/detail/in_place_factory_suffix.hpp \
  /usr/include/boost/optional/optional_fwd.hpp \
  /usr/include/boost/function/function0.hpp \
  /usr/include/boost/signals/signal1.hpp \
@@ -587,207 +584,215 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/boost/function/function9.hpp \
  /usr/include/boost/signals/signal10.hpp \
  /usr/include/boost/function/function10.hpp \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/TSTable.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/TSObject.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/Assert.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/SystemBase.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/TSTable.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/TSObject.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/Assert.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/SystemBase.h \
  /usr/include/sys/time.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/Thread/ThreadPosix.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/Thread/ThreadPosix.h \
  /usr/include/signal.h /usr/include/bits/signum.h \
  /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
- /usr/include/bits/sigcontext.h /usr/include/asm/sigcontext.h \
- /usr/include/linux/types.h /usr/include/asm/types.h \
- /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
- /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
- /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
- /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
- /usr/include/bits/sigstack.h /usr/include/sys/ucontext.h \
- /usr/include/bits/sigthread.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/Thread/ThreadKeyPosix.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/ResourceException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/IllegalArgumentException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/UncaughtThreadException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/Sync/CondVarPosix.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/Interval.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/SerializableObject.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/IOException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/PositionData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/InputData.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/MatrixOps.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/VecOps.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/VecOpsMeta.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/VecExprMeta.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/SampleBuffer.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/Guard.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/Debug.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/StreamLock.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/Singleton.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/detail/LifetimeTracker.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/GUID.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Proxy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/InputManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/DynLoad/Library.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/DynLoad/LibraryUNIX.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/InputLoggerPtr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Util/Debug.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Filter/Position/PositionFilter.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Output.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Quat.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Tri.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Point.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Plane.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Sphere.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/EulerAngle.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/AABox.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Ray.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/LineSeg.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Coord.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/AxisAngle.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/DeviceInterface.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/AnalogInterface.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/AnalogProxy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Analog.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/AnalogData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/Config/ConfigElement.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/cppdom-0.7.10/cppdom/cppdom.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ext/hash_map \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/backward/backward_warning.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/backward/hashtable.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/backward/hash_fun.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/cppdom-0.7.10/cppdom/config.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/cppdom-0.7.10/cppdom/shared_ptr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/Config/ConfigDefinitionPtr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/DigitalInterface.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/DigitalProxy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/Digital.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Type/DigitalData.h \
- /usr/local/cours/inf6802/packages/usr/include/osg/Matrix \
- /usr/local/cours/inf6802/packages/usr/include/osg/Config \
- /usr/local/cours/inf6802/packages/usr/include/osg/Matrixd \
- /usr/local/cours/inf6802/packages/usr/include/osg/Object \
- /usr/local/cours/inf6802/packages/usr/include/osg/Referenced \
- /usr/local/cours/inf6802/packages/usr/include/osg/Export \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/ScopedLock \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Mutex \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Exports \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Atomic \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Config \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Mutex \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/ScopedLock \
- /usr/local/cours/inf6802/packages/usr/include/osg/CopyOp \
- /usr/local/cours/inf6802/packages/usr/include/osg/ref_ptr \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec3d \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec2d \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec2f \
- /usr/local/cours/inf6802/packages/usr/include/osg/Math \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec3f \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4d \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4f \
- /usr/local/cours/inf6802/packages/usr/include/osg/Quat \
- /usr/local/cours/inf6802/packages/usr/include/osg/Matrixf \
- /usr/local/cours/inf6802/packages/usr/include/osg/Transform \
- /usr/local/cours/inf6802/packages/usr/include/osg/Group \
- /usr/local/cours/inf6802/packages/usr/include/osg/Node \
- /usr/local/cours/inf6802/packages/usr/include/osg/StateSet \
- /usr/local/cours/inf6802/packages/usr/include/osg/StateAttribute \
- /usr/local/cours/inf6802/packages/usr/include/osg/GL \
+ /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
+ /usr/include/sys/ucontext.h /usr/include/bits/sigthread.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/Thread/ThreadKeyPosix.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/ResourceException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/IllegalArgumentException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/UncaughtThreadException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/Sync/CondVarPosix.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/Interval.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/SerializableObject.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/IOException.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/InputPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/PositionData.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/InputData.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/MatrixOps.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/VecOps.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/VecOpsMeta.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/VecExprMeta.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/SampleBuffer.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/Guard.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/Debug.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/StreamLock.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/Singleton.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/detail/LifetimeTracker.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cxxabi.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/cxxabi_tweaks.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/GUID.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/PositionPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Proxy.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/InputManager.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/DynLoad/Library.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/DynLoad/LibraryUNIX.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/InputLoggerPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/ProxyPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Util/Debug.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Filter/Position/PositionFilter.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/PositionProxyPtr.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Output.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Quat.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Tri.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Plane.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Sphere.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/EulerAngle.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/AABox.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Ray.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/LineSeg.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Coord.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/AxisAngle.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DeviceInterface.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/AnalogInterface.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/AnalogProxy.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Analog.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/AnalogData.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/AnalogPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/AnalogProxyPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DigitalInterface.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DigitalProxy.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/Digital.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DigitalData.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DigitalPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Type/DigitalProxyPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Matrix \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Config \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Matrixd \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Object \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Referenced \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Export \
+ /usr/local/include/OpenThreads/ScopedLock \
+ /usr/local/include/OpenThreads/Mutex \
+ /usr/local/include/OpenThreads/Exports \
+ /usr/local/include/OpenThreads/Config \
+ /usr/local/include/OpenThreads/Atomic \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/CopyOp \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ref_ptr \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Notify \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec3d \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec2d \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec2f \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Math \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec3f \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4d \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4f \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Quat \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Matrixf \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Transform \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Group \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Node \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/StateSet \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/StateAttribute \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/StateAttributeCallback \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Shader \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GL2Extensions \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GL \
  /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h \
- /usr/local/cours/inf6802/packages/usr/include/osg/Uniform \
- /usr/local/cours/inf6802/packages/usr/include/osg/Array \
- /usr/local/cours/inf6802/packages/usr/include/osg/MixinVector \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec2 \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec3 \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4 \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4ub \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec2s \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec3s \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4s \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec2b \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec3b \
- /usr/local/cours/inf6802/packages/usr/include/osg/Vec4b \
- /usr/local/cours/inf6802/packages/usr/include/osg/BufferObject \
- /usr/local/cours/inf6802/packages/usr/include/osg/buffered_value \
- /usr/local/cours/inf6802/packages/usr/include/osg/DisplaySettings \
- /usr/local/cours/inf6802/packages/usr/include/osg/GL2Extensions \
- /usr/local/cours/inf6802/packages/usr/include/osg/Program \
- /usr/local/cours/inf6802/packages/usr/include/osg/Shader \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/set \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_set.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_multiset.h \
- /usr/local/cours/inf6802/packages/usr/include/osg/BoundingSphere \
- /usr/local/cours/inf6802/packages/usr/include/osg/NodeCallback \
- /usr/local/cours/inf6802/packages/usr/include/osg/NodeVisitor \
- /usr/local/cours/inf6802/packages/usr/include/osg/FrameStamp \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/ctime \
- /usr/local/cours/inf6802/packages/usr/include/osg/MatrixTransform \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/SceneView \
- /usr/local/cours/inf6802/packages/usr/include/osg/Light \
- /usr/local/cours/inf6802/packages/usr/include/osg/CollectOccludersVisitor \
- /usr/local/cours/inf6802/packages/usr/include/osg/CullStack \
- /usr/local/cours/inf6802/packages/usr/include/osg/CullingSet \
- /usr/local/cours/inf6802/packages/usr/include/osg/Polytope \
- /usr/local/cours/inf6802/packages/usr/include/osg/Plane \
- /usr/local/cours/inf6802/packages/usr/include/osg/BoundingBox \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/include/float.h \
- /usr/local/cours/inf6802/packages/usr/include/osg/fast_back_stack \
- /usr/local/cours/inf6802/packages/usr/include/osg/ShadowVolumeOccluder \
- /usr/local/cours/inf6802/packages/usr/include/osg/ConvexPlanarOccluder \
- /usr/local/cours/inf6802/packages/usr/include/osg/ConvexPlanarPolygon \
- /usr/local/cours/inf6802/packages/usr/include/osg/Viewport \
- /usr/local/cours/inf6802/packages/usr/include/osg/CullSettings \
- /usr/local/cours/inf6802/packages/usr/include/osg/ClearNode \
- /usr/local/cours/inf6802/packages/usr/include/osg/Camera \
- /usr/local/cours/inf6802/packages/usr/include/osg/ColorMask \
- /usr/local/cours/inf6802/packages/usr/include/osg/Texture \
- /usr/local/cours/inf6802/packages/usr/include/osg/Image \
- /usr/local/cours/inf6802/packages/usr/include/osg/GraphicsContext \
- /usr/local/cours/inf6802/packages/usr/include/osg/State \
- /usr/local/cours/inf6802/packages/usr/include/osg/GraphicsThread \
- /usr/local/cours/inf6802/packages/usr/include/osg/OperationThread \
- /usr/local/cours/inf6802/packages/usr/include/osg/observer_ptr \
- /usr/local/cours/inf6802/packages/usr/include/osg/Notify \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Thread \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Barrier \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Condition \
- /usr/local/cours/inf6802/packages/usr/include/OpenThreads/Block \
- /usr/local/cours/inf6802/packages/usr/include/osg/Stats \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/CullVisitor \
- /usr/local/cours/inf6802/packages/usr/include/osg/Drawable \
- /usr/local/cours/inf6802/packages/usr/include/osg/Shape \
- /usr/local/cours/inf6802/packages/usr/include/osg/PrimitiveSet \
- /usr/local/cours/inf6802/packages/usr/include/osg/RenderInfo \
- /usr/local/cours/inf6802/packages/usr/include/osg/View \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/StateGraph \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/RenderLeaf \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/Export \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/RenderStage \
- /usr/local/cours/inf6802/packages/usr/include/osg/FrameBufferObject \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/RenderBin \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/PositionalStateContainer \
- nav.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/EulerAngleOps.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Generate.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/QuatOps.h \
- /usr/local/cours/inf6802/packages/usr/share/flagpoll/../../include/gmtl-0.5.4/gmtl/Xforms.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/ObjectReader.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/AttributeMapBase.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/ObjectWriter.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/plugins/ApplicationDataManager/UserData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/cluster/PluginConfig.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/plugins/ApplicationDataManager/ApplicationData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/cluster/ClusterManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/cluster/ClusterDepChecker.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/jccl-1.2/jccl/RTRC/DepChecker.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/cluster/ClusterNetwork.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Acceptor.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/AbstractNetworkManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketStream.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Stats/BandwidthIOStatsStrategy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Stats/BaseIOStatsStrategy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/SampleLimitedStatCollector.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Util/DateTime.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/System.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/SystemPosix.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/buffered_value \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/DisplaySettings \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/set \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_set.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_multiset.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Uniform \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Array \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/MixinVector \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec2 \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec3 \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4 \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4ub \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec2s \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec3s \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4s \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec2b \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec3b \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Vec4b \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/BufferObject \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/FrameStamp \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/ctime \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/BoundingSphere \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/NodeCallback \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/NodeVisitor \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/MatrixTransform \
+ /usr/local/include/osgUtil/SceneView \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Light \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/CollectOccludersVisitor \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/CullStack \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/CullingSet \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Polytope \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Plane \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/BoundingBox \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include/float.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/fast_back_stack \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ShadowVolumeOccluder \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ConvexPlanarOccluder \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ConvexPlanarPolygon \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Viewport \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/CullSettings \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ClearNode \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Camera \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ColorMask \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Texture \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Image \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GraphicsContext \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/State \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Observer \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Timer \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ShaderComposer \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Program \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GLBeginEndAdapter \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ArrayDispatchers \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GraphicsCostEstimator \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/GraphicsThread \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/OperationThread \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/observer_ptr \
+ /usr/local/include/OpenThreads/Thread \
+ /usr/local/include/OpenThreads/Barrier \
+ /usr/local/include/OpenThreads/Condition \
+ /usr/local/include/OpenThreads/Block \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Stats \
+ /usr/local/include/osgUtil/CullVisitor \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Drawable \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Shape \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/PrimitiveSet \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/RenderInfo \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/View \
+ /usr/local/include/osgUtil/StateGraph \
+ /usr/local/include/osgUtil/RenderLeaf /usr/local/include/osgUtil/Export \
+ /usr/local/include/osgUtil/RenderStage \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/FrameBufferObject \
+ /usr/local/include/osgUtil/RenderBin \
+ /usr/local/include/osgUtil/PositionalStateContainer nav.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/EulerAngleOps.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Generate.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/QuatOps.h \
+ /usr/share/flagpoll/../../include/gmtl-0.6.1/gmtl/Xforms.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/ObjectReader.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/AttributeMapBase.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/ObjectWriter.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/plugins/ApplicationDataManager/UserData.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/PluginConfig.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/plugins/ApplicationDataManager/ApplicationData.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ClusterManager.h \
+ /usr/include/boost/signals.hpp \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/Config/Configuration.h \
+ /usr/lib/flagpoll/../../include/cppdom-1.0.3/cppdom/cppdom.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/unordered_map \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/type_traits \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/functional_hash.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/hashtable.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/hashtable_policy.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/tr1/unordered_map.h \
+ /usr/lib/flagpoll/../../include/cppdom-1.0.3/cppdom/config.h \
+ /usr/lib/flagpoll/../../include/cppdom-1.0.3/cppdom/shared_ptr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ClusterDepChecker.h \
+ /usr/local/lib64/flagpoll/../../include/jccl-1.4/jccl/RTRC/DepChecker.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ClusterNetwork.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/NetworkManager.h \
+ /usr/include/boost/version.hpp \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/SocketStream.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Stats/BandwidthIOStatsStrategy.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Stats/BaseIOStatsStrategy.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/SampleLimitedStatCollector.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/DateTime.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/System.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/SystemPosix.h \
  /usr/include/netinet/in.h /usr/include/sys/socket.h \
  /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
@@ -796,91 +801,125 @@ $(OBJDIR)/OsgNavGrab.o OsgNavGrab.d: OsgNavGrab.cpp OsgNavGrab.h \
  /usr/include/bits/in.h /usr/include/sys/param.h \
  /usr/include/linux/param.h /usr/include/asm/param.h \
  /usr/include/asm-generic/param.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/deque \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/stl_deque.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/deque.tcc \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Stats/IOStatsStrategyAdapter.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketStream_t.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketStreamOpt.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketOptions.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/InetAddr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/Socket/InetAddrBSD.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketTypes.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/UnknownHostException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketException.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/McastReq.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketIpOpt.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/SocketBasicOpt.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Socket/Socket_t.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/BlockIO.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/IOSys.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/IOSysUnix.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/Socket/SocketStreamImplBSD.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/Socket/SocketImplBSD.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/FileHandleImplUNIX.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Connector.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/Reactor.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Selector.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/Selector_t.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/IO/SelectorBase.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/IO/SelectorImplBSD.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/NetworkManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/plugins/ApplicationDataManager/ApplicationDataManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/cluster/ClusterPlugin.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/gadgeteer-1.2/gadget/PacketHandler.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OSG/OsgApp.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlContextData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlDrawManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/Semaphore.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/md/POSIX/Sync/SemaphorePosix.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/deque \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/stl_deque.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/deque.tcc \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Stats/IOStatsStrategyAdapter.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/SocketStream_t.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/Socket_t.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/BlockIO.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/IOSys.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/IOSysUnix.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/SocketOptions.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/InetAddr.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/Socket/InetAddrBSD.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/SocketTypes.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/UnknownHostException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/SocketException.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/McastReq.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/Socket/SocketStreamImplBSD.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Socket/NoPushWriter.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/Socket/SocketImplBSD.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/FileHandleImplUNIX.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/NodePtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/Reactor.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Selector.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/Selector_t.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/IO/SelectorBase.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/IO/SelectorImplBSD.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/PacketHandlerPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/Packets/PacketPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ClusterPluginPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ConfigHandlerPtr.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/cluster/ClusterPlugin.h \
+ /usr/local/lib64/flagpoll/../../include/gadgeteer-2.0/gadget/PacketHandler.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OSG/OsgApp.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OSG/App.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/ContextData.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/TSObjectProxy.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Thread/ThreadManager.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Util/BadCastException.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/DrawManager.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/Semaphore.h \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/md/POSIX/Sync/SemaphorePosix.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/cstdio \
  /usr/include/semaphore.h /usr/include/bits/semaphore.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/TSObjectProxy.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Thread/ThreadManager.h \
  /usr/include/GL/glu.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/DrawManager.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlUserData.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlWindowPtr.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Util/Debug.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Draw/OGL/GlWindow.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/Display.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Display/CameraProjection.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Kernel/Kernel.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vpr-2.0/vpr/Sync/CondVar.h \
- /usr/local/cours/inf6802/packages/usr/lib/flagpoll/../../include/vrjuggler-2.2/vrj/Kernel/User.h \
- /usr/local/cours/inf6802/packages/usr/include/osg/Version \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/UpdateVisitor \
- /usr/local/cours/inf6802/packages/usr/include/osg/Geode \
- /usr/local/cours/inf6802/packages/usr/include/osg/Billboard \
- /usr/local/cours/inf6802/packages/usr/include/osg/LOD \
- /usr/local/cours/inf6802/packages/usr/include/osg/Switch \
- /usr/local/cours/inf6802/packages/usr/include/osg/LightSource \
- /usr/local/cours/inf6802/packages/usr/include/osg/Projection \
- /usr/local/cours/inf6802/packages/usr/include/osg/OccluderNode \
- /usr/local/cours/inf6802/packages/usr/include/osg/Material \
- /usr/local/cours/inf6802/packages/usr/include/osgUtil/Optimizer \
- /usr/local/cours/inf6802/packages/usr/include/osg/Geometry \
- /usr/local/cours/inf6802/packages/usr/include/osg/Texture2D \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/ReadFile \
- /usr/local/cours/inf6802/packages/usr/include/osg/ArgumentParser \
- /usr/local/cours/inf6802/packages/usr/include/osg/ApplicationUsage \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/Export \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/Registry \
- /usr/local/cours/inf6802/packages/usr/include/osg/KdTree \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/DynamicLibrary \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/ReaderWriter \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/AuthenticationMap \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/DotOsgWrapper \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/Input \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/FieldReaderIterator \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/Field \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/FieldReader \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/Output \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/fstream \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/codecvt.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/cstdio \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/basic_file.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/i686-redhat-linux/bits/c++io.h \
- /usr/lib/gcc/i686-redhat-linux/4.6.0/../../../../include/c++/4.6.0/bits/fstream.tcc \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/DatabasePager \
- /usr/local/cours/inf6802/packages/usr/include/osg/PagedLOD \
- /usr/local/cours/inf6802/packages/usr/include/osgDB/SharedStateManager
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/DrawManager.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/DisplayPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/UserData.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Kernel/UserPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/WindowPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Util/Debug.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Draw/OpenGL/Window.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/Display.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/Viewport.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/CameraProjection.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Display/CameraProjectionPtr.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Kernel/Kernel.h \
+ /usr/include/boost/program_options.hpp \
+ /usr/include/boost/program_options/options_description.hpp \
+ /usr/include/boost/program_options/config.hpp \
+ /usr/include/boost/program_options/errors.hpp \
+ /usr/include/boost/program_options/value_semantic.hpp \
+ /usr/include/boost/lexical_cast.hpp /usr/include/boost/call_traits.hpp \
+ /usr/include/boost/detail/call_traits.hpp \
+ /usr/include/boost/detail/lcast_precision.hpp \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/locale \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_facets_nonio.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/time_members.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/messages_members.h \
+ /usr/include/libintl.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/codecvt.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/locale_facets_nonio.tcc \
+ /usr/include/boost/program_options/detail/value_semantic.hpp \
+ /usr/include/boost/program_options/positional_options.hpp \
+ /usr/include/boost/program_options/parsers.hpp \
+ /usr/include/boost/program_options/option.hpp \
+ /usr/include/boost/program_options/detail/cmdline.hpp \
+ /usr/include/boost/program_options/cmdline.hpp \
+ /usr/include/boost/program_options/detail/parsers.hpp \
+ /usr/include/boost/program_options/detail/convert.hpp \
+ /usr/include/boost/program_options/variables_map.hpp \
+ /usr/include/boost/program_options/version.hpp \
+ /usr/local/lib64/flagpoll/../../include/vpr-2.2/vpr/Sync/CondVar.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/vrj/Kernel/User.h \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Version \
+ /usr/local/include/osgUtil/UpdateVisitor \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Geode \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Billboard \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/LOD \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Switch \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/LightSource \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Projection \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/OccluderNode \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Material \
+ /usr/local/include/osgUtil/Optimizer \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Geometry \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Texture2D \
+ /usr/local/include/osgDB/ReadFile \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ArgumentParser \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ApplicationUsage \
+ /usr/local/include/osgDB/Export /usr/local/include/osgDB/Registry \
+ /usr/local/include/OpenThreads/ReentrantMutex \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/KdTree \
+ /usr/local/include/osgDB/DynamicLibrary \
+ /usr/local/include/osgDB/ReaderWriter \
+ /usr/local/include/osgDB/AuthenticationMap \
+ /usr/local/include/osgDB/Options /usr/local/include/osgDB/Callbacks \
+ /usr/local/include/osgDB/FileCache \
+ /usr/local/include/osgDB/DatabaseRevisions \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/ObserverNodePath \
+ /usr/local/include/osgDB/DotOsgWrapper /usr/local/include/osgDB/Input \
+ /usr/local/include/osgDB/Output /usr/local/include/osgDB/fstream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/fstream \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/basic_file.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/x86_64-unknown-linux-gnu/bits/c++io.h \
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/../../../../include/c++/4.6.1/bits/fstream.tcc \
+ /usr/local/include/osgDB/ObjectWrapper \
+ /usr/local/include/osgDB/Serializer /usr/local/include/osgDB/InputStream \
+ /usr/local/lib64/flagpoll/../../include/vrjuggler-3.0/osg/Endian \
+ /usr/local/include/osgDB/StreamOperator \
+ /usr/local/include/osgDB/DataTypes /usr/local/include/osgDB/OutputStream \
+ /usr/local/include/osgDB/SharedStateManager \
+ /usr/local/include/osgDB/ImageProcessor
