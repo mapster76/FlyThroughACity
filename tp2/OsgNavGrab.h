@@ -1,6 +1,6 @@
 /*************** <auto-copyright.pl BEGIN do not edit this line> **************
  *
- * VR Juggler is (C) Copyright 1998-2007 by Iowa State University
+ * VR Juggler is (C) Copyright 1998-2010 by Iowa State University
  *
  * Original Authors:
  *   Allen Bierbaum, Christopher Just,
@@ -19,8 +19,8 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
  *
  *************** <auto-copyright.pl END do not edit this line> ***************/
 
@@ -93,23 +93,16 @@ public:
    //
    //  while (drawing)
    //  {
-//           preFrame();
-//          
-//           static vpr::Interval last_frame;
-//           vpr::Interval current_frame = mHead->getTimeStamp();
-//           vpr::Interval diff(current_frame-last_frame);
-//           last_frame = current_frame;
-//           // pour accéder au delta_t en microsecondes :
-//           vpr::Uint64 delta = diff.usec();
-//           
-//          latePreFrame();
-//          draw();
-//           intraFrame();     // Drawing is happening while here
-//          sync();
-//           postFrame();      // Drawing is now done
-//           	  rot2+=1;
-//          UpdateTrackers();
-//     }
+   //        preFrame();
+   //       <Application Data Syncronization>
+   //        latePreFrame();
+   //       draw();
+   //        intraFrame();     // Drawing is happening while here
+   //       sync();
+   //        postFrame();      // Drawing is now done
+   //
+   //       UpdateTrackers();
+   //  }
    //------------------------------------
 
    //: Function called after tracker update but before start of drawing<BR><BR>
@@ -136,11 +129,6 @@ public:
       // Put your post frame computations here.
    }
 
-   void setModelFileName(std::string filename)
-   {
-      mFileToLoad = filename;
-   }
-
    /**
     * Returns the scale factor for this application.  For this sample, we
     * are handling everything in feet.
@@ -151,6 +139,7 @@ public:
    }
 
 private:
+   float                   mVarAngle, mVarAngle2, mVarAngle3, mVarAngle4, mVarAngle5;
    osg::Group*             mRootNode;
    osg::Group*             mNoNav;
    osg::MatrixTransform*   mNavTrans;
@@ -164,6 +153,10 @@ private:
    OsgNavigator  mNavigator;       /** Navigation class */
 
    std::string mFileToLoad;
+   std::string mFileToLoad2;
+   std::string mFileToLoad3;
+   std::string mFileToLoad4;
+   std::string mFileToLoad5;
 
    vpr::Interval           mLastPreFrameTime;   /**< Time of the start of the last preframe */
 
@@ -206,7 +199,7 @@ private:
     *         caller to release the memory.
     */
    GrabObject* makeGrabbable(osg::Node* model, osg::MatrixTransform* modelPos);
-
+   void rotateObjects();
    void updateGrabbing(const gmtl::Matrix44f& wandMatrix);
 
    /** @name Grabbed object management */

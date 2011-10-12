@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
    vrj::Kernel* kernel = vrj::Kernel::instance();  // Get the kernel
    OsgNavGrab* application = new OsgNavGrab(kernel, argc, argv);             // Instantiate an instance of the app
 
-   if ( argc <= 2 )
+   if ( argc <= 1 )
    {
       // display some usage info (holding the user by the hand stuff)
       //  this will probably go away once the kernel becomes separate
@@ -50,16 +50,16 @@ int main(int argc, char* argv[])
       std::cout<<"\n"<<std::flush;
 
       std::cout << "Usage: " << argv[0]
-         << " modelname vrjconfigfile[0] vrjconfigfile[1] ... vrjconfigfile[n]\n"
+         << " vrjconfigfile[0] vrjconfigfile[1] ... vrjconfigfile[n]\n"
          << std::endl << std::endl;
 
       std::exit(1);
    }
 
-   application->setModelFileName(std::string(argv[1]));
+   //application->setModelFileName(std::string(argv[1]));
 
    // Load any config files specified on the command line
-   for ( int i = 2; i < argc; ++i )
+   for ( int i = 1; i < argc; ++i )
    {
       kernel->loadConfigFile(argv[i]);
    }
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 
    kernel->setApplication(application);
    kernel->waitForKernelStop();
-
+   
    delete application;
 
    return 0;
