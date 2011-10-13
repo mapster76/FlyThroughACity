@@ -89,6 +89,8 @@ public:
       newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
    }
 
+   void updateNavigation();
+
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------
@@ -153,6 +155,7 @@ private:
    osg::MatrixTransform*   mModelTrans4;
    osg::MatrixTransform*   mModelTrans5;
    osg::Node  *mModel, *mModel2, *mModel3, *mModel4, *mModel5;
+   gmtl::Matrix44f   mNavMatrix;
 
    OsgNavigator  mNavigator;       /** Navigation class */
 

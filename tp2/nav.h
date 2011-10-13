@@ -129,11 +129,13 @@ public:
          std::cout << "Delta big or not active, returning.\n";
          return;
       }
-      if(!mNavData.isLocal())
+
+      //On commente ça sinon cela ne marche pas
+      /*if(!mNavData.isLocal())
       {
          std::cout << "Data is NOT local, returning.\n";
          return;
-      }
+      }*/
       // Clamp delta
       if (delta > 1.0)
       {  delta = 1.0f; }

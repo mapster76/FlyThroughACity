@@ -40,15 +40,6 @@
 
 #include <string>
 
-/* Utilisation de OpenAL */
-
-//#include "usr/lib"
-//#include "usr/lib/osgAL/SoundNode"
-//#include "usr/lib/osgAL/SoundRoot"
-//#include "usr/lib/osgAL/SoundManager"
-//#include "usr/lib/osgAL/SoundState"
-//#include "usr/lib/osgAL/OccludeCallback"
-
 
 OsgNavGrab::OsgNavGrab(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
@@ -86,18 +77,18 @@ void OsgNavGrab::preFrame()
 
    mLastPreFrameTime = cur_time;
 
-
    // Get wand data
    gmtl::Matrix44f wandMatrix = mWand->getData();
 
    // If we are pressing button 1 then translate in the direction the wand is
    // pointing.
+   std::cout << mButton0->getData() << std::endl;
    if ( mButton0->getData() == gadget::Digital::ON )
    {
       gmtl::Vec3f direction;
       gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
       gmtl::xform(direction, wandMatrix, Zdir);
-
+      std::cout << "direction wand : "<< direction.mData[0] << " " << direction.mData[1] << " "<< direction.mData[2]<< std::endl;
       mNavigator.setVelocity(direction);
    }  // Make sure to reset the velocity when we stop pressing the button.
    else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
@@ -118,13 +109,14 @@ void OsgNavGrab::preFrame()
       mNavigator.setRotationalVelocity(gmtl::Matrix44f());
    }
 
+   //récupère la position actuelle du wand après un déplacement
+      const gmtl::Matrix44f wand_mat(mNavigator.getCurPos());
+      updateGrabbing(wand_mat);
    // Get the wand matrix in the units of this application.
-   const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
-   updateGrabbing(wand_mat);
    rotateObjects();
    // Update the navigation using the time delta between
    mNavigator.update(time_delta);
-   
+
 }
 
 void OsgNavGrab::bufferPreDraw()
@@ -157,6 +149,42 @@ void OsgNavGrab::initScene()
    myInit();
 
 }
+
+void OsgNavGrab::updateNavigation()
+{
+   gmtl::Matrix44f wand_matrix = mWand->getData();      // Get the wand matrix
+
+   // Update navigation
+   // - Find forward direction of wand
+   // - Translate along that direction
+   float velocity(0.05f);
+   float rotation(0.0f);
+   if(mButton0->getData())
+   {
+      gmtl::Vec3f z_dir = gmtl::Vec3f(0.0f, 0.0f, velocity);
+      gmtl::Vec3f dir(wand_matrix * z_dir);
+      gmtl::preMult(mNavMatrix, gmtl::makeTrans<gmtl::Matrix44f>(dir));
+   }
+
+   if(mButton2->getData())
+   {
+      const float rot_scale(0.01f);
+      float y_rot = gmtl::makeYRot<float, 4, 4>(wand_matrix);
+      rotation = -1.0f * y_rot * rot_scale;
+      gmtl::preMult(mNavMatrix,
+                    gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(0.0f,rotation,0.0f)));
+   }
+
+   // ---- RESET ---- //
+   // If the reset button is pressed, reset the state of the application.
+   // This button takes precedence over all others.
+   if ( mButton0->getData() && mButton2->getData())
+   {
+      this->reset();
+   }
+
+}
+
 
 OsgNavGrab::GrabObject* OsgNavGrab::makeGrabbable(osg::Node* model,
                                                         osg::MatrixTransform* modelPos)
@@ -205,18 +233,22 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
    if ( mGrabbedObj == NULL )
    {
       GrabObject* intersect_obj(NULL);
-
+      int i=0;
       // Find the first object--if any--in mObjects with which the wand
       // intersects.
+      std::cout << "Position wand : "<< wand_point.x() << " " << wand_point.y() << " "<< wand_point.z()<< std::endl;
       for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
             o != mObjects.end();
             ++o )
       {
+    	  i++;
 		 //on récupère la boundingbox de la matrice de transformation MatrixTransform
          const osg::BoundingSphere& bbox = (*o)->xformCore->getBound();
-		 
+
+         std::cout << i << " : "<<bbox.radius() << std::endl;
          if ( bbox.contains(wand_point) )
          {
+        	 std::cout << i << " : intersection" << std::endl;
             intersect_obj = *o;
             break;
          }
@@ -260,208 +292,6 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
       mGrabbedObj->xformCore->setMatrix(new_xform);
    }
 }
-/*
-void OsgNavGrab::InitialisationSonore(){
-
-
-	  std::cerr << "\n\n" << osgAL::getLibraryName() << " demo" << std::endl;
-	  std::cerr << "Version: " << osgAL::getVersion() << "\n\n" << std::endl;
-
-	  std::cerr << "Demonstrates occluders" << std::endl;
-
-
-	  try {
-	    // use an ArgumentParser object to manage the program arguments.
-	    // osg::ArgumentParser arguments(&argc,argv);
-
-	    // set up the usage document, in case we need to print out how to use this program.
-	    //arguments.getApplicationUsage()->setDescription(arguments.getApplicationName()+" demonstrates the use of the OsgAL toolkit for spatial sound.");
-	    //arguments.getApplicationUsage()->setCommandLineUsage(arguments.getApplicationName()+" [options] filename ...");
-	    //arguments.getApplicationUsage()->addCommandLineOption("-h or --help","Display this information");
-
-	    // initialize the viewer.
-	    osgProducer::Viewer viewer(arguments);
-
-	    // set up the value with sensible default event handlers.
-	    viewer.setUpViewer(osgProducer::Viewer::STANDARD_SETTINGS);
-
-	    // get details on keyboard and mouse bindings used by the viewer.
-	    viewer.getUsage(*arguments.getApplicationUsage());
-
-	    // if user request help write it out to cout.
-	    //if (arguments.read("-h") || arguments.read("--help"))
-	    //{
-	    //    arguments.getApplicationUsage()->write(std::cout);
-	    //    return 1;
-	    //}
-
-	    // any option left unread are converted into errors to write out later.
-	    arguments.reportRemainingOptionsAsUnrecognized();
-
-		  arguments.getApplicationUsage()->addKeyboardMouseBinding("RETURN", "Play a sound");
-
-
-	    // report any errors if they have occured when parsing the program aguments.
-	    if (arguments.errors())
-	    {
-	        arguments.writeErrorMessages(std::cout);
-	        return 1;
-	    }
-
-
-	    osg::ref_ptr<osg::Group> rootnode = new osg::Group;
-	    // load the nodes from the commandline arguments.
-	    osg::Node* model = osgDB::readNodeFiles(arguments); //createModel();
-	    if (!model)
-	    {
-	      osg::notify(osg::FATAL) << "Error loading models from commandline" << std::endl;
-	      return 1;
-	    }
-	    osg::ref_ptr<osg::PositionAttitudeTransform> loaded_transform = new osg::PositionAttitudeTransform;
-	    loaded_transform->addChild(model);
-	    rootnode->addChild(loaded_transform.get());
-
-
-	    osgAL::SoundManager::instance()->init(16);
-	    osgAL::SoundManager::instance()->getEnvironment()->setDistanceModel(openalpp::InverseDistance);
-	    osgAL::SoundManager::instance()->getEnvironment()->setDopplerFactor(1);
-
-
-	    // Create ONE (only one, otherwise the transformation of the listener and update for SoundManager will be
-	    // called several times, which is not catastrophic, but unnecessary)
-	    // SoundRoot that will make sure the listener is updated and
-	    // to keep the internal state of the SoundManager updated
-	    // This could also be done manually, this is just a handy way of doing it.
-	    osg::ref_ptr<osgAL::SoundRoot> sound_root = new osgAL::SoundRoot;
-
-
-	    // The position in the scenegraph of this node is not important.
-	    // Just as long as the cull traversal should be called after any changes to the SoundManager are made.
-	    rootnode->addChild(sound_root.get());
-
-
-	    bool occlude = true;
-
-	    osg::ref_ptr<osg::PositionAttitudeTransform> sound_transform = createSoundNode("Woodshop-F3.aif", occlude, rootnode.get(), false);
-
-	    rootnode->addChild(sound_transform.get());
-
-
-
-	    // run optimization over the scene graph
-	    //osgUtil::Optimizer optimizer;
-	    //optimizer.optimize(rootnode.get());
-
-	    // set the scene to render
-	    viewer.setSceneData(rootnode.get());
-
-	    // create the windows and run the threads.
-	    viewer.realize();
-
-	    osg::Timer_t start = osg::Timer::instance()->tick();
-	    float rate=10; // degrees per second
-	    while( !viewer.done() )
-	    {
-	      // wait for all cull and draw threads to complete.
-	      viewer.sync();
-
-
-	      osg::Timer_t now = osg::Timer::instance()->tick();
-	      double dt = osg::Timer::instance()->delta_s(start, now);
-	      double angle = rate*dt;
-
-	      osg::Quat quat;
-	      quat.makeRotate(osg::inDegrees(angle), osg::Vec3(0,0,1));
-
-	      loaded_transform->setAttitude(quat);
-
-	      // update the scene by traversing it with the the update visitor which will
-	      // call all node update callbacks and animations.
-	      viewer.update();
-
-
-	      // fire off the cull and draw traversals of the scene.
-	      viewer.frame();
-	    }
-
-	  // wait for all cull and draw threads to complete before exit.
-	  viewer.sync();
-	}
-	  catch (std::exception& e) {
-	    std::cerr << "Caught: " << e.what() << std::endl;
-	  }
-	  // Very important to call this before end of main.
-	  // Otherwise OpenAL will do all sorts of strange things after end of main
-	  // in the destructor of soundmanager.
-	  osgAL::SoundManager::instance()->shutdown();
-}
-
-
-
-osg::PositionAttitudeTransform *createSoundNode(const std::string& file, bool occlude, osg::Node *root, bool is_stream)
-{
-
-
-  // Create a sample, load a .wav file.
-  bool add_to_cache = false;
-  osg::ref_ptr<openalpp::Stream> stream;
-  osg::ref_ptr<openalpp::Sample> sample;
-
-  // Create a new soundstate, give it the name of the file we loaded.
-  osg::ref_ptr<osgAL::SoundState> sound_state = new osgAL::SoundState(file);
-  // Allocate a hardware soundsource to this soundstate (priority 10)
-  sound_state->allocateSource(10, false);
-
-  if (is_stream) {
-    stream = osgAL::SoundManager::instance()->getStream(file.c_str(), add_to_cache);
-    std::cerr << "Loading stream: " << file << std::endl;
-    sound_state->setStream(stream.get());
-  }
-  else {
-    sample = osgAL::SoundManager::instance()->getSample(file.c_str(), add_to_cache);
-    std::cerr << "Loading sample: " << file << std::endl;
-    sound_state->setSample(sample.get());
-
-  }
-
-
-  sound_state->setGain(1.0f);
-  sound_state->setReferenceDistance(10);
-  sound_state->setRolloffFactor(1);
-  sound_state->setPlay(true);
-  sound_state->setLooping(true);
-
-
-  // Add the soundstate to the sound manager, so we can find it later on if we want to
-  osgAL::SoundManager::instance()->addSoundState(sound_state.get());
-
-  sound_state->apply();
-  osgAL::SoundNode *sound_node = new osgAL::SoundNode;
-  sound_node->setSoundState(sound_state.get());
-
-  float radius = 0.5;
-  if (occlude) {
-    osgAL::OccludeCallback *cb = new osgAL::OccludeCallback(root);
-    cb->setNearThreshold(radius*1.1);
-    sound_node->setOccludeCallback(cb);
-  }
-
-
-  // Create a transformation node onto we will attach a soundnode
-  osg::PositionAttitudeTransform *sound_transform = new osg::PositionAttitudeTransform;
-
-  // Create a sphere so we can "see" the sound
-  osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-  osg::TessellationHints* hints = new osg::TessellationHints;
-  hints->setDetailRatio(0.5f);
-  geode->addDrawable(new osg::ShapeDrawable(new osg::Sphere(osg::Vec3(0.0f,0.0f,0.0f),radius),hints));
-  sound_transform->addChild(geode.get());
-
-  sound_transform->addChild(sound_node);
-  return sound_transform;
-}
-
-*/
 
 void OsgNavGrab::myInit()
 {
