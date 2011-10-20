@@ -109,8 +109,8 @@ int main(int argc, char *argv[])
 	
 	while(c != 'q')
 	{
-		c = getchar();
 		alSourcePlay(Source);
+		c = getchar();
 	}
 
 	return 0;
