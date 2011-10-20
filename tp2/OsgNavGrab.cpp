@@ -78,7 +78,7 @@ void OsgNavGrab::preFrame()
    mLastPreFrameTime = cur_time;
 
    // Get wand data
-   gmtl::Matrix44f wandMatrix = mWand->getData();
+   gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
    // If we are pressing button 1 then translate in the direction the wand is
    // pointing.
@@ -110,9 +110,10 @@ void OsgNavGrab::preFrame()
    }
 
    //récupère la position actuelle du wand après un déplacement
-      const gmtl::Matrix44f wand_mat(mNavigator.getCurPos());
-      updateGrabbing(wand_mat);
-   // Get the wand matrix in the units of this application.
+   gmtl::Matrix44f wand_matNavigator(mNavigator.getCurPos());
+
+
+   updateGrabbing(wand_matNavigator);
    rotateObjects();
    // Update the navigation using the time delta between
    mNavigator.update(time_delta);
@@ -147,41 +148,6 @@ void OsgNavGrab::initScene()
    mButton5.init(but5);
 
    myInit();
-
-}
-
-void OsgNavGrab::updateNavigation()
-{
-   gmtl::Matrix44f wand_matrix = mWand->getData();      // Get the wand matrix
-
-   // Update navigation
-   // - Find forward direction of wand
-   // - Translate along that direction
-   float velocity(0.05f);
-   float rotation(0.0f);
-   if(mButton0->getData())
-   {
-      gmtl::Vec3f z_dir = gmtl::Vec3f(0.0f, 0.0f, velocity);
-      gmtl::Vec3f dir(wand_matrix * z_dir);
-      gmtl::preMult(mNavMatrix, gmtl::makeTrans<gmtl::Matrix44f>(dir));
-   }
-
-   if(mButton2->getData())
-   {
-      const float rot_scale(0.01f);
-      float y_rot = gmtl::makeYRot<float, 4, 4>(wand_matrix);
-      rotation = -1.0f * y_rot * rot_scale;
-      gmtl::preMult(mNavMatrix,
-                    gmtl::makeRot<gmtl::Matrix44f>(gmtl::EulerAngleXYZf(0.0f,rotation,0.0f)));
-   }
-
-   // ---- RESET ---- //
-   // If the reset button is pressed, reset the state of the application.
-   // This button takes precedence over all others.
-   if ( mButton0->getData() && mButton2->getData())
-   {
-      this->reset();
-   }
 
 }
 
@@ -244,7 +210,6 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
     	  i++;
 		 //on récupère la boundingbox de la matrice de transformation MatrixTransform
          const osg::BoundingSphere& bbox = (*o)->xformCore->getBound();
-
          std::cout << i << " : "<<bbox.radius() << std::endl;
          if ( bbox.contains(wand_point) )
          {
