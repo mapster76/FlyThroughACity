@@ -105,8 +105,11 @@ int main(int argc, char *argv[])
 
 	atexit(KillALData);
 
+	char c = ' ';
+	
 	while(c != 'q')
 	{
+		c = getchar();
 		alSourcePlay(Source);
 	}
 
