@@ -4,11 +4,11 @@ TARGET = lesson1
 
 COMPILEFLAGS = -lalut -lopenal
 
-$(TARGET): main.o
-	$(CC) -o $(TARGET) main.o  $(COMPILEFLAGS)	
+$(TARGET): player.o 
+	$(CC) -o $(TARGET) player.o $(COMPILEFLAGS)	
 
-main.o: main.cpp
-	$(CC) -c main.cpp -Wno-deprecated
+player.o: player.cpp
+	$(CC) -c player.cpp -Wno-deprecated
 
 clean:
 	rm -f $(TARGET) main.o
