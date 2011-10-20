@@ -34,6 +34,20 @@ ALfloat ListenerVel[] = { 0.0, 0.0, 0.0 };
 // Also note that these should be units of '1'.
 ALfloat ListenerOri[] = { 0.0, 0.0, -1.0,  0.0, 1.0, 0.0 };
 
+/*
+ * void KillALData()
+ *
+ *	We have allocated memory for our buffers and sources which needs
+ *	to be returned to the system. This function frees that memory.
+ */
+void KillALData()
+{
+	alDeleteBuffers(1, &Buffer);
+	alDeleteSources(1, &Source);
+	alutExit();
+}
+
+
 int main(int argc, char *argv[])
 {
 	alutInit(NULL, 0);
@@ -89,7 +103,12 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	alSourcePlay(Source);
+	atexit(KillALData);
+
+	while(c != 'q')
+	{
+		alSourcePlay(Source);
+	}
 
 	return 0;
 	
