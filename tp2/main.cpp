@@ -161,26 +161,27 @@ int main(int argc, char* argv[])
    kernel->start();
 
    kernel->setApplication(application);
-   kernel->waitForKernelStop();
-   
-   delete application;
 
-	// Do another error check and return.
+   // Do another error check and return.
 	if(alGetError() != AL_NO_ERROR)
 	{
-	    printf("Error loading data.");
+		printf("Error loading data.");
 		return 0;
 	}
 
 	atexit(KillALData);
 
 	char c = ' ';
-	
+
 	while(c != 'q')
 	{
 		alSourcePlay(Source);
 		c = getchar();
 	}
 
+
+   kernel->waitForKernelStop();
+   
+   delete application;
    return 0;
 }
