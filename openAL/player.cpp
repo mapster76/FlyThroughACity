@@ -36,6 +36,8 @@ ALfloat ListenerOri[] = { 0.0, 0.0, -1.0,  0.0, 1.0, 0.0 };
 
 int main(int argc, char *argv[])
 {
+	alutInit(NULL, 0);
+	alGetError();
 
 	// Variables to load into.
 	ALenum format;
