@@ -80,15 +80,11 @@ void OsgNavGrab::preFrame()
    // Get wand data
    gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
-   // If we are pressing button 1 then translate in the direction the wand is
-   // pointing.
-   std::cout << mButton0->getData() << std::endl;
    if ( mButton0->getData() == gadget::Digital::ON )
    {
       gmtl::Vec3f direction;
       gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
       gmtl::xform(direction, wandMatrix, Zdir);
-      std::cout << "direction wand : "<< direction.mData[0] << " " << direction.mData[1] << " "<< direction.mData[2]<< std::endl;
       mNavigator.setVelocity(direction);
    }  // Make sure to reset the velocity when we stop pressing the button.
    else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
@@ -202,7 +198,6 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
       int i=0;
       // Find the first object--if any--in mObjects with which the wand
       // intersects.
-      std::cout << "Position wand : "<< wand_point.x() << " " << wand_point.y() << " "<< wand_point.z()<< std::endl;
       for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
             o != mObjects.end();
             ++o )
@@ -210,10 +205,8 @@ void OsgNavGrab::updateGrabbing(const gmtl::Matrix44f& wandMatrix)
     	  i++;
 		 //on récupère la boundingbox de la matrice de transformation MatrixTransform
          const osg::BoundingSphere& bbox = (*o)->xformCore->getBound();
-         std::cout << i << " : "<<bbox.radius() << std::endl;
          if ( bbox.contains(wand_point) )
          {
-        	 std::cout << i << " : intersection" << std::endl;
             intersect_obj = *o;
             break;
          }
@@ -302,21 +295,16 @@ void OsgNavGrab::myInit()
    mModelTrans5  = new osg::MatrixTransform();
    //This can be used if the model orientation needs to change
    mModelTrans->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
-   //mModelTrans->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) ); //Mise a l'echelle
-    
-   //mModelTrans2->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
+
    mModelTrans2->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
    mModelTrans2->preMult( osg::Matrix::translate(20.0f, 50.0f, 0.0f) );
 
-   //mModelTrans3->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
    mModelTrans3->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
    mModelTrans3->preMult( osg::Matrix::translate(-10.0f, 30.0f, 0.0f) );
 
-   //mModelTrans4->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
    mModelTrans4->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
    mModelTrans4->preMult( osg::Matrix::translate(50.0f, 0.0f, 20.0f) );
 
-   //mModelTrans5->preMult( osg::Matrix::scale(0.01f, 0.01f, 0.01f) );
    mModelTrans5->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
    mModelTrans5->preMult( osg::Matrix::translate(-20.0f, -10.0f, 20.0f) );
    if(NULL == mModel)

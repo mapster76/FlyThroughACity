@@ -37,6 +37,7 @@
 #include <vrj/Kernel/Kernel.h>
 
 #include <stdio.h>
+#include <string>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -71,6 +72,58 @@ ALfloat ListenerVel[] = { 0.0, 0.0, 0.0 };
 // Also note that these should be units of '1'.
 ALfloat ListenerOri[] = { 0.0, 0.0, 1.0,  0.0, 1.0, 0.0 };
 
+
+int loadWavFile(char* emplacementFichierWav) {
+	// Partie OpenAL
+
+	alutInit(NULL, 0);
+	alGetError();
+
+	// Variables to load into.
+	ALenum format;
+	ALsizei size;
+	ALvoid* data;
+	ALsizei freq;
+	ALboolean loop;
+	// Load wav data into a buffer.
+	alGenBuffers(1, &Buffer);
+
+	if(alGetError() != AL_NO_ERROR)
+	{
+		printf("Error loading data.");
+		return 0;
+	}
+
+	//Loading wave file
+	alutLoadWAVFile((ALbyte*)emplacementFichierWav, &format, &data, &size,&freq, &loop);
+	alBufferData(Buffer, format, data, size, freq);
+	alutUnloadWAV(format, data, size, freq);
+
+	// Bind the buffer with the source.
+	alGenSources(1, &Source);
+
+	if(alGetError() != AL_NO_ERROR)
+	{
+		printf("Error loading data.");
+		return 0;
+	}
+
+
+	alSourcei (Source, AL_BUFFER,   Buffer   );
+	alSourcef (Source, AL_PITCH,    1.0      );
+	alSourcef (Source, AL_GAIN,     1.0      );
+
+	//Mise en place de la position de la source
+	alSourcefv(Source, AL_POSITION, SourcePos);
+	alSourcefv(Source, AL_VELOCITY, SourceVel);
+	alSourcei (Source, AL_LOOPING,  loop     );
+
+	//Mise en place de la position
+	alListenerfv(AL_POSITION,    ListenerPos);
+	alListenerfv(AL_VELOCITY,    ListenerVel);
+	alListenerfv(AL_ORIENTATION, ListenerOri);
+	return 1;
+}
 void KillALData()
 {
 	alDeleteBuffers(1, &Buffer);
@@ -99,54 +152,7 @@ int main(int argc, char* argv[])
       std::exit(1);
    }
 
-// Partie OpenAL
 
-	alutInit(NULL, 0);
-	alGetError();
-
-	// Variables to load into.
-	ALenum format;
-	ALsizei size;
-	ALvoid* data;
-	ALsizei freq;
-	ALboolean loop;	
-	// Load wav data into a buffer.
-	alGenBuffers(1, &Buffer);
-
-	if(alGetError() != AL_NO_ERROR)
-	{
-	    printf("Error loading data.");
-		return 0;
-	}
-
-	//Loading wave file
-	alutLoadWAVFile((ALbyte*)"wavdata/FancyPants.wav", &format, &data, &size, 		&freq, &loop);
-	alBufferData(Buffer, format, data, size, freq);
-	alutUnloadWAV(format, data, size, freq);
-
-	// Bind the buffer with the source.
-	alGenSources(1, &Source);
-
-	if(alGetError() != AL_NO_ERROR)
-	{
-	    printf("Error loading data.");
-		return 0;
-	}
-	
-	
-	alSourcei (Source, AL_BUFFER,   Buffer   );
-	alSourcef (Source, AL_PITCH,    1.0      );
-	alSourcef (Source, AL_GAIN,     1.0      );
-
-	//Mise en place de la position de la source
-	alSourcefv(Source, AL_POSITION, SourcePos);
-	alSourcefv(Source, AL_VELOCITY, SourceVel);
-	alSourcei (Source, AL_LOOPING,  loop     );
-
-	//Mise en place de la position 
-	alListenerfv(AL_POSITION,    ListenerPos);
-	alListenerfv(AL_VELOCITY,    ListenerVel);
-	alListenerfv(AL_ORIENTATION, ListenerOri);
 
 // Fin de la partie OpenAL
 
@@ -158,27 +164,15 @@ int main(int argc, char* argv[])
       kernel->loadConfigFile(argv[i]);
    }
 
+
    kernel->start();
 
    kernel->setApplication(application);
+   if(loadWavFile("wavdata/powerup.wav")) {
+   	  atexit(KillALData);
 
-   // Do another error check and return.
-	if(alGetError() != AL_NO_ERROR)
-	{
-		printf("Error loading data.");
-		return 0;
-	}
-
-	atexit(KillALData);
-
-	char c = ' ';
-
-	while(c != 'q')
-	{
-		alSourcePlay(Source);
-		c = getchar();
-	}
-
+   	  alSourcePlay(Source);
+   }
 
    kernel->waitForKernelStop();
    
