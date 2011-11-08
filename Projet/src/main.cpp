@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <Environment.h>
+#include <Sons.h>
 
 // --- Lib Stuff --- //
 #include <vrj/Kernel/Kernel.h>
@@ -33,7 +34,6 @@ int main(int argc, char* argv[])
    {
       kernel->loadConfigFile(argv[i]);
    }
-
 
    kernel->start();
 

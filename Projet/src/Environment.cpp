@@ -1,4 +1,5 @@
 #include <Environment.h>
+#include <Sons.h>
 
 #include <osg/Math>
 #include <osg/Geode>
@@ -53,6 +54,7 @@ void Environment::bufferPreDraw()
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glClear(GL_COLOR_BUFFER_BIT);
 }
+
 
 void Environment::initScene()
 {
