@@ -6,7 +6,6 @@
 		<cconfiguration id="cdt.managedbuild.toolchain.gnu.base.633626092">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.base.633626092" moduleId="org.eclipse.cdt.core.settings" name="Default">
 				<macros>
-					<stringMacro name="VJ_DATA_DIR" type="VALUE_TEXT" value="${VJ_BASE_DIR}/share/vrjuggler-3.0"/>
 					<stringListMacro name="FLAGPOLL_PATH" type="VALUE_TEXT_LIST">
 						<value name="/usr/lib/pkgconfig"/>
 						<value name="/usr/lib/flagpoll"/>
@@ -21,6 +20,7 @@
 						<value name="/usr/lib"/>
 						<value name="/usr/lib/osg"/>
 					</stringListMacro>
+					<stringMacro name="VJ_DATA_DIR" type="VALUE_TEXT" value="${VJ_BASE_DIR}/share/vrjuggler-3.0"/>
 					<stringMacro name="VJ_CFG_PATH" type="VALUE_TEXT" value="${VJ_BASE_DIR}/share/vrjuggler-3.0/data/configFiles"/>
 					<stringMacro name="VJ_BASE_DIR" type="VALUE_TEXT" value="/usr/local"/>
 				</macros>

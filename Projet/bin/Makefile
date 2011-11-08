@@ -4,7 +4,7 @@ APP_NAME= Town
 
 # Basic options.
 srcdir=		../src
-SRCS=		OsgNavGrab.cpp main.cpp
+SRCS=		Environment.cpp main.cpp world/CustomDrawable.h
 
 DZR_BASE_DIR=	$(shell flagpoll doozer --get-prefix)
 include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.mk
