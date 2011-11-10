@@ -81,7 +81,7 @@ void Environment::initScene()
 
 }
 
-void drawQuad()
+void drawSol()
 {
 	GLfloat size=30;
 	glBegin(GL_QUADS);
@@ -146,7 +146,7 @@ void Environment::myInit()
 
    osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
    osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
-   osg::ref_ptr<CustomDrawable> sol(new CustomDrawable(&drawQuad));
+   osg::ref_ptr<CustomDrawable> sol(new CustomDrawable(&drawSol));
    mModelSol->preMult( osg::Matrix::translate(0.0f, 0.0f, 0.0f) );
 
 

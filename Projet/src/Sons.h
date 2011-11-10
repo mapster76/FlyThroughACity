@@ -1,9 +1,9 @@
 #ifndef SONS_H_
 #define SONS_H_
 
-#include <../fmod/fmod.hpp>
-#include <../fmod/fmod_errors.h>
-#include <../fmod/wincompat.h>
+#include <fmod.hpp>
+#include <fmod_errors.h>
+#include <wincompat.h>
 #include <stdio.h>
 
 
