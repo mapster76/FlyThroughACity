@@ -11,7 +11,7 @@ include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.mk
 include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.glapp.mk
 include $(DZR_BASE_DIR)/ext/tweek/dzr.tweek.mk
 
-EXTRA_INCLUDES+=	-I$(OSGHOME)/include
+EXTRA_INCLUDES+=	-I$(OSGHOME)/include -I../fmod
 EXTRA_LIBS+=		-L$(OSGHOME)/lib -L../lib -losg -losgDB -losgGA -losgUtil -lOpenThreads -lfmodex
 # -----------------------------------------------------------------------------
 # Application build targets.
