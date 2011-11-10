@@ -16,6 +16,7 @@
 #include <string>
 
 #include "world/CustomDrawable.h"
+#include "world/Immeuble.h"
 
 Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
@@ -144,23 +145,24 @@ void Environment::myInit()
    mRootNode = new osg::Group();
    mNavTrans = new osg::MatrixTransform();
 
-   osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
+   /*osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
    osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
    osg::ref_ptr<CustomDrawable> sol(new CustomDrawable(&drawSol));
-   mModelSol->preMult( osg::Matrix::translate(0.0f, 0.0f, 0.0f) );
+   mModelSol->preMult( osg::Matrix::translate(0.0f, 0.0f, 0.0f) );*/
 
 
 
 
    osg::ref_ptr<osg::Geode> noeudImmeuble (new osg::Geode);
-
-   osg::ref_ptr<CustomDrawable> immeuble(new CustomDrawable(&drawImmeuble));
-   noeudSol->addDrawable((osg::Drawable*)sol.get());
+   GLfloat color[3]={0,0,1};
+   std::cout << color[0] << " " << color[1] << " " << color[2] << std::endl;
+   osg::ref_ptr<CustomDrawable> immeuble(new Immeuble(5,30,color));
+   //noeudSol->addDrawable((osg::Drawable*)sol.get());
    noeudImmeuble->addDrawable((osg::Drawable*)immeuble.get());
 
    mRootNode->addChild(mNavTrans);
-   mNavTrans->addChild(mModelSol);
-   mModelSol->addChild(noeudSol.get());
+   /*mNavTrans->addChild(mModelSol);
+   mModelSol->addChild(noeudSol.get());*/
 
    osg::MatrixTransform* mModelImmeuble = new osg::MatrixTransform();
    mModelImmeuble->preMult( osg::Matrix::translate(30.0f, 0.0f, 0.0f) );
