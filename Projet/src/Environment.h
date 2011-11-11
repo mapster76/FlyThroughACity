@@ -18,10 +18,10 @@
 #include <osg/Matrix>
 #include <osg/Transform>
 #include <osg/MatrixTransform>
-
 #include <osgUtil/SceneView>
 
 #include <vrj/Draw/OSG/OsgApp.h>
+#include "world/WorldCreator.h"
 
 /**
  * Demonstration Open Scene Graph application class
@@ -33,6 +33,7 @@ public:
 
    virtual ~Environment()
    {
+	   delete mWorld;
       /* Do nothing. */ ;
    }
 
@@ -113,10 +114,11 @@ public:
    }
 
 private:
-   gmtl::Matrix44f   mNavMatrix;
-   osg::Group*  mRootNode;
-   osg::MatrixTransform* mNavTrans;
-   vpr::Interval           mLastPreFrameTime;   /**< Time of the start of the last preframe */
+   gmtl::Matrix44f  mNavMatrix;
+   osg::ref_ptr<osg::Group>  mRootNode;
+   osg::ref_ptr<osg::MatrixTransform> mNavTrans;
+   vpr::Interval mLastPreFrameTime;   /**< Time of the start of the last preframe */
+   WorldCreator* mWorld;
 
 
 public:

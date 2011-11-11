@@ -22,18 +22,15 @@ public:
 	}
 
 	virtual ~Immeuble() {
-		delete mColor;
 	}
 
 	virtual void drawImplementation(osg::RenderInfo& renderInfo) const {
-		std::cout << "Immeuble" << std::endl;
-		std::cout << mColor[0] << " " << mColor[1] << " " << mColor[2] << std::endl;
 		glColor3fv(mColor);
 		glBegin(GL_QUADS);
 			glNormal3f (0, 1, 0);
 			glVertex3f (-mSize,mHeight, -mSize);
 			glVertex3f (mSize,mHeight,-mSize);
-			glVertex3f ( mSize,mHeight,mSize);
+			glVertex3f (mSize,mHeight,mSize);
 			glVertex3f(-mSize,mHeight,mSize);
 
 			glNormal3f (0, 0, -1);
@@ -45,13 +42,13 @@ public:
 			glNormal3f (0, 0, -1);
 			glVertex3f (-mSize,0, -mSize);
 			glVertex3f (mSize,0,-mSize);
-			glVertex3f ( mSize,mHeight,-mSize);
+			glVertex3f (mSize,mHeight,-mSize);
 			glVertex3f(-mSize,mHeight,-mSize);
 
 			glNormal3f (-1, 0, 0);
 			glVertex3f (mSize,0, -mSize);
 			glVertex3f (mSize,0,mSize);
-			glVertex3f ( mSize,mHeight,mSize);
+			glVertex3f (mSize,mHeight,mSize);
 			glVertex3f(mSize,mHeight,-mSize);
 
 			glNormal3f (1, 0, 0);
