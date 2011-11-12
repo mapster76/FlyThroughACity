@@ -14,14 +14,15 @@ using namespace std;
 
 class WorldCreator {
 private:
-	osg::ref_ptr<osg::Group>  mRootNode;
-	osg::ref_ptr<osg::MatrixTransform> mNavTrans;
-	vector< osg::ref_ptr<CustomDrawable> > mElementsOfWorld;
+	osg::ref_ptr<osg::Group>  pRootNode;
+	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
+	vector< vector<GLfloat> > vElementLocation;
+	vector< osg::ref_ptr<osg::Node> > v;
 public:
 	WorldCreator()
 	{
-		mRootNode = new osg::Group();
-		mNavTrans = new osg::MatrixTransform();
+		pRootNode = new osg::Group();
+		pNavTrans = new osg::MatrixTransform();
 	}
 
 
@@ -29,15 +30,47 @@ public:
 	{}
 
 	void initialiseWorld() {
-
+		vector<GLfloat> coordonnes;
+		coordonnes.resize(3);
+		coordonnes[0]=10.0;
+		coordonnes[1]=0.0;
+		coordonnes[2]=10.0;
+		vElementLocation.push_back(coordonnes);
+		coordonnes[0]=-10.0;
+		vElementLocation.push_back(coordonnes);
+		coordonnes[2]=-10.0;
+		vElementLocation.push_back(coordonnes);
+		coordonnes[0]=10.0;
+		vElementLocation.push_back(coordonnes);
 	}
 
-	void placeGeodeElement(osg::ref_ptr<osg::Geode> element,GLfloat x,GLfloat y,GLfloat z) {
+
+	osg::ref_ptr<osg::Geode> createGeodeNode(GLfloat r,GLfloat g,GLfloat b) {
+		osg::ref_ptr<osg::Geode> geodeNode (new osg::Geode);
+		GLfloat color[3]={r,g,b};
+		osg::ref_ptr<CustomDrawable> shape(new Immeuble(5,30,color));
+		geodeNode->addDrawable((osg::Drawable*)shape.get());
+		return geodeNode;
+	}
+
+	void createMap() {
+		initialiseWorld();
+	}
+
+	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees) {
 		osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
-		mModel->preMult( osg::Matrix::translate(x, y, z) );
-		mNavTrans->addChild(mModel);
+		mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
+		pNavTrans->addChild(mModel);
 		mModel->addChild(element.get());
 	}
+
+	void generateSceneGraph(osg::ref_ptr<osg::Node> element) {
+		for (vector< vector<GLfloat> >::iterator pLocation = vElementLocation.begin(); pLocation != vElementLocation.end(); ++pLocation) {
+			placeNodeElement(element,*pLocation);
+		}
+	}
+
+
 
 	void drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg::MatrixTransform> &navTrans) {
 		osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
@@ -53,20 +86,15 @@ public:
 		osg::ref_ptr<CustomDrawable> immeuble(new Immeuble(5,30,color2));
 		noeudImmeuble->addDrawable((osg::Drawable*)immeuble.get());
 
-		mRootNode->addChild(mNavTrans);
-		mNavTrans->addChild(mModelSol);
+		pRootNode->addChild(pNavTrans);
+		pNavTrans->addChild(mModelSol);
 		mModelSol->addChild(noeudSol.get());
 
-		placeGeodeElement(noeudImmeuble,10.0f,0,10.0f);
+		createMap();
+		generateSceneGraph(noeudImmeuble);
 
-		placeGeodeElement(noeudImmeuble,-10.0f,0,10.0f);
-
-		placeGeodeElement(noeudImmeuble,10.0f,0,-10.0f);
-
-		placeGeodeElement(noeudImmeuble,-10.0f,0,-10.0f);
-
-		rootNode=mRootNode;
-		navTrans=mNavTrans;
+		rootNode=pRootNode;
+		navTrans=pNavTrans;
 	}
 
 };
