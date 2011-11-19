@@ -121,7 +121,7 @@ void WorldCreator::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLflo
 }
 
 void WorldCreator::generateSceneGraph() {
-	for (map< vector<GLfloat> , osg::ref_ptr<osg::Geode> >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
+	for (map< vector<GLfloat> , osg::ref_ptr<osg::Node> >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
 		placeNodeElement(unImmeuble->second,unImmeuble->first);
 	}
 }

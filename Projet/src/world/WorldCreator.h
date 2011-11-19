@@ -28,8 +28,8 @@ protected:
 public:
 	osg::ref_ptr<osg::Group>  pRootNode;
 	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
-	map < GLfloat,osg::ref_ptr<osg::Geode> > immeubleParTaille;
-	map< vector<GLfloat> , osg::ref_ptr<osg::Geode> > laCarte;
+	map < GLfloat,osg::ref_ptr<osg::Node> > immeubleParTaille;
+	map< vector<GLfloat> , osg::ref_ptr<osg::Node> > laCarte;
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
 	 */
@@ -73,10 +73,19 @@ public:
 	 */
 	void dessinnerUnQuartier(GLfloat xImmeuble, GLfloat yImmeuble,GLfloat distance);
 
+	/**
+	 * fonction qui cree la carte et place tout les immeuble dessus
+	 */
 	void createMap();
 
+	/**
+	 * Ajoute un element au graphe de scene le noeud peut etre de type geode ou autre
+	 */
 	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees);
 
+	/**
+	 * Genere le graphe de scene a partir de ce qui est contenu dans la carte
+	 */
 	void generateSceneGraph();
 
 
