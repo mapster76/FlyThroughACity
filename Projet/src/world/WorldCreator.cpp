@@ -108,9 +108,8 @@ void WorldCreator::dessinnerUnQuartier(GLfloat xImmeuble, GLfloat yImmeuble,GLfl
 void WorldCreator::createMap() {
 	vector<GLfloat> coordonnes;
 	coordonnes.resize(3);
-	int x=15, y=15;
-	int distance=ESPACE_ENTRE_IMMEUBLE;
-	dessinnerUnQuartier(x,y,distance);
+	int x=ESPACE_ENTRE_IMMEUBLE/2, y=ESPACE_ENTRE_IMMEUBLE/2;
+	dessinnerUnQuartier(x,y,ESPACE_ENTRE_IMMEUBLE);
 }
 
 void WorldCreator::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees) {

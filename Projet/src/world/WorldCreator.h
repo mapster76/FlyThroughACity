@@ -15,8 +15,8 @@
 #include <map>
 
 #define RAYON_MAX_VILLE 100
-#define ESPACE_ENTRE_IMMEUBLE 30
-#define COTE_IMMEUBLE 7
+#define ESPACE_ENTRE_IMMEUBLE 40
+#define COTE_IMMEUBLE 8
 using namespace std;
 
 class WorldCreator {
