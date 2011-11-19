@@ -13,9 +13,9 @@
 #include <gmtl/Math.h>
 
 
-#define REZ_DE_CHAUSSE std::string("model/rdc.obj")
-#define ETAGE std::string("model/etage.obj")
-#define TOIT std::string("model/toit.obj")
+#define REZ_DE_CHAUSSE std::string("../model/rdc.obj")
+#define ETAGE std::string("../model/etage.obj")
+#define TOIT std::string("../model/toit.obj")
 
 using namespace std;
 
