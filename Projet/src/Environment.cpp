@@ -16,7 +16,7 @@
 #include <string>
 
 #include "world/CustomDrawable.h"
-#include "world/Immeuble.h"
+#include "world/ImmeublePlat.h"
 #include "world/Sol.h"
 
 Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)

@@ -1,6 +1,6 @@
-#include <Immeuble.h>
+#include <ImmeublePlat.h>
 
-Immeuble::Immeuble(GLfloat size,GLfloat height,GLfloat color[])
+ImmeublePlat::ImmeublePlat(GLfloat size,GLfloat height,GLfloat color[])
 {
 	mLength=size;
 	mDepth=size;
@@ -10,7 +10,7 @@ Immeuble::Immeuble(GLfloat size,GLfloat height,GLfloat color[])
 	mColor[2]=color[2];
 }
 
-Immeuble::Immeuble(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[])
+ImmeublePlat::ImmeublePlat(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[])
 {
 	mLength=length;
 	mDepth=depth;
@@ -20,14 +20,14 @@ Immeuble::Immeuble(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[])
 	mColor[2]=color[2];
 }
 
-GLfloat Immeuble::getHeight() {
+GLfloat ImmeublePlat::getHeight() {
 	return mHeight;
 }
 
-Immeuble::~Immeuble() {
+ImmeublePlat::~ImmeublePlat() {
 }
 
-void Immeuble::drawImplementation(osg::RenderInfo& renderInfo) const {
+void ImmeublePlat::drawImplementation(osg::RenderInfo& renderInfo) const {
 	glColor3fv(mColor);
 	glBegin(GL_QUADS);
 		glNormal3f (0, 1, 0);
@@ -60,6 +60,14 @@ void Immeuble::drawImplementation(osg::RenderInfo& renderInfo) const {
 		glVertex3f (-mLength,mHeight,mDepth);
 		glVertex3f(-mLength,mHeight,-mDepth);
 	glEnd();
+}
+
+void dessinnerFacadeFenetre() {
+
+}
+
+void dessinerFenetre() {
+
 }
 
 

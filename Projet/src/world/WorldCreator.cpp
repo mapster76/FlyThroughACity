@@ -28,20 +28,11 @@ void WorldCreator::drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg
 osg::ref_ptr<osg::Geode> WorldCreator::createImmeubleNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height) {
 	osg::ref_ptr<osg::Geode> geodeNode (new osg::Geode);
 	GLfloat color[3]={r,g,b};
-	osg::ref_ptr<Immeuble> unImmeuble(new Immeuble(size,height,color));
+	osg::ref_ptr<ImmeublePlat> unImmeuble(new ImmeublePlat(size,height,color));
 	osg::ref_ptr<CustomDrawable> shape=unImmeuble;
 	geodeNode->addDrawable((osg::Drawable*)shape.get());
 	immeubleParTaille[unImmeuble->getHeight()]=geodeNode;
 	return geodeNode;
-}
-
-vector<GLfloat> WorldCreator::setCoordonnes(GLfloat x,GLfloat z,GLfloat y) {
-	vector<GLfloat> coordonnes;
-	coordonnes.resize(3);
-	coordonnes[0]=x;
-	coordonnes[1]=z;
-	coordonnes[2]=y;
-	return coordonnes;
 }
 
 bool WorldCreator::noeudImmeubleExiste(GLfloat hauteur) {
@@ -53,7 +44,7 @@ bool WorldCreator::estUnEmplacementVide(vector<GLfloat> coordonnes) {
 }
 
 void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
-	GLfloat hauteur=randomParPas(10,100,5);
+	GLfloat hauteur=randomParPas(10,100,4);
 	if(!noeudImmeubleExiste(hauteur)) {
 		createImmeubleNode(0,0,1,COTE_IMMEUBLE,hauteur);
 	}
@@ -108,8 +99,13 @@ void WorldCreator::dessinnerUnQuartier(GLfloat xImmeuble, GLfloat yImmeuble,GLfl
 void WorldCreator::createMap() {
 	vector<GLfloat> coordonnes;
 	coordonnes.resize(3);
-	int x=ESPACE_ENTRE_IMMEUBLE/2, y=ESPACE_ENTRE_IMMEUBLE/2;
-	dessinnerUnQuartier(x,y,ESPACE_ENTRE_IMMEUBLE);
+	//int x=ESPACE_ENTRE_IMMEUBLE/2, y=ESPACE_ENTRE_IMMEUBLE/2;
+	//dessinnerUnQuartier(x,y,ESPACE_ENTRE_IMMEUBLE);
+	ImmeubleAvecFenetre unImmeubleAvecFenetre;
+	osg::ref_ptr<osg::Node>  rezDeChausse;
+	string wd=get_current_dir_name();
+	cout <<  wd <<"loading " << REZ_DE_CHAUSSE << endl;
+	placeNodeElement(unImmeubleAvecFenetre.construireUnImmeuble(),setCoordonnes(0,0,0));
 }
 
 void WorldCreator::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees) {

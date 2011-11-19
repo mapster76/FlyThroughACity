@@ -4,7 +4,11 @@
 #include <osg/Geode>
 #include "CustomDrawable.h"
 
-class Immeuble : public CustomDrawable {
+#define RAYON_MAX_VILLE 100
+#define ESPACE_ENTRE_IMMEUBLE 40
+#define COTE_IMMEUBLE 8
+
+class ImmeublePlat : public CustomDrawable {
 
 private:
 	GLfloat mLength;
@@ -13,13 +17,13 @@ private:
 	GLfloat mColor[3];
 
 public:
-	Immeuble(GLfloat size,GLfloat height,GLfloat color[]);
+	ImmeublePlat(GLfloat size,GLfloat height,GLfloat color[]);
 
-	Immeuble(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[]);
+	ImmeublePlat(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[]);
 
 	GLfloat getHeight();
 
-	virtual ~Immeuble() ;
+	virtual ~ImmeublePlat() ;
 
 	virtual void drawImplementation(osg::RenderInfo& renderInfo) const;
 

@@ -1,6 +1,7 @@
 #ifndef WORLDCREATOR_H_
 #define WORLDCREATOR_H_
 
+#include <ImmeubleAvecFenetre.h>
 #include <osg/Geode>
 #include <osgUtil/Optimizer>
 #include <osg/Math>
@@ -8,15 +9,13 @@
 #include <osg/Material>
 #include <vector>
 #include "world/CustomDrawable.h"
-#include "world/Immeuble.h"
+#include "world/ImmeublePlat.h"
 #include "world/Sol.h"
 #include "util.h"
 #include <utility>
 #include <map>
 
-#define RAYON_MAX_VILLE 100
-#define ESPACE_ENTRE_IMMEUBLE 40
-#define COTE_IMMEUBLE 8
+
 using namespace std;
 
 class WorldCreator {
@@ -40,12 +39,6 @@ public:
 	 * return un pointeur intelligent vers un noeud de type Geode permettant de dessiner des fonction opengl
 	 */
 	osg::ref_ptr<osg::Geode> createImmeubleNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height);
-
-	/**
-	 * Cette fonction permet de creer un vecteur représentant les coordonnées rapidement.
-	 * retorn Vector<GLfloat> de taille 3
-	 */
-	vector<GLfloat> setCoordonnes(GLfloat x,GLfloat z,GLfloat y);
 
 	/**
 	 * Cette fonction verifie si l'immeuble avec la hauteur donnée est déjà présent dans la map immeubleParTaille

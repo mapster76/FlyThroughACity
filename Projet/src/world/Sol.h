@@ -21,7 +21,6 @@ public:
 	}
 
 	virtual void drawImplementation(osg::RenderInfo& renderInfo) const {
-		std::cout << "salut " << std::endl;
 		glColor3fv(mColor);
 		glBegin(GL_QUADS);
 			glNormal3f (0, 1, 0);
