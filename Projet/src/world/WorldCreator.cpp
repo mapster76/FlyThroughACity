@@ -91,42 +91,26 @@ void WorldCreator::ajouterImmeubleAutourPosition(GLfloat x, GLfloat y) {
 
 }
 
+void WorldCreator::dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeubleQuadrant,GLfloat distance) {
+	int x=xImmeubleQuadrant, y=yImmeubleQuadrant;
+	while(x<=RAYON_MAX_VILLE) {
+		while(y<=RAYON_MAX_VILLE) {
+			ajouterImmeubleAutourPosition(x,y);
+			ajouterImmeubleAutourPosition(-x,y);
+			ajouterImmeubleAutourPosition(-x,-y);
+			ajouterImmeubleAutourPosition(x,-y);
+			y+=distance;
+		}
+		y=yImmeubleQuadrant;
+		x+=distance;
+	}
+}
 void WorldCreator::createMap() {
 	vector<GLfloat> coordonnes;
 	coordonnes.resize(3);
-	/*coordonnes[0]=0.0;
-	coordonnes[1]=0.0;
-	coordonnes[2]=0.0;
-	osg::ref_ptr<osg::Geode> immeuble=createImmeubleNode(0,0,1,COTE_IMMEUBLE,60);
-	laCarte[coordonnes]=immeuble;
-	coordonnes[0]=-10.0;
-	laCarte[coordonnes]=immeuble;
-	coordonnes[2]=-10.0;
-	immeuble=createImmeubleNode(0,0,1,COTE_IMMEUBLE,90);
-	laCarte[coordonnes]=immeuble;
-	coordonnes[0]=10.0;
-	laCarte[coordonnes]=immeuble;*/
-
 	int x=15, y=15;
 	int distance=ESPACE_ENTRE_IMMEUBLE+COTE_IMMEUBLE;
-	while(x<=RAYON_MAX_VILLE) {
-		while(y<=RAYON_MAX_VILLE) {
-			ajouterImmeubleAutourPosition(x,y);
-			y+=distance;
-		}
-		x+=distance;
-	}
-
-	/*x=-10;
-	y=10;
-	while(x<=RAYON_MAX_VILLE) {
-		while(y<=RAYON_MAX_VILLE) {
-			ajouterImmeubleAutourPosition(x,y);
-			y+=distance;
-		}
-		x-=distance;
-	}*/
-
+	dessinnerUnQuartier(x,y,distance);
 }
 
 void WorldCreator::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees) {

@@ -16,7 +16,7 @@
 
 #define RAYON_MAX_VILLE 100
 #define ESPACE_ENTRE_IMMEUBLE 20
-#define COTE_IMMEUBLE 5
+#define COTE_IMMEUBLE 7
 
 using namespace std;
 
@@ -54,6 +54,8 @@ public:
 	void ajouterImmeubleALaCarte(vector<GLfloat> coordonnes);
 
 	void ajouterImmeubleAutourPosition(GLfloat x, GLfloat y);
+
+	void dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeubleQuadrant,GLfloat distance);
 
 	void createMap();
 
