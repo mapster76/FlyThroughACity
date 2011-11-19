@@ -5,7 +5,7 @@ APP_NAME= Town
 
 # Basic options.
 srcdir=		../src
-SRCS=		util.cpp world/Immeuble.cpp world/WorldCreator.cpp Environment.cpp Sons.cpp main.cpp 
+SRCS=		util.cpp world/ImmeubleAvecFenetre.cpp world/ImmeublePlat.cpp world/WorldCreator.cpp Environment.cpp Sons.cpp main.cpp 
 
 DZR_BASE_DIR=	$(shell flagpoll doozer --get-prefix)
 include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.mk
