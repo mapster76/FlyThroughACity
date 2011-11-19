@@ -6,7 +6,7 @@ void WorldCreator::initialiseWorld() {
 	osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
 	osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
 	GLfloat color[3]={0.5,0.5,0.5};
-	osg::ref_ptr<CustomDrawable> sol(new Sol(RAYON_MAX_VILLE,color));
+	osg::ref_ptr<CustomDrawable> sol(new Sol(RAYON_MAX_VILLE*2,color));
 	noeudSol->addDrawable((osg::Drawable*)sol.get());
 
 	pRootNode->addChild(pNavTrans);

@@ -16,45 +16,60 @@
 
 #define RAYON_MAX_VILLE 100
 #define ESPACE_ENTRE_IMMEUBLE 20
-#define COTE_IMMEUBLE 7
+#define COTE_IMMEUBLE 5
 
 using namespace std;
 
 class WorldCreator {
+
 private:
-
-
-public:
-	WorldCreator()
-	{
-		pRootNode = new osg::Group();
-		pNavTrans = new osg::MatrixTransform();
-	}
-
 	osg::ref_ptr<osg::Group>  pRootNode;
 	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
 	map < GLfloat,osg::ref_ptr<osg::Geode> > immeubleParTaille;
 	map< vector<GLfloat> , osg::ref_ptr<osg::Geode> > laCarte;
 
-	~WorldCreator()
-	{}
-
+protected:
+	/**
+	 * Cette fonction initialise le graphe de scene et ajoute le sol.
+	 */
 	void initialiseWorld();
 
-
+	/**
+	 * Cette fonction cree un nouvel immeuble et l'ajoute a la map qui repertorie les immeubles par taille.
+	 * return un pointeur intelligent vers un noeud de type Geode permettant de dessiner des fonction opengl
+	 */
 	osg::ref_ptr<osg::Geode> createImmeubleNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height);
 
-
+	/**
+	 * Cette fonction permet de creer un vecteur représentant les coordonnées rapidement.
+	 * retorn Vector<GLfloat> de taille 3
+	 */
 	vector<GLfloat> setCoordonnes(GLfloat x,GLfloat z,GLfloat y);
 
+	/**
+	 * Cette fonction verifie si l'immeuble avec la hauteur donnée est déjà présent dans la map immeubleParTaille
+	 */
 	bool noeudImmeubleExiste(GLfloat hauteur);
 
+	/**
+	 * Cette fonction verifie si un immeuble n'a pas déjà été tracé à l'emplacement donné
+	 */
 	bool estUnEmplacementVide(vector<GLfloat> coordonnes);
 
+	/**
+	 * cette fonction ajoute un immeuble a la map laCarte sauf si l'immeuble est déjà présent à l'emplacement donné elle n'ajoute rien
+	 * De plus elle génére un immeuble d'une hauteur différente. Si la hauteur de l'immeuble généré aléatoirement n'existe pas il va l'ajouter au graphe de scene par l'appel de la fonction creatImmeubleNode
+	 */
 	void ajouterImmeubleALaCarte(vector<GLfloat> coordonnes);
 
+	/**
+	 * ajoute des immeuble tout autour de la position de l'immeuble courant si un immeuble est déjà présent à cette position il n'en ajoutera pas
+	 */
 	void ajouterImmeubleAutourPosition(GLfloat x, GLfloat y);
 
+	/**
+	 *
+	 */
 	void dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeubleQuadrant,GLfloat distance);
 
 	void createMap();
@@ -63,7 +78,17 @@ public:
 
 	void generateSceneGraph();
 
+public:
+	WorldCreator()
+	{
+		pRootNode = new osg::Group();
+		pNavTrans = new osg::MatrixTransform();
+	}
 
+
+
+	~WorldCreator()
+	{}
 
 	void drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg::MatrixTransform> &navTrans);
 
