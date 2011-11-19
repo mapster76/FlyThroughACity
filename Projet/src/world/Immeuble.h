@@ -33,6 +33,10 @@ public:
 		mColor[2]=color[2];
 	}
 
+	GLfloat getHeight() {
+		return mHeight;
+	}
+
 	virtual ~Immeuble() {
 	}
 

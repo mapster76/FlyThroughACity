@@ -1,6 +1,7 @@
 #ifndef SOL_H_
 #define SOL_H_
 
+#include<iostream>
 class Sol : public CustomDrawable {
 
 private:

@@ -32,7 +32,6 @@ void Environment::latePreFrame()
    osg::Matrix osg_current_matrix;
    osg_current_matrix.set(world_transform.getData());
    mNavTrans->setMatrix(osg_current_matrix);
-
    // Finish updating the scene graph.
    vrj::OsgApp::latePreFrame();
 }
@@ -47,7 +46,6 @@ void Environment::preFrame()
    {  diff_time.secf(0.0f); }
 
    //float time_delta = diff_time.secf();
-
    mLastPreFrameTime = cur_time;
 
 }
