@@ -63,7 +63,7 @@ void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
 void WorldCreator::ajouterImmeubleAutourPosition(GLfloat x, GLfloat y) {
 	vector< vector<GLfloat> > lesCoordoonnesAVerifier;
 	vector<GLfloat> coordonnes;
-	int distance=ESPACE_ENTRE_IMMEUBLE+COTE_IMMEUBLE;
+	int distance=ESPACE_ENTRE_IMMEUBLE;
 
 	coordonnes=setCoordonnes(x+distance,0.0,y-distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
@@ -91,8 +91,8 @@ void WorldCreator::ajouterImmeubleAutourPosition(GLfloat x, GLfloat y) {
 
 }
 
-void WorldCreator::dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeubleQuadrant,GLfloat distance) {
-	int x=xImmeubleQuadrant, y=yImmeubleQuadrant;
+void WorldCreator::dessinnerUnQuartier(GLfloat xImmeuble, GLfloat yImmeuble,GLfloat distance) {
+	int x=xImmeuble, y=yImmeuble;
 	while(x<=RAYON_MAX_VILLE) {
 		while(y<=RAYON_MAX_VILLE) {
 			ajouterImmeubleAutourPosition(x,y);
@@ -101,7 +101,7 @@ void WorldCreator::dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeu
 			ajouterImmeubleAutourPosition(x,-y);
 			y+=distance;
 		}
-		y=yImmeubleQuadrant;
+		y=yImmeuble;
 		x+=distance;
 	}
 }
@@ -109,7 +109,7 @@ void WorldCreator::createMap() {
 	vector<GLfloat> coordonnes;
 	coordonnes.resize(3);
 	int x=15, y=15;
-	int distance=ESPACE_ENTRE_IMMEUBLE+COTE_IMMEUBLE;
+	int distance=ESPACE_ENTRE_IMMEUBLE;
 	dessinnerUnQuartier(x,y,distance);
 }
 

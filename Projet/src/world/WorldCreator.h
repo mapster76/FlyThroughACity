@@ -15,20 +15,21 @@
 #include <map>
 
 #define RAYON_MAX_VILLE 100
-#define ESPACE_ENTRE_IMMEUBLE 20
-#define COTE_IMMEUBLE 5
-
+#define ESPACE_ENTRE_IMMEUBLE 30
+#define COTE_IMMEUBLE 7
 using namespace std;
 
 class WorldCreator {
 
 private:
+
+
+protected:
+public:
 	osg::ref_ptr<osg::Group>  pRootNode;
 	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
 	map < GLfloat,osg::ref_ptr<osg::Geode> > immeubleParTaille;
 	map< vector<GLfloat> , osg::ref_ptr<osg::Geode> > laCarte;
-
-protected:
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
 	 */
@@ -68,9 +69,9 @@ protected:
 	void ajouterImmeubleAutourPosition(GLfloat x, GLfloat y);
 
 	/**
-	 *
+	 * dessine tout un quartier
 	 */
-	void dessinnerUnQuartier(GLfloat xImmeubleQuadrant, GLfloat yImmeubleQuadrant,GLfloat distance);
+	void dessinnerUnQuartier(GLfloat xImmeuble, GLfloat yImmeuble,GLfloat distance);
 
 	void createMap();
 
@@ -78,7 +79,7 @@ protected:
 
 	void generateSceneGraph();
 
-public:
+
 	WorldCreator()
 	{
 		pRootNode = new osg::Group();
