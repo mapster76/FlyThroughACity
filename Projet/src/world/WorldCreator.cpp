@@ -1,11 +1,12 @@
 
 #include <WorldCreator.h>
 
+
 void WorldCreator::initialiseWorld() {
 	osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
 	osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
 	GLfloat color[3]={0.5,0.5,0.5};
-	osg::ref_ptr<CustomDrawable> sol(new Sol(40,color));
+	osg::ref_ptr<CustomDrawable> sol(new Sol(RAYON_MAX_VILLE,color));
 	noeudSol->addDrawable((osg::Drawable*)sol.get());
 
 	pRootNode->addChild(pNavTrans);
@@ -66,19 +67,19 @@ void WorldCreator::ajouterImmeubleAutourPosition(GLfloat x, GLfloat y) {
 
 	coordonnes=setCoordonnes(x+distance,0.0,y-distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
-	coordonnes=setCoordonnes(x+distance,0.0,0);
+	coordonnes=setCoordonnes(x+distance,0.0,y);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
 	coordonnes=setCoordonnes(x+distance,0.0,y+distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
-	coordonnes=setCoordonnes(0,0.0,y+distance);
+	coordonnes=setCoordonnes(x,0.0,y+distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
 	coordonnes=setCoordonnes(x-distance,0.0,y+distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
-	coordonnes=setCoordonnes(x-distance,0.0,0);
+	coordonnes=setCoordonnes(x-distance,0.0,y);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
 	coordonnes=setCoordonnes(x-distance,0.0,y-distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
-	coordonnes=setCoordonnes(0,0.0,y-distance);
+	coordonnes=setCoordonnes(x,0.0,y-distance);
 	lesCoordoonnesAVerifier.push_back(coordonnes);
 
 	for(vector< vector<GLfloat> >::iterator uneCoordonee=lesCoordoonnesAVerifier.begin();
@@ -106,7 +107,7 @@ void WorldCreator::createMap() {
 	coordonnes[0]=10.0;
 	laCarte[coordonnes]=immeuble;*/
 
-	int x=10, y=10;
+	int x=15, y=15;
 	int distance=ESPACE_ENTRE_IMMEUBLE+COTE_IMMEUBLE;
 	while(x<=RAYON_MAX_VILLE) {
 		while(y<=RAYON_MAX_VILLE) {
@@ -115,6 +116,16 @@ void WorldCreator::createMap() {
 		}
 		x+=distance;
 	}
+
+	/*x=-10;
+	y=10;
+	while(x<=RAYON_MAX_VILLE) {
+		while(y<=RAYON_MAX_VILLE) {
+			ajouterImmeubleAutourPosition(x,y);
+			y+=distance;
+		}
+		x-=distance;
+	}*/
 
 }
 

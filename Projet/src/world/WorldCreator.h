@@ -22,10 +22,7 @@ using namespace std;
 
 class WorldCreator {
 private:
-	osg::ref_ptr<osg::Group>  pRootNode;
-	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
-	map < GLfloat,osg::ref_ptr<osg::Geode> > immeubleParTaille;
-	map< vector<GLfloat> , osg::ref_ptr<osg::Geode> > laCarte;
+
 
 public:
 	WorldCreator()
@@ -34,6 +31,10 @@ public:
 		pNavTrans = new osg::MatrixTransform();
 	}
 
+	osg::ref_ptr<osg::Group>  pRootNode;
+	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
+	map < GLfloat,osg::ref_ptr<osg::Geode> > immeubleParTaille;
+	map< vector<GLfloat> , osg::ref_ptr<osg::Geode> > laCarte;
 
 	~WorldCreator()
 	{}
