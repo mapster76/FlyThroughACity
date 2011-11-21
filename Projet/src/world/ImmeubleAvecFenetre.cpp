@@ -26,8 +26,8 @@ osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::construireUnImmeuble() {
 
 	//rezDeChausse->setName("rdc");
 	placeNodeElement(rezDeChausse,setCoordonnes(0,0,0),navTrans);
-	placeNodeElement(etage,setCoordonnes(0,6,0),navTrans);
-	placeNodeElement(toit,setCoordonnes(0,10,0),navTrans);
+	placeNodeElement(etage,setCoordonnes(0,4,0),navTrans);
+	placeNodeElement(toit,setCoordonnes(0,8,0),navTrans);
 	//std::cout << navTrans->getChild(3) << std::endl;
 	return rootNode;
 }
