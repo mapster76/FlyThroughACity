@@ -1,11 +1,17 @@
 #include <ImmeubleAvecFenetre.h>
 
 
-ImmeubleAvecFenetre::ImmeubleAvecFenetre() {
+ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 	   rezDeChausse = osgDB::readNodeFile(REZ_DE_CHAUSSE);
 	   etage = osgDB::readNodeFile(ETAGE);
 	   toit = osgDB::readNodeFile(TOIT);
+	   mNombreEtages=nombreEtages;
 }
+
+int ImmeubleAvecFenetre::getNombreEtage() {
+	return mNombreEtages;
+}
+
 
 void ImmeubleAvecFenetre::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> navTrans) {
 	osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
@@ -24,10 +30,10 @@ osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::construireUnImmeuble() {
 	navTrans = new osg::MatrixTransform();
 	rootNode->addChild(navTrans);
 
-	//rezDeChausse->setName("rdc");
+
 	placeNodeElement(rezDeChausse,setCoordonnes(0,0,0),navTrans);
-	placeNodeElement(etage,setCoordonnes(0,4,0),navTrans);
-	placeNodeElement(toit,setCoordonnes(0,8,0),navTrans);
-	//std::cout << navTrans->getChild(3) << std::endl;
+	for(int i=1;i<mNombreEtages;i++)
+		placeNodeElement(etage,setCoordonnes(0,i*4,0),navTrans);
+	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),navTrans);
 	return rootNode;
 }

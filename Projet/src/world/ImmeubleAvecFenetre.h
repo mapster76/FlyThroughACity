@@ -22,8 +22,9 @@ using namespace std;
 class ImmeubleAvecFenetre {
 private:
 	osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit;
+	int mNombreEtages;
 public:
-	ImmeubleAvecFenetre();
+	ImmeubleAvecFenetre(int nombreEtages);
 
 	~ImmeubleAvecFenetre() {}
 
@@ -31,6 +32,8 @@ public:
 	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> pNavTrans);
 
 	osg::ref_ptr<osg::Group> construireUnImmeuble();
+
+	int getNombreEtage();
 };
 
 #endif /* IMMEUBLEAVECFENETRE_H_ */

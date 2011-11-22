@@ -4,8 +4,7 @@
 #include <osg/Geode>
 #include "CustomDrawable.h"
 
-#define RAYON_MAX_VILLE 100
-#define ESPACE_ENTRE_IMMEUBLE 40
+
 #define COTE_IMMEUBLE 8
 
 class ImmeublePlat : public CustomDrawable {

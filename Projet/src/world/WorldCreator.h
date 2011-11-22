@@ -14,8 +14,11 @@
 #include "util.h"
 #include <utility>
 #include <map>
+#include<osg/Light>
+#include<osg/LightSource>
 
-
+#define RAYON_MAX_VILLE 100
+#define ESPACE_ENTRE_IMMEUBLE 26
 using namespace std;
 
 class WorldCreator {
@@ -38,7 +41,7 @@ public:
 	 * Cette fonction cree un nouvel immeuble et l'ajoute a la map qui repertorie les immeubles par taille.
 	 * return un pointeur intelligent vers un noeud de type Geode permettant de dessiner des fonction opengl
 	 */
-	osg::ref_ptr<osg::Geode> createImmeubleNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height);
+	osg::ref_ptr<osg::Geode> createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height);
 
 	/**
 	 * Cette fonction verifie si l'immeuble avec la hauteur donnée est déjà présent dans la map immeubleParTaille
@@ -81,6 +84,12 @@ public:
 	 */
 	void generateSceneGraph();
 
+	/**
+	 * Ajoute des lumieres à la scenes
+	 */
+	void illuminateScene();
+
+	osg::ref_ptr<osg::Node> createImmeubleAvecFenetreNode(GLfloat nombreEtage);
 
 	WorldCreator()
 	{
