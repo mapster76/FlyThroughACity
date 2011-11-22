@@ -89,7 +89,7 @@ void Environment::seDeplacer()
 
 		mNavigator.setVelocity(direction);
 	}
-	gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
+	gmtl::EulerAngleXYZf euler( gmtl::makeXRot(mWand->getData()), gmtl::makeYRot(mWand->getData()), 0.0f );// (rot y,x)
 	gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
 	mNavigator.setRotationalVelocity(rot_mat);
 
