@@ -21,6 +21,15 @@ public:
 
   void ERRCHECK(FMOD_RESULT);
 
+ private:
+
+    FMOD::System     *system;
+    FMOD::Sound      *sound;
+    FMOD::Channel    *channel = 0;
+    FMOD_RESULT       result;
+    int               key;
+    unsigned int      version;
+
 };
 
 #endif /* SONS_H_ */
