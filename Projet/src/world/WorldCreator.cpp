@@ -57,7 +57,7 @@ void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
 	GLfloat nombreEtage=randomParPas(3,20,1);
 	if(!noeudImmeubleExiste(nombreEtage)) {
 		createImmeubleAvecFenetreNode(nombreEtage);
-		//createImmeublePlatNode(0,0,1,COTE_IMMEUBLE,nombreEtage);
+		//createImmeublePlatNode(0,0,1,COTE_IMMEUBLE,nombreEtage*10);
 	}
 	laCarte[coordonnes]=immeubleParTaille[nombreEtage];
 }
@@ -131,33 +131,34 @@ void WorldCreator::generateSceneGraph() {
 }
 
 void WorldCreator::illuminateScene() {
+	osg::ref_ptr<osg::PositionAttitudeTransform> position(new osg::PositionAttitudeTransform());
 	osg::ref_ptr<osg::Group> lightGroup (new osg::Group);
 	osg::ref_ptr<osg::StateSet> lightSS (pRootNode->getOrCreateStateSet());
 
 	osg::ref_ptr<osg::LightSource> lightSource1 = new osg::LightSource;
-	osg::Vec4f lightPosition(osg::Vec4f(0.0,0.0,200.0,1.0f));
+	osg::Vec4f lightPosition(osg::Vec4f(0.0,0.0,200.0,0.0f));
 	osg::ref_ptr<osg::Light> myLight = new osg::Light;
-	myLight->setLightNum(0);
+	myLight->setLightNum(1);
 	myLight->setPosition(lightPosition);
-	myLight->setDirection(osg::Vec3(0.0f,0.0f,-1.0f));
-	myLight->setAmbient(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setDiffuse(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setConstantAttenuation(1.0f);
+	//myLight->setDirection(osg::Vec3(0.0f,0.0f,-1.0f));
+	myLight->setAmbient(osg::Vec4(0.6f,0.6f,0.6f,1.0f));
+	myLight->setDiffuse(osg::Vec4(.8f,.8f,.8f,1.0f));
+	//myLight->setConstantAttenuation(1.0f);
 	lightSource1->setLight(myLight.get());
 
 	lightSource1->setLocalStateSetModes(osg::StateAttribute::ON);
 	lightSource1->setStateSetModes(*lightSS,osg::StateAttribute::ON);
-	lightGroup->addChild(lightSource1.get());;
+	lightGroup->addChild(lightSource1.get());
 
-	osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
+	/*osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
 	osg::Vec4f lightPosition2 (osg::Vec4f(0.0,200.0,0.0,1.0f));
 	osg::ref_ptr<osg::Light> myLight2 = new osg::Light;
 	myLight2->setLightNum(1);
 	myLight2->setPosition(lightPosition2);
 	myLight2->setDirection(osg::Vec3(0.0f,-1.0f,0.0f));
-	myLight2->setAmbient(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight2->setDiffuse(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setConstantAttenuation(1.0f);
+	myLight2->setAmbient(osg::Vec4(0.2f,0.2f,0.2f,1.0f));
+	myLight2->setDiffuse(osg::Vec4(.8f,.8f,.8f,1.0f));
+	//myLight2->setConstantAttenuation(1.0f);
 	lightSource2->setLight(myLight2.get());
 
 	lightSource2->setLocalStateSetModes(osg::StateAttribute::ON);
@@ -170,9 +171,9 @@ void WorldCreator::illuminateScene() {
 	myLight3->setLightNum(2);
 	myLight3->setPosition(lightPosition3);
 	myLight3->setDirection(osg::Vec3(-5.0f,0.0f,0.0f));
-	myLight3->setAmbient(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight3->setDiffuse(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setConstantAttenuation(1.0f);
+	myLight3->setAmbient(osg::Vec4(0.2f,0.2f,0.2f,1.0f));
+	myLight3->setDiffuse(osg::Vec4(.8f,.8f,.8f,1.0f));
+	//myLight3->setConstantAttenuation(1.0f);
 	lightSource3->setLight(myLight3.get());
 
 	lightSource3->setLocalStateSetModes(osg::StateAttribute::ON);
@@ -180,14 +181,14 @@ void WorldCreator::illuminateScene() {
 	lightGroup->addChild(lightSource3.get());
 
 	osg::ref_ptr<osg::LightSource> lightSource4 = new osg::LightSource;
-	osg::Vec4f lightPosition4(osg::Vec4f(-200.0,0.0,0.0,1.0f));
+	osg::Vec4f lightPosition4(osg::Vec4f(-200.0,0.0,0.0,0.0f));
 	osg::ref_ptr<osg::Light> myLight4 = new osg::Light;
 	myLight4->setLightNum(3);
 	myLight4->setPosition(lightPosition4);
 	myLight4->setDirection(osg::Vec3(5.0f,0.0f,0.0f));
-	myLight4->setAmbient(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight4->setDiffuse(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setConstantAttenuation(1.0f);
+	myLight4->setAmbient(osg::Vec4(0.2f,0.2f,0.2f,1.0f));
+	myLight4->setDiffuse(osg::Vec4(.8f,.8f,.8f,1.0f));
+	//myLight4->setConstantAttenuation(1.0f);
 	lightSource4->setLight(myLight4.get());
 
 	lightSource4->setLocalStateSetModes(osg::StateAttribute::ON);
@@ -196,20 +197,20 @@ void WorldCreator::illuminateScene() {
 
 
 	osg::ref_ptr<osg::LightSource> lightSource5 = new osg::LightSource;
-	osg::Vec4f lightPosition5(osg::Vec4f(0.0,0.0,-200.0,1.0f));
+	osg::Vec4f lightPosition5(osg::Vec4f(0.0,0.0,-200.0,0.0f));
 	osg::ref_ptr<osg::Light> myLight5 = new osg::Light;
 	myLight5->setLightNum(4);
 	myLight5->setPosition(lightPosition5);
-	myLight5->setDirection(osg::Vec3(0.0f,0.0f,1.0f));
-	myLight5->setAmbient(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight5->setDiffuse(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-	myLight->setConstantAttenuation(1.0f);
+	//myLight5->setDirection(osg::Vec3(0.0f,0.0f,1.0f));
+	myLight5->setAmbient(osg::Vec4(0.2f,0.2f,0.2f,1.0f));
+	myLight5->setDiffuse(osg::Vec4(.8f,.8f,.8f,1.0f));
+	//myLight5->setConstantAttenuation(1.0f);
 	lightSource5->setLight(myLight5.get());
 
 	lightSource5->setLocalStateSetModes(osg::StateAttribute::ON);
 	lightSource5->setStateSetModes(*lightSS,osg::StateAttribute::ON);
-	lightGroup->addChild(lightSource5.get());
+	lightGroup->addChild(lightSource5.get());*/
 
-
-	pRootNode->addChild(lightGroup.get());
+	position->addChild(lightGroup.get());
+	pRootNode->addChild(position.get());
 }

@@ -54,9 +54,10 @@ public:
    {
       vrj::OsgApp::configSceneView(newSceneViewer);
 
-      newSceneViewer->getLight()->setAmbient(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
-      newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
-      newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
+      newSceneViewer->getLight()->setAmbient(osg::Vec4(.0f,0.0f,0.0f,1.0f));
+      newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
+      newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));
+      cout << "numéro lumiere " <<newSceneViewer->getLight()->getLightNum() << endl;
    }
 
    void updateNavigation();

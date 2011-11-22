@@ -3,6 +3,7 @@
 
 #include <ImmeubleAvecFenetre.h>
 #include <osg/Geode>
+#include <osg/PositionAttitudeTransform>
 #include <osgUtil/Optimizer>
 #include <osg/Math>
 #include <osg/MatrixTransform>
