@@ -1,9 +1,6 @@
 #include "Sons.h"
 
-Sons::Sons()
-{
-
-}
+Sons() {}
 
 void Sons::ERRCHECK(FMOD_RESULT result)
 {
@@ -18,7 +15,7 @@ FMOD_RESULT Sons::Initialisation()
 {
     result = FMOD::System_Create(&system);
     ERRCHECK(result);
-
+    channel=0;
 
     //result = system->getVersion(&version);
     //ERRCHECK(result);
@@ -47,6 +44,7 @@ FMOD_RESULT Sons::Initialisation()
     result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
     ERRCHECK(result);
 
+    return result;
 
 }
 

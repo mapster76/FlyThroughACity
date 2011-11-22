@@ -40,7 +40,7 @@ void Environment::latePreFrame()
 }
 
 
-void Environment::vitesseNulle()
+void Environment::mettreVitesseNulle()
 {
   gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
   
@@ -52,7 +52,7 @@ void Environment::vitesseNulle()
 }
 
 
-void Environment::vitesseInitiale()
+void Environment::mettreVitesseInitiale()
 {
 
     gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
@@ -65,42 +65,26 @@ void Environment::vitesseInitiale()
 
 }
 
-void Environment::detectBouton2(){
-
-  if (mButton2->getData() == gadget::Digital::ON) {
-
-    if(bouton2EstAppuye)
-      bouton2EstAppuye = false;
-
+void Environment::avancerOuArreter(){
+    if(estEnTrainDAvancer)
+      estEnTrainDAvancer = false;
     else
-      bouton2EstAppuye = true;
-  }
-
+      estEnTrainDAvancer = true;
 }
 
 
 void Environment::gestionBouton2()
-{   
-  //detectBouton2();
-  if (mButton2->getData() == gadget::Digital::ON)
-    vitesseInitiale();
-  
-  //else
-  //vitesseNulle();
+{
+  if (mButton2->getData() == gadget::Digital::ON){
+	  if(!estEnTrainDAvancer) {
+	       estEnTrainDAvancer = true;
+	       mettreVitesseInitiale();
+	  } else {
+	       estEnTrainDAvancer = false;
+	       mettreVitesseNulle();
+	  }
 
-
-/*
- if ( mButton2->getData() == gadget::Digital::ON )
-   {
-      gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
-      gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-      mNavigator.setRotationalVelocity(rot_mat);
-   } // Make sure to reset the rotational velocity when we stop pressing the button.
-   else if(mButton2->getData() == gadget::Digital::TOGGLE_OFF)
-   {
-      mNavigator.setRotationalVelocity(gmtl::Matrix44f());
-   }
-  */
+  }
 }
 
 void Environment::gestionGachette()

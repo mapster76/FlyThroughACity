@@ -25,7 +25,7 @@ public:
 
     FMOD::System     *system;
     FMOD::Sound      *sound;
-    FMOD::Channel    *channel = 0;
+    FMOD::Channel    *channel;
     FMOD_RESULT       result;
     int               key;
     unsigned int      version;

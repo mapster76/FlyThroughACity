@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
    vrj::Kernel* kernel = vrj::Kernel::instance();  // Get the kernel
    Environment* application = new Environment(kernel, argc, argv); // Instantiate an instance of the app
-   Sons* ambiance = new Sons();
+   //Sons* ambiance = new Sons();
 
    if ( argc <= 1 )
    {
