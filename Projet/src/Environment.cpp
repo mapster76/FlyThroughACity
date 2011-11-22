@@ -19,12 +19,12 @@
 #include "world/Sol.h"
 
 
-bool bouton2EstAppuye = false;
-
 Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
 {
 	mWorld=new WorldCreator();
+	estEnTrainDAvancer=false;
+	tempsPourArret=0;
 }
 
 void Environment::latePreFrame()
@@ -40,15 +40,37 @@ void Environment::latePreFrame()
 }
 
 
-void Environment::mettreVitesseNulle()
+void Environment::ralentirPuisSAreter(long tempsCourant)
 {
-  gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
-  
-  gmtl::Vec3f direction;
-  gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-  gmtl::xform(direction, wandMatrix, Zdir);
-  mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
-  //mNavigator.setVelocity(direction);
+	if(!estEnTrainDAvancer) {
+		cout << "arret" << endl;
+		if(tempsPourArret==0)
+			tempsPourArret=tempsCourant;
+
+		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+
+		gmtl::Vec3f direction;
+
+		gmtl::Vec3f Zdir = mNavigator.getVelocity();
+		cout << "tempsArret" << tempsPourArret << "tempsCourant" << tempsCourant << endl;
+		float* vitesse=Zdir.getData();
+		if(tempsCourant-tempsPourArret>300000) {
+		  if(vitesse[0]<0)
+			  vitesse[0]+=1;
+		  if(vitesse[1]<0)
+			  vitesse[1]+=1;
+		  if(vitesse[2]<0)
+			  vitesse[2]+=1;
+		  Zdir.set(vitesse);
+		  gmtl::xform(direction, wandMatrix, Zdir);
+		  mNavigator.setVelocity(direction);
+		  tempsPourArret=tempsCourant;
+		}
+		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0)
+			tempsPourArret=0;
+
+		//mNavigator.setVelocity(direction);
+	}
 }
 
 
@@ -73,7 +95,7 @@ void Environment::avancerOuArreter(){
 }
 
 
-void Environment::gestionBouton2()
+void Environment::gestionBouton2(long tempsCourant)
 {
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
 	  if(!estEnTrainDAvancer) {
@@ -81,10 +103,10 @@ void Environment::gestionBouton2()
 	       mettreVitesseInitiale();
 	  } else {
 	       estEnTrainDAvancer = false;
-	       mettreVitesseNulle();
 	  }
 
   }
+  ralentirPuisSAreter(tempsCourant);
 }
 
 void Environment::gestionGachette()
@@ -124,7 +146,7 @@ void Environment::preFrame()
 
    gestionGachette();
 
-   gestionBouton2();
+   gestionBouton2(cur_time.getBaseVal());
 
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));

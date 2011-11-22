@@ -60,10 +60,10 @@ public:
 
    void updateNavigation();
 
-   void mettreVitesseNulle();
+   void ralentirPuisSAreter(long tempsCourant);
    void mettreVitesseInitiale();
    void gestionGachette();
-   void gestionBouton2();
+   void gestionBouton2(long tempsCourant);
    void avancerOuArreter();
 
    void bufferPreDraw();
@@ -122,6 +122,7 @@ public:
 private:
 
    bool estEnTrainDAvancer;
+   long tempsPourArret;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;
