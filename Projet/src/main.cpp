@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <Environment.h>
 #include <Sons.h>
+#include <Navigation.h>
 
 // --- Lib Stuff --- //
 #include <vrj/Kernel/Kernel.h>
