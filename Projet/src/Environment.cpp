@@ -78,16 +78,20 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 }
 
 
-void Environment::mettreVitesseInitiale()
+void Environment::seDeplacer()
 {
+	if(estEnTrainDAvancer) {
+		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
-    gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+		gmtl::Vec3f direction; // Choix de la vitesse
+		gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+		gmtl::xform(direction, wandMatrix, Zdir);
 
-    gmtl::Vec3f direction; // Choix de la vitesse
-    gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-    gmtl::xform(direction, wandMatrix, Zdir);
-    //mNavigator.setVelocity(gmtl::Vec3f(0.2, 0.0, 0.0));
-    mNavigator.setVelocity(direction);
+		mNavigator.setVelocity(direction);
+	}
+	gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
+	gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+	mNavigator.setRotationalVelocity(rot_mat);
 
 }
 
@@ -104,12 +108,12 @@ void Environment::gestionBouton2(long tempsCourant)
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
 	  if(!estEnTrainDAvancer) {
 	       estEnTrainDAvancer = true;
-	       mettreVitesseInitiale();
 	  } else {
 	       estEnTrainDAvancer = false;
 	  }
 
   }
+  seDeplacer();
   ralentirPuisSAreter(tempsCourant);
 }
 
