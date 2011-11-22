@@ -47,14 +47,13 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 		if(tempsPourArret==0)
 			tempsPourArret=tempsCourant;
 
-		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
 		gmtl::Vec3f direction;
 
 		gmtl::Vec3f Zdir = mNavigator.getVelocity();
 		cout << "tempsArret" << tempsPourArret << "tempsCourant" << tempsCourant << endl;
 		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourArret>300000) {
+		if(tempsCourant-tempsPourArret>200000) {
 		  if(vitesse[0]<0)
 			  vitesse[0]+=1;
 		  if(vitesse[1]<0)
@@ -62,8 +61,7 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 		  if(vitesse[2]<0)
 			  vitesse[2]+=1;
 		  Zdir.set(vitesse);
-		  gmtl::xform(direction, wandMatrix, Zdir);
-		  mNavigator.setVelocity(direction);
+		  mNavigator.setVelocity(Zdir);
 		  tempsPourArret=tempsCourant;
 		}
 		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0)
