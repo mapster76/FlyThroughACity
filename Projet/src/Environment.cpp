@@ -1,5 +1,4 @@
 #include <Environment.h>
-#include <Sons.h>
 
 #include <osg/Math>
 #include <osg/Geode>
@@ -19,6 +18,9 @@
 #include "world/ImmeublePlat.h"
 #include "world/Sol.h"
 
+
+bool bouton2EstAppuye = false;
+
 Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
 {
@@ -37,6 +39,91 @@ void Environment::latePreFrame()
    vrj::OsgApp::latePreFrame();
 }
 
+
+void Environment::vitesseNulle()
+{
+  gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+  
+  gmtl::Vec3f direction;
+  gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+  gmtl::xform(direction, wandMatrix, Zdir);
+  mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
+  //mNavigator.setVelocity(direction);
+}
+
+
+void Environment::vitesseInitiale()
+{
+
+    gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+
+    gmtl::Vec3f direction; // Choix de la vitesse
+    gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+    gmtl::xform(direction, wandMatrix, Zdir);
+    //mNavigator.setVelocity(gmtl::Vec3f(0.2, 0.0, 0.0));
+    mNavigator.setVelocity(direction);
+
+}
+
+void Environment::detectBouton2(){
+
+  if (mButton2->getData() == gadget::Digital::ON) {
+
+    if(bouton2EstAppuye)
+      bouton2EstAppuye = false;
+
+    else
+      bouton2EstAppuye = true;
+  }
+
+}
+
+
+void Environment::gestionBouton2()
+{   
+  //detectBouton2();
+  if (mButton2->getData() == gadget::Digital::ON)
+    vitesseInitiale();
+  
+  //else
+  //vitesseNulle();
+
+
+/*
+ if ( mButton2->getData() == gadget::Digital::ON )
+   {
+      gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
+      gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+      mNavigator.setRotationalVelocity(rot_mat);
+   } // Make sure to reset the rotational velocity when we stop pressing the button.
+   else if(mButton2->getData() == gadget::Digital::TOGGLE_OFF)
+   {
+      mNavigator.setRotationalVelocity(gmtl::Matrix44f());
+   }
+  */
+}
+
+void Environment::gestionGachette()
+{
+
+  gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+
+   if ( mButton0->getData() == gadget::Digital::ON )
+   {
+      gmtl::Vec3f direction;
+      gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+      gmtl::xform(direction, wandMatrix, Zdir);
+      mNavigator.setVelocity(direction);
+   }  // Make sure to reset the velocity when we stop pressing the button.
+
+   else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
+   {
+      mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
+   }
+
+}
+
+
 void Environment::preFrame()
 {
    
@@ -50,35 +137,10 @@ void Environment::preFrame()
    mLastPreFrameTime = cur_time;
 
    // Get wand data
-   gmtl::Matrix44f wandMatrix = mWand->getData();
 
-   // If we are pressing button 1 then translate in the direction the wand is
-   // pointing.
-   if ( mButton0->getData() == gadget::Digital::ON )
-   {
-      gmtl::Vec3f direction;
-      gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-      gmtl::xform(direction, wandMatrix, Zdir);
+   gestionGachette();
 
-      mNavigator.setVelocity(direction);
-   }  // Make sure to reset the velocity when we stop pressing the button.
-   else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
-   {
-      mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
-   }
-
-   // If we are pressing button 2 then rotate in the direction the wand is
-   // pointing.
-   if ( mButton2->getData() == gadget::Digital::ON )
-   {
-      gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
-      gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-      mNavigator.setRotationalVelocity(rot_mat);
-   } // Make sure to reset the rotational velocity when we stop pressing the button.
-   else if(mButton2->getData() == gadget::Digital::TOGGLE_OFF)
-   {
-      mNavigator.setRotationalVelocity(gmtl::Matrix44f());
-   }
+   gestionBouton2();
 
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));

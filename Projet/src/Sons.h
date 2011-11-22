@@ -7,12 +7,20 @@
 #include <stdio.h>
 
 
-class Sons {
-public:
-	Sons();
-	virtual ~Sons();
+class Sons
+{
 
-	void Ambiance();
+public:
+
+  Sons();
+  virtual ~Sons();
+
+  FMOD_RESULT Initialisation();
+
+  void Ambiance();
+
+  void ERRCHECK(FMOD_RESULT);
+
 };
 
 #endif /* SONS_H_ */

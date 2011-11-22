@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <Environment.h>
 #include <Sons.h>
-#include <Navigation.h>
 
 // --- Lib Stuff --- //
 #include <vrj/Kernel/Kernel.h>
@@ -13,7 +12,8 @@ int main(int argc, char* argv[])
 {
 
    vrj::Kernel* kernel = vrj::Kernel::instance();  // Get the kernel
-   Environment* application = new Environment(kernel, argc, argv);             // Instantiate an instance of the app
+   Environment* application = new Environment(kernel, argc, argv); // Instantiate an instance of the app
+   Sons* ambiance = new Sons();
 
    if ( argc <= 1 )
    {
@@ -37,7 +37,6 @@ int main(int argc, char* argv[])
    }
 
    kernel->start();
-
    kernel->setApplication(application);
 
    kernel->waitForKernelStop();

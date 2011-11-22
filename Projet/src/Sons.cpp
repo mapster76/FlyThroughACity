@@ -1,14 +1,11 @@
 #include "Sons.h"
 
-Sons::Sons() {
+Sons::Sons()
+{
 
 }
 
-Sons::~Sons() {
-
-}
-
-void ERRCHECK(FMOD_RESULT result)
+void Sons::ERRCHECK(FMOD_RESULT result)
 {
     if (result != FMOD_OK)
     {
@@ -17,27 +14,14 @@ void ERRCHECK(FMOD_RESULT result)
     }
 }
 
-
-void Sons::Ambiance()
+FMOD_RESULT Sons::Initialisation()
 {
-
-	printf("\nTEST\n");
-
-    FMOD::System     *system;
-    FMOD::Sound      *sound;
-    FMOD::Channel    *channel = 0;
-    FMOD_RESULT       result;
-    int               key;
-    unsigned int      version;
-
-
-    // Create a System object and initialize.
-
     result = FMOD::System_Create(&system);
     ERRCHECK(result);
 
-    result = system->getVersion(&version);
-    ERRCHECK(result);
+
+    //result = system->getVersion(&version);
+    //ERRCHECK(result);
 
 /*
     if (version < FMOD_VERSION)
@@ -47,7 +31,7 @@ void Sons::Ambiance()
     }
 */
 
-	result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
+    result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
     ERRCHECK(result);
 
     result = system->init(1, FMOD_INIT_NORMAL, 0);
@@ -56,7 +40,23 @@ void Sons::Ambiance()
     result = system->createSound("../fmod/Audio/AmbianceVille.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sound);
     ERRCHECK(result);
 
-    printf("Press space to pause, Esc to quit\n");
+    //printf("Press space to pause, Esc to quit\n");
+
+    // Play the sound.
+
+    result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+    ERRCHECK(result);
+
+
+}
+
+void Sons::Ambiance()
+{
+   // Create a System object and initialize.
+  result = Initialisation();
+
+  result = system->createSound("../fmod/Audio/AmbianceVille.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sound);
+    ERRCHECK(result);
 
     // Play the sound.
 
@@ -66,8 +66,10 @@ void Sons::Ambiance()
     /*
         Main loop.
     */
+    
     do
     {
+      /*
         if (kbhit())
         {
             key = getch();
@@ -83,7 +85,7 @@ void Sons::Ambiance()
                 }
             }
         }
-
+      */
         system->update();
 
         if (channel)

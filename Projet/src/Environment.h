@@ -60,6 +60,12 @@ public:
 
    void updateNavigation();
 
+   void vitesseNulle();
+   void vitesseInitiale();
+   void gestionGachette();
+   void gestionBouton2();
+   void detectBouton2();
+
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------
@@ -114,6 +120,8 @@ public:
    }
 
 private:
+
+   bool bouton2EstAppuye;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;

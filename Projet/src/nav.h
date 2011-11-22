@@ -193,9 +193,9 @@ public:
 
 private:
    bool                    mActive;      /**< True if we have been initialized */
-   NavMode                mMode;        /**< Current navigation mode */
+   NavMode                 mMode;        /**< Current navigation mode */
 
-   /** Current postion (as userdate for sharing across cluster */
+   /** Current position (as userdate for sharing across cluster */
    cluster::UserData< NavData >  mNavData;
 
    gmtl::Vec3f             mVelocity;        /**< Current trans velocity */
