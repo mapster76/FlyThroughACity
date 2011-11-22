@@ -28,6 +28,7 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
 void Environment::latePreFrame()
 {
    gmtl::Matrix44f world_transform;
+   gmtl::invertFull(world_transform, mNavigator.getCurPos());
    // Update the scene graph
    osg::Matrix osg_current_matrix;
    osg_current_matrix.set(world_transform.getData());
@@ -45,8 +46,45 @@ void Environment::preFrame()
    if (mLastPreFrameTime.getBaseVal() >= cur_time.getBaseVal())
    {  diff_time.secf(0.0f); }
 
-   //float time_delta = diff_time.secf();
+   float time_delta = diff_time.secf();
    mLastPreFrameTime = cur_time;
+
+   // Get wand data
+   gmtl::Matrix44f wandMatrix = mWand->getData();
+
+   // If we are pressing button 1 then translate in the direction the wand is
+   // pointing.
+   if ( mButton0->getData() == gadget::Digital::ON )
+   {
+      gmtl::Vec3f direction;
+      gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+      gmtl::xform(direction, wandMatrix, Zdir);
+
+      mNavigator.setVelocity(direction);
+   }  // Make sure to reset the velocity when we stop pressing the button.
+   else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
+   {
+      mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
+   }
+
+   // If we are pressing button 2 then rotate in the direction the wand is
+   // pointing.
+   if ( mButton2->getData() == gadget::Digital::ON )
+   {
+      gmtl::EulerAngleXYZf euler( 0.0f, gmtl::makeYRot(mWand->getData()), 0.0f );// Only allow Yaw (rot y)
+      gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+      mNavigator.setRotationalVelocity(rot_mat);
+   } // Make sure to reset the rotational velocity when we stop pressing the button.
+   else if(mButton2->getData() == gadget::Digital::TOGGLE_OFF)
+   {
+      mNavigator.setRotationalVelocity(gmtl::Matrix44f());
+   }
+
+   // Get the wand matrix in the units of this application.
+   const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
+   // Update the navigation using the time delta between
+   mNavigator.update(time_delta);
+
 
 }
 
@@ -84,4 +122,5 @@ void Environment::initScene()
 void Environment::myInit()
 {
 	mWorld->drawWorld(mRootNode,mNavTrans);
+	mNavigator.init();
 }
