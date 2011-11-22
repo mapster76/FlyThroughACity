@@ -39,11 +39,22 @@ void Environment::latePreFrame()
    vrj::OsgApp::latePreFrame();
 }
 
-
+void ralentir(float &vitesseARalentir) {
+	if(vitesseARalentir>=-1 && vitesseARalentir<=1) {
+	  vitesseARalentir=0;
+	} else {
+	  if(vitesseARalentir<-1) {
+		  vitesseARalentir+=1;
+	  }
+	  if(vitesseARalentir>1) {
+		  vitesseARalentir-=1;
+	  }
+	}
+}
 void Environment::ralentirPuisSAreter(long tempsCourant)
 {
 	if(!estEnTrainDAvancer) {
-		cout << "arret" << endl;
+		//cout << "arret" << endl;
 		if(tempsPourArret==0)
 			tempsPourArret=tempsCourant;
 
@@ -51,15 +62,14 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 		gmtl::Vec3f direction;
 
 		gmtl::Vec3f Zdir = mNavigator.getVelocity();
-		cout << "tempsArret" << tempsPourArret << "tempsCourant" << tempsCourant << endl;
+		//cout << "tempsArret" << tempsPourArret << "tempsCourant" << tempsCourant << endl;
 		float* vitesse=Zdir.getData();
 		if(tempsCourant-tempsPourArret>200000) {
-		  if(vitesse[0]<0)
-			  vitesse[0]+=1;
-		  if(vitesse[1]<0)
-			  vitesse[1]+=1;
-		  if(vitesse[2]<0)
-			  vitesse[2]+=1;
+
+			ralentir(vitesse[0]);
+			ralentir(vitesse[1]);
+			ralentir(vitesse[2]);
+		  cout << "0 " << vitesse[0] << "1 " << vitesse[1] << "2 " << vitesse[2] << endl;
 		  Zdir.set(vitesse);
 		  mNavigator.setVelocity(Zdir);
 		  tempsPourArret=tempsCourant;
