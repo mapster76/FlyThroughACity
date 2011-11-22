@@ -18,7 +18,7 @@
 #include<osg/Light>
 #include<osg/LightSource>
 
-#define RAYON_MAX_VILLE 50
+#define RAYON_MAX_VILLE 200
 #define ESPACE_ENTRE_IMMEUBLE 26
 using namespace std;
 
