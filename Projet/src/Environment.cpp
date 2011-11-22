@@ -75,7 +75,7 @@ void Environment::avancerOuArreter(){
 
 void Environment::gestionBouton2()
 {
-  if (mButton2->getData() == gadget::Digital::ON){
+  if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
 	  if(!estEnTrainDAvancer) {
 	       estEnTrainDAvancer = true;
 	       mettreVitesseInitiale();
