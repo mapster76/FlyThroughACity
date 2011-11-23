@@ -66,7 +66,7 @@ public:
    void gestionGachette(long tempsCourant);
    void gestionBouton2(long tempsCourant);
    void avancerOuArreter();
-
+   void droitDeTourner();
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------
@@ -123,7 +123,7 @@ public:
 private:
 
    bool estEnTrainDAvancer;
-   bool droitDeTourner;
+   bool peutTourner;
    long tempsPourArret;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;

@@ -11,7 +11,7 @@
 #include <gmtl/Coord.h>
 #include <gmtl/Xforms.h>
 #include <gmtl/Math.h>
-
+#include <math.h>
 #include <string>
 
 #include "world/CustomDrawable.h"
@@ -25,7 +25,7 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
 	mWorld=new WorldCreator();
 	estEnTrainDAvancer = false;
 	tempsPourArret = 0;
-	droitDeTourner = false;
+	peutTourner = false;
 }
 
 void Environment::latePreFrame()
@@ -121,9 +121,9 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 	}
 }
 
-void droitDeTourner() {
-  if(!estEnTrainDAvancer && !droitDeTourner)
-      droitDeTourner = true;
+void Environment::droitDeTourner() {
+  if(!estEnTrainDAvancer && !peutTourner)
+      peutTourner = true;
 }
 
 void Environment::seDeplacer()
@@ -137,15 +137,21 @@ void Environment::seDeplacer()
 
 		mNavigator.setVelocity(direction);
 	}
-	gmtl::EulerAngleXYZf euler( gmtl::makeXRot(mWand->getData()), gmtl::makeYRot(mWand->getData()), 0.0f );// (rot y,x)
-	gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-	mNavigator.setRotationalVelocity(rot_mat);
+	if(peutTourner) {
+		float vitesseRotationX=gmtl::makeXRot(mWand->getData());
+		float vitesseRotationY=gmtl::makeYRot(mWand->getData());
+		float vitesseRotationZ=gmtl::makeZRot(mWand->getData());
+		gmtl::EulerAngleXYZf euler(vitesseRotationX,vitesseRotationY,vitesseRotationZ);
+		gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+		mNavigator.setRotationalVelocity(rot_mat);
+	}
 
 }
 
 void Environment::avancerOuArreter(){
 
   if(!estEnTrainDAvancer) {
+	  droitDeTourner();
       estEnTrainDAvancer = true;
   } else {
       estEnTrainDAvancer = false;
@@ -156,12 +162,7 @@ void Environment::avancerOuArreter(){
 void Environment::gestionBouton2(long tempsCourant)
 {
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
-	  if(!estEnTrainDAvancer) {
-	       estEnTrainDAvancer = true;
-	  } else {
-	       estEnTrainDAvancer = false;
-	  }
-
+	  avancerOuArreter();
   }
   seDeplacer();
   ralentirPuisSAreter(tempsCourant);
