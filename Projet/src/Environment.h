@@ -66,6 +66,7 @@ public:
    void gestionGachette(long tempsCourant);
    void gestionBouton2(long tempsCourant);
    void avancerOuArreter();
+   void deccelerer(long tempsCourant);
    void droitDeTourner();
    void bufferPreDraw();
 
@@ -125,6 +126,10 @@ private:
    bool estEnTrainDAvancer;
    bool peutTourner;
    long tempsPourArret;
+   long tempsPourAcceleration;
+   long tempsPourDecceleration;
+   long estEnTrainDAccelerer;
+   long estEnTrainDeDecelerer;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;

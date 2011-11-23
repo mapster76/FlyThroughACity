@@ -114,7 +114,7 @@ public:
    void setVelocity(const gmtl::Vec3f& vel)
    {
       mVelocity = vel;
-      vprDEBUG(vprDBG_ALL, vprDBG_CRITICAL_LVL) << ": Trans Vel: " << mVelocity << std::endl << vprDEBUG_FLUSH;
+      //vprDEBUG(vprDBG_ALL, vprDBG_CRITICAL_LVL) << ": Trans Vel: " << mVelocity << std::endl << vprDEBUG_FLUSH;
    }
 
    gmtl::Vec3f& getVelocity() {
@@ -123,7 +123,7 @@ public:
    void setRotationalVelocity(const gmtl::Matrix44f& rot_vel)
    {
       mRotVelocity = rot_vel;
-      vprDEBUG(vprDBG_ALL, vprDBG_CRITICAL_LVL) << "Rot Vel: " << mRotVelocity << std::endl << vprDEBUG_FLUSH;
+      //vprDEBUG(vprDBG_ALL, vprDBG_CRITICAL_LVL) << "Rot Vel: " << mRotVelocity << std::endl << vprDEBUG_FLUSH;
    }
    void update(float delta)
    {

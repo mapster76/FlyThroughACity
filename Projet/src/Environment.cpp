@@ -25,7 +25,11 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
 	mWorld=new WorldCreator();
 	estEnTrainDAvancer = false;
 	tempsPourArret = 0;
+	tempsPourAcceleration=0;
+	tempsPourDecceleration=0;
 	peutTourner = false;
+	estEnTrainDAccelerer=false;
+	estEnTrainDeDecelerer=false;
 }
 
 void Environment::latePreFrame()
@@ -42,45 +46,44 @@ void Environment::latePreFrame()
 
 void augmenterVitesse(float &vitesseAAccelerer) {
 
-  int a = 20;
-
-	if(vitesseAAccelerer >= -a && vitesseAAccelerer <= a) {
-	  if(vitesseAAccelerer < 0)
-		  vitesseAAccelerer-=1;
-	  if(vitesseAAccelerer > 0)
-		  vitesseAAccelerer+=1;
-	}
-	else if (vitesseAAccelerer < -a)
-	  vitesseAAccelerer = -a;
-	else if (vitesseAAccelerer > a)
-	  vitesseAAccelerer = a;
-
+	vitesseAAccelerer*=1.05;
 }
 
 void Environment::accelerer(long tempsCourant) { 
+	int seuilMaximal = 40;
+	if(estEnTrainDAvancer) {
+		if(!estEnTrainDAccelerer) {
+			estEnTrainDAccelerer=true;
+			estEnTrainDeDecelerer=false;
+		}
+		if(tempsPourAcceleration==0)
+			tempsPourAcceleration=tempsCourant;
 
-  if(estEnTrainDAvancer) {
-		if(tempsPourArret==0)
-			tempsPourArret=tempsCourant;
+		gmtl::Vec3f direction; // Choix de la vitesse
 
-		gmtl::Vec3f direction;
 
 		gmtl::Vec3f Zdir = mNavigator.getVelocity();
 		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourArret>200000) {
+		if(tempsCourant-tempsPourAcceleration>20000) {
 
-		  augmenterVitesse(vitesse[0]);
-	          augmenterVitesse(vitesse[1]);
-		  augmenterVitesse(vitesse[2]);
-		  Zdir.set(vitesse);
-		  mNavigator.setVelocity(Zdir);
-		  tempsPourArret=tempsCourant;
+			if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])<seuilMaximal) {
+				cout << "Acceleration "<< endl;
+			  augmenterVitesse(vitesse[0]);
+			  augmenterVitesse(vitesse[1]);
+			  augmenterVitesse(vitesse[2]);
+			  cout << "0 " << vitesse[0] << " 1 " << vitesse[1] << " 2 " << vitesse[2] << endl;
+			  Zdir.set(vitesse);
+			  mNavigator.setVelocity(Zdir);
+
+			}
+			tempsPourAcceleration=0;
 		}
-		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0)
-			tempsPourArret=0;
+
 	}
 
 }
+
+
 
 void ralentir(float &vitesseARalentir) {
 
@@ -95,6 +98,39 @@ void ralentir(float &vitesseARalentir) {
 	  }
 	}
 }
+
+void Environment::deccelerer(long tempsCourant) {
+	int seuilMinimal = 10;
+		if(estEnTrainDAvancer && estEnTrainDeDecelerer) {
+
+			if(tempsPourDecceleration==0)
+				tempsPourDecceleration=tempsCourant;
+
+
+			gmtl::Vec3f Zdir = mNavigator.getVelocity();
+			float* vitesse=Zdir.getData();
+			if(tempsCourant-tempsPourDecceleration>40000) {
+
+				if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>seuilMinimal) {
+				  cout << "decellere" << endl;
+				  ralentir(vitesse[0]);
+				  ralentir(vitesse[1]);
+				  ralentir(vitesse[2]);
+				  cout << "0 " << vitesse[0] << " 1 " << vitesse[1] << " 2 " << vitesse[2] << endl;
+				  Zdir.set(vitesse);
+				  mNavigator.setVelocity(Zdir);
+
+				} else {
+					cout << "fin Deceleration" << endl;
+					estEnTrainDeDecelerer=false;
+				}
+				tempsPourDecceleration=0;
+			}
+
+		}
+}
+
+
 void Environment::ralentirPuisSAreter(long tempsCourant)
 {
 	if(!estEnTrainDAvancer) {
@@ -128,7 +164,7 @@ void Environment::droitDeTourner() {
 
 void Environment::seDeplacer()
 {
-	if(estEnTrainDAvancer) {
+	if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
 		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
 		gmtl::Vec3f direction; // Choix de la vitesse
@@ -172,13 +208,16 @@ void Environment::gestionGachette(long tempsCourant) {
 
    if ( mButton0->getData() == gadget::Digital::ON )
    {
-     avancerOuArreter();
-     accelerer(tempsCourant);
+	 accelerer(tempsCourant);
    }
 
-   else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
+   if ( mButton0->getData() == gadget::Digital::OFF)
    {
-     ralentirPuisSAreter(tempsCourant);
+	 if(estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
+		 estEnTrainDAccelerer=false;
+		 estEnTrainDeDecelerer=true;
+	 }
+     deccelerer(tempsCourant);
    }
 }
 
