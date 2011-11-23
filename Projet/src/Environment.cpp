@@ -39,7 +39,50 @@ void Environment::latePreFrame()
    vrj::OsgApp::latePreFrame();
 }
 
+void augmenterVitesse(float &vitesseAAccelerer) {
+
+  int a = 20;
+
+	if(vitesseAAccelerer >= -a && vitesseAAccelerer <= a) {
+	  if(vitesseAAccelerer < 0)
+		  vitesseAAccelerer-=1;
+	  if(vitesseAAccelerer > 0)
+		  vitesseAAccelerer+=1;
+	}
+	else if (vitesseAAccelerer < -a)
+	  vitesseAAccelerer = -a;
+	else if (vitesseAAccelerer > a)
+	  vitesseAAccelerer = a;
+
+}
+
+void Environment::accelerer(long tempsCourant) { 
+
+  if(estEnTrainDAvancer) {
+		if(tempsPourArret==0)
+			tempsPourArret=tempsCourant;
+
+		gmtl::Vec3f direction;
+
+		gmtl::Vec3f Zdir = mNavigator.getVelocity();
+		float* vitesse=Zdir.getData();
+		if(tempsCourant-tempsPourArret>200000) {
+
+		  augmenterVitesse(vitesse[0]);
+	          augmenterVitesse(vitesse[1]);
+		  augmenterVitesse(vitesse[2]);
+		  Zdir.set(vitesse);
+		  mNavigator.setVelocity(Zdir);
+		  tempsPourArret=tempsCourant;
+		}
+		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0)
+			tempsPourArret=0;
+	}
+
+}
+
 void ralentir(float &vitesseARalentir) {
+
 	if(vitesseARalentir>=-1 && vitesseARalentir<=1) {
 	  vitesseARalentir=0;
 	} else {
@@ -96,10 +139,12 @@ void Environment::seDeplacer()
 }
 
 void Environment::avancerOuArreter(){
-    if(estEnTrainDAvancer)
-      estEnTrainDAvancer = false;
-    else
+
+  if(!estEnTrainDAvancer) {
       estEnTrainDAvancer = true;
+  } else {
+      estEnTrainDAvancer = false;
+  }
 }
 
 
@@ -117,24 +162,17 @@ void Environment::gestionBouton2(long tempsCourant)
   ralentirPuisSAreter(tempsCourant);
 }
 
-void Environment::gestionGachette()
-{
-
-  gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+void Environment::gestionGachette(long tempsCourant) {
 
    if ( mButton0->getData() == gadget::Digital::ON )
    {
-      gmtl::Vec3f direction;
-      gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-      gmtl::xform(direction, wandMatrix, Zdir);
-      mNavigator.setVelocity(direction);
-   }  // Make sure to reset the velocity when we stop pressing the button.
+     avancerOuArreter();
+     accelerer(tempsCourant);
 
    else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
    {
-      mNavigator.setVelocity(gmtl::Vec3f(0.0, 0.0, 0.0));
+     ralentirPuisSAreter(tempsCourant);
    }
-
 }
 
 
@@ -152,7 +190,7 @@ void Environment::preFrame()
 
    // Get wand data
 
-   gestionGachette();
+   gestionGachette(cur_time.getBaseVal());
 
    gestionBouton2(cur_time.getBaseVal());
 

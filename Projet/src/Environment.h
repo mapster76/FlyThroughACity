@@ -61,6 +61,7 @@ public:
    void updateNavigation();
 
    void ralentirPuisSAreter(long tempsCourant);
+   void accelerer(long tempsCourant);
    void seDeplacer();
    void gestionGachette();
    void gestionBouton2(long tempsCourant);
