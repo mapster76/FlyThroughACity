@@ -68,6 +68,7 @@ public:
    void avancerOuArreter();
    void deccelerer(long tempsCourant);
    void droitDeTourner();
+   void detectionRotationExcessive(float*);
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------

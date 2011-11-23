@@ -44,13 +44,56 @@ void Environment::latePreFrame()
    vrj::OsgApp::latePreFrame();
 }
 
+void Environment::detectionRotationExcessive(float* vitesseRotation) {
+
+  int angleX = 2.3;
+  int angleY = 2.3;
+  int angleZ = 2.3;
+
+  if(vitesseRotation[0] < -angleX) {
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+  if(vitesseRotation[0] > angleX){
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+
+  if(vitesseRotation[1] < -angleY){
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+  if(vitesseRotation[1] > angleY){
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+
+  if(vitesseRotation[2] < -angleZ){
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+  if(vitesseRotation[2] > angleZ){
+    vitesseRotation[0] = 0;
+    vitesseRotation[1] = 0;
+    vitesseRotation[2] = 0;
+  }
+
+}
+
+
+
 void augmenterVitesse(float &vitesseAAccelerer) {
 
 	vitesseAAccelerer*=1.05;
 }
 
 void Environment::accelerer(long tempsCourant) { 
-	int seuilMaximal = 40;
+	int seuilMaximal = 80;
 	if(estEnTrainDAvancer) {
 		if(!estEnTrainDAccelerer) {
 			estEnTrainDAccelerer=true;
@@ -174,10 +217,15 @@ void Environment::seDeplacer()
 		mNavigator.setVelocity(direction);
 	}
 	if(peutTourner) {
-		float vitesseRotationX=gmtl::makeXRot(mWand->getData());
-		float vitesseRotationY=gmtl::makeYRot(mWand->getData());
-		float vitesseRotationZ=gmtl::makeZRot(mWand->getData());
-		gmtl::EulerAngleXYZf euler(vitesseRotationX,vitesseRotationY,vitesseRotationZ);
+	        float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()), gmtl::makeYRot(mWand->getData()), gmtl::makeZRot(mWand->getData())};
+		
+		cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+		if(!estEnTrainDAvancer) 
+		  detectionRotationExcessive(vitesseRotation);
+		cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+
+		gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
+		cout << euler << endl;
 		gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
 		mNavigator.setRotationalVelocity(rot_mat);
 	}
