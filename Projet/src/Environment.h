@@ -63,7 +63,7 @@ public:
    void ralentirPuisSAreter(long tempsCourant);
    void accelerer(long tempsCourant);
    void seDeplacer();
-   void gestionGachette();
+   void gestionGachette(long tempsCourant);
    void gestionBouton2(long tempsCourant);
    void avancerOuArreter();
 
@@ -123,6 +123,7 @@ public:
 private:
 
    bool estEnTrainDAvancer;
+   bool droitDeTourner;
    long tempsPourArret;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;

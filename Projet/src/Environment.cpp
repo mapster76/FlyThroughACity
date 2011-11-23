@@ -23,8 +23,9 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
 {
 	mWorld=new WorldCreator();
-	estEnTrainDAvancer=false;
-	tempsPourArret=0;
+	estEnTrainDAvancer = false;
+	tempsPourArret = 0;
+	droitDeTourner = false;
 }
 
 void Environment::latePreFrame()
@@ -120,6 +121,10 @@ void Environment::ralentirPuisSAreter(long tempsCourant)
 	}
 }
 
+void droitDeTourner() {
+  if(!estEnTrainDAvancer && !droitDeTourner)
+      droitDeTourner = true;
+}
 
 void Environment::seDeplacer()
 {
@@ -168,6 +173,7 @@ void Environment::gestionGachette(long tempsCourant) {
    {
      avancerOuArreter();
      accelerer(tempsCourant);
+   }
 
    else if ( mButton0->getData() == gadget::Digital::TOGGLE_OFF)
    {
@@ -237,4 +243,6 @@ void Environment::myInit()
 {
 	mWorld->drawWorld(mRootNode,mNavTrans);
 	mNavigator.init();
+
+
 }
