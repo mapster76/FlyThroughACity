@@ -50,7 +50,7 @@ void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> n
 	osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
 
 	mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
-	mModel->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( 270.0f ), 1.0f, 0.0f, 0.0f) );
+	mModel->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f), 1.0f, 0.0f, 0.0f) );
 
 	navTrans->addChild(mModel);
 	mModel->addChild(ImmeubleAvecFenetre::route.get());

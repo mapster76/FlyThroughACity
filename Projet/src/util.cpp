@@ -1,10 +1,11 @@
 #include<util.h>
 
-bool seedInitialiser=false;
+
 
 int randomParPas(int a, int b,int pas){
+	static bool seedInitialiser=false;
 	if(!seedInitialiser) {
-		srand(time(NULL));
+		srand(10000);
 		seedInitialiser=true;
 	}
 	int nombreAleatoire=rand()%(b-a) +a;
