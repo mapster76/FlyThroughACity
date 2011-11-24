@@ -3,15 +3,15 @@
 
 
 void WorldCreator::initialiseWorld() {
-	osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
+	/*osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
 	osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
 	GLfloat color[3]={0.2,0.2,0.2};
 	osg::ref_ptr<CustomDrawable> sol(new Sol(RAYON_MAX_VILLE*2,color));
-	noeudSol->addDrawable((osg::Drawable*)sol.get());
+	noeudSol->addDrawable((osg::Drawable*)sol.get());*/
 
 	pRootNode->addChild(pNavTrans);
-	pNavTrans->addChild(mModelSol);
-	mModelSol->addChild(noeudSol.get());
+	//pNavTrans->addChild(mModelSol);
+	//mModelSol->addChild(noeudSol.get());
 }
 
 
@@ -148,5 +148,18 @@ void WorldCreator::illuminateScene() {
 	lightSource1->setStateSetModes(*lightSS,osg::StateAttribute::ON);
 	lightGroup->addChild(lightSource1.get());
 
+	/*	osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
+	osg::Vec4f lightPosition2(osg::Vec4f(0.0,1.0,0.0,0.0f));
+	osg::ref_ptr<osg::Light> myLight2 = new osg::Light;
+	myLight2->setLightNum(1);
+	myLight2->setPosition(lightPosition);
+	myLight2->setAmbient(osg::Vec4(.4f,.4f,.4f,1.0f));
+	myLight2->setDiffuse(osg::Vec4(.5f,.5f,.5f,1.0f));
+	myLight2->setSpecular(osg::Vec4(.3f,.3f,.3f,1.0f));
+	lightSource2->setLight(myLight2.get());
+
+	lightSource2->setLocalStateSetModes(osg::StateAttribute::ON);
+	lightSource2->setStateSetModes(*lightSS,osg::StateAttribute::ON);
+	lightGroup->addChild(lightSource2.get());*/
 	pNavTrans->addChild(lightGroup.get());
 }

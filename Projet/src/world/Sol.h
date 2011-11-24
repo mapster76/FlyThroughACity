@@ -2,13 +2,19 @@
 #define SOL_H_
 
 #include<iostream>
+#include<CustomDrawable.h>
+
+
 class Sol : public CustomDrawable {
 
 private:
 	GLfloat mSize;
 	GLfloat mColor[3];
 
+
 public:
+	static osg::ref_ptr<osg::Image> image;
+
 	Sol(GLfloat size,GLfloat color[])
 	{
 		mSize=size;
@@ -20,25 +26,7 @@ public:
 	virtual ~Sol() {
 	}
 
-	virtual void drawImplementation(osg::RenderInfo& renderInfo) const {
-		glColor3fv(mColor);
-		glBegin(GL_QUADS);
-			glNormal3f (0, 1, 0);
-
-			glTexCoord2f(0,0);
-			glVertex3f (-mSize,0, -mSize);
-
-			glTexCoord2f(1, 0);
-			glVertex3f (mSize,0,-mSize);
-
-			glTexCoord2f(1,1);
-			glVertex3f ( mSize,0,mSize);
-
-			glTexCoord2f(0, 1);
-			glVertex3f(-mSize,0,mSize);
-
-		glEnd();
-	}
+	virtual void drawImplementation(osg::RenderInfo& renderInfo) const;
 
 
 };

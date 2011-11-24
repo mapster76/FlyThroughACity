@@ -1,6 +1,13 @@
 #ifndef CUSTOMDRAWABLE_H_
 #define CUSTOMDRAWABLE_H_
 
+#include <osg/Geode>
+#include <osg/PositionAttitudeTransform>
+#include <osgUtil/Optimizer>
+#include <osg/Math>
+#include <osgDB/ReadFile>
+#include <osg/MatrixTransform>
+#include <osg/Material>
 class CustomDrawable: public osg::Drawable
 {
    public:

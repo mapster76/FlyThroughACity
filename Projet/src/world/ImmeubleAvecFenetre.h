@@ -11,19 +11,23 @@
 #include <osgDB/ReadFile>
 #include <unistd.h>
 #include <gmtl/Math.h>
+#include <Sol.h>
 
 
 #define REZ_DE_CHAUSSE std::string("../model/rdc.3ds")
 #define ETAGE std::string("../model/etage.3ds")
 #define TOIT std::string("../model/toit.3ds")
+#define TROTOIR std::string("../model/trotoir.3ds")
+#define ROUTE std::string("../model/route.obj")
 
 using namespace std;
 
 class ImmeubleAvecFenetre {
 private:
-	osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit;
+
 	int mNombreEtages;
 public:
+	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route;
 	ImmeubleAvecFenetre(int nombreEtages);
 
 	~ImmeubleAvecFenetre() {}
