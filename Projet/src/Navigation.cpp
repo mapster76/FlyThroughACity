@@ -199,7 +199,7 @@ void Navigation::seDeplacer()
 		}*/
 
 		if(abs(rotationWandAxeX)<0.2) {
-			vitesseRotation[0]-=vitesseRotation[0];
+			vitesseRotation[0]=0;
 		}
 		if(rotationWandAxeX>0.2)
 			vitesseRotation[0]-=0.2;
