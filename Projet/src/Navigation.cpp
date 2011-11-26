@@ -192,9 +192,9 @@ void Navigation::seDeplacer()
 
 		//float angleRotationX=gmtl::makeXRot(mNavigator->getCurPos());
 		float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
-		float rotationWandAxeY=gmtl::makeYRot(mWand->getData());
-		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
-		float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()),gmtl::makeYRot(mWand->getData()),gmtl::makeZRot(mWand->getData())};
+		float rotationWandAxeY=gmtl::makeZRot(mWand->getData());
+		float rotationWandAxeZ=gmtl::makeYRot(mWand->getData());
+		float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()),gmtl::makeZRot(mWand->getData()),gmtl::makeYRot(mWand->getData())};
 		/*if(abs(vitesseRotation[1])>0. && abs(angleRotationX)>0) {
 			vitesseRotation[0]*=0.5;
 		}*/
