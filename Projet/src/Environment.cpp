@@ -58,7 +58,6 @@ void Environment::preFrame()
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
    // Update the navigation using the time delta between
-   cout << "Environement "<< mNavigator.getVelocity().mData[0] <<" " << mNavigator.getVelocity().mData[1] <<" " << mNavigator.getVelocity().mData[2] <<" " << endl;
    mNavigator.update(time_delta);
 
 

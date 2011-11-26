@@ -111,16 +111,6 @@ void Navigation::accelerer(long tempsCourant) {
 
 void ralentir(float &vitesseARalentir) {
 	vitesseARalentir*=0.95;
-	/*if(vitesseARalentir>=-1 && vitesseARalentir<=1) {
-	  vitesseARalentir=0;
-	} else {
-	  if(vitesseARalentir<-1) {
-		  vitesseARalentir+=1;
-	  }
-	  if(vitesseARalentir>1) {
-		  vitesseARalentir-=1;
-	  }
-	}*/
 }
 
 void Navigation::deccelerer(long tempsCourant) {
@@ -196,21 +186,28 @@ void Navigation::seDeplacer()
 		gmtl::xform(direction, wandMatrix, Zdir);
 
 		mNavigator->setVelocity(direction);
-		cout << "Navigation "<< mNavigator->getVelocity().mData[0] <<" " << mNavigator->getVelocity().mData[1] <<" " << mNavigator->getVelocity().mData[2] <<" " << endl;
+		//cout << "Navigation "<< mNavigator->getVelocity().mData[0] <<" " << mNavigator->getVelocity().mData[1] <<" " << mNavigator->getVelocity().mData[2] <<" " << endl;
 	}
 	if(peutTourner) {
 
+		//float angleRotationX=gmtl::makeXRot(mNavigator->getCurPos());
+		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
 		float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()),gmtl::makeZRot(mWand->getData()), 0.0};
+		/*if(abs(vitesseRotation[1])>0. && abs(angleRotationX)>0) {
+			vitesseRotation[0]*=0.5;
+		}*/
+		if(abs(rotationWandAxeZ)>0.1) {
+			vitesseRotation[0]=0;
+		}
+		cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+		if(!estEnTrainDAvancer)
+		  detectionRotationExcessive(vitesseRotation);
+		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
 
-			//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
-			if(!estEnTrainDAvancer)
-			  detectionRotationExcessive(vitesseRotation);
-			//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
-
-			gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
-			//cout << euler << endl;
-			gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-			mNavigator->setRotationalVelocity(rot_mat);
+		gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
+		//cout << euler << endl;
+		gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+		mNavigator->setRotationalVelocity(rot_mat);
 	}
 
 }
@@ -230,7 +227,6 @@ void Navigation::gestionBouton2(long tempsCourant)
 {
 
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
-	  cout << "bouton2 appuyer" << endl;
 	  avancerOuArreter();
   }
   seDeplacer();
