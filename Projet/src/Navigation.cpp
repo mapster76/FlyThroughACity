@@ -11,7 +11,7 @@ Navigation::Navigation() {
 }
 
 Navigation::~Navigation() {
-	delete *mNavigator;
+	delete mNavigator;
 }
 
 void Navigation::init(OsgNavigator *navigator,gadget::PositionInterface &wand,gadget::PositionInterface &head,
@@ -166,7 +166,7 @@ void Navigation::ralentirPuisSAreter(long tempsCourant)
 
 		gmtl::Vec3f Zdir = mNavigator->getVelocity();
 		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourArret>200000) {
+		if(tempsCourant-tempsPourArret>40000) {
 
 			ralentir(vitesse[0]);
 			ralentir(vitesse[1]);
