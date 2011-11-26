@@ -168,7 +168,7 @@ public:
       {
          mVelocity[1] = 0.0f;
       }
-      trans_delta =  mVelocity; //* delta;
+      trans_delta =  mVelocity * delta;
 
       // Post multiply the delta translation
       gmtl::Matrix44f trans_matrix = gmtl::makeTrans<gmtl::Matrix44f>(trans_delta);
