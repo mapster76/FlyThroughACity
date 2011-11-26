@@ -50,6 +50,13 @@ public:
    virtual void configSceneView(osgUtil::SceneView* newSceneViewer)
    {
       vrj::OsgApp::configSceneView(newSceneViewer);
+      mCamera=newSceneViewer->getCamera();
+      osg::Vec3f eye;
+      osg::Vec3f dir;
+      osg::Vec3f up;
+      newSceneViewer->getViewMatrixAsLookAt(eye,dir,up);
+      up.set(1,0,0);
+      newSceneViewer->setViewMatrixAsLookAt(eye,dir,up);
       /*newSceneViewer->getLight()->setAmbient(osg::Vec4(0.f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));*/
@@ -116,6 +123,7 @@ private:
    WorldCreator* mWorld;
    OsgNavigator  mNavigator;
    Navigation mNavigation;
+   osg::Camera *mCamera;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand
