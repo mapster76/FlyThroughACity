@@ -248,7 +248,7 @@ void Navigation::seDeplacer()
 
 
 
-		cout << "x : " << (gmtl::makeXRot(mNavigator->getCurPos())*360)/(2*M_PI) << "   y : " << (gmtl::makeYRot(mNavigator->getCurPos())*360)/(2*M_PI) << "    z : " << (gmtl::makeZRot(mNavigator->getCurPos())*360)/(2*M_PI) << endl;
+		//cout << "x : " << (gmtl::makeXRot(mNavigator->getCurPos())*360)/(2*M_PI) << "   y : " << (gmtl::makeYRot(mNavigator->getCurPos())*360)/(2*M_PI) << "    z : " << (gmtl::makeZRot(mNavigator->getCurPos())*360)/(2*M_PI) << endl;
 
 
 	}
