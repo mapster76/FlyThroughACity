@@ -55,17 +55,6 @@ public:
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));*/
    }
 
-   /*void updateNavigation();
-
-   void ralentirPuisSAreter(long tempsCourant);
-   void accelerer(long tempsCourant);
-   void seDeplacer();
-   void gestionGachette(long tempsCourant);
-   void gestionBouton2(long tempsCourant);
-   void avancerOuArreter();
-   void deccelerer(long tempsCourant);
-   void droitDeTourner();
-   void detectionRotationExcessive(float*);*/
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------
