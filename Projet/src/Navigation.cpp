@@ -206,14 +206,20 @@ void Navigation::seDeplacer()
 		if(rotationWandAxeX<-0.2)
 			vitesseRotation[0]+=0.2;
 
-		if(abs(rotationWandAxeZ)>0.2) {
-			gmtl::Vec3f directionCourante=mNavigator->getVelocity();
+		if(abs(rotationWandAxeZ)<0.2) {
+			/*gmtl::Vec3f directionCourante=mNavigator->getVelocity();
 			directionCourante.getData()[1]=0;
 			mNavigator->setVelocity(directionCourante);
-			vitesseRotation[0]-=vitesseRotation[0];
+			vitesseRotation[0]-=vitesseRotation[0];*/
+			vitesseRotation[1]=0;
 		}
+		if(rotationWandAxeZ>0.2)
+			vitesseRotation[1]-=0.2;
+		if(rotationWandAxeZ<-0.2)
+			vitesseRotation[1]+=0.2;
 
-		cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+
+		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
 		if(!estEnTrainDAvancer)
 		  detectionRotationExcessive(vitesseRotation);
 		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
