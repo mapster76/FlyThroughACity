@@ -2,11 +2,8 @@
 #define _ENVIRONMENT
 
 #include <vrj/vrjConfig.h>
-
-#include <iostream>
-#include <iomanip>
-#include <math.h>
-
+#include "nav.h"
+#include "Navigation.h"
 #include <vrj/Draw/OGL/GlApp.h>
 #include <gadget/Type/Position/PositionUnitConversion.h>
 
@@ -22,7 +19,7 @@
 
 #include <vrj/Draw/OSG/OsgApp.h>
 #include "world/WorldCreator.h"
-#include "nav.h"
+
 
 /**
  * Demonstration Open Scene Graph application class
@@ -58,7 +55,7 @@ public:
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));*/
    }
 
-   void updateNavigation();
+   /*void updateNavigation();
 
    void ralentirPuisSAreter(long tempsCourant);
    void accelerer(long tempsCourant);
@@ -68,7 +65,7 @@ public:
    void avancerOuArreter();
    void deccelerer(long tempsCourant);
    void droitDeTourner();
-   void detectionRotationExcessive(float*);
+   void detectionRotationExcessive(float*);*/
    void bufferPreDraw();
 
    // ----- Drawing Loop Functions ------
@@ -123,20 +120,13 @@ public:
    }
 
 private:
-
-   bool estEnTrainDAvancer;
-   bool peutTourner;
-   long tempsPourArret;
-   long tempsPourAcceleration;
-   long tempsPourDecceleration;
-   long estEnTrainDAccelerer;
-   long estEnTrainDeDecelerer;
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;
    vpr::Interval mLastPreFrameTime;   /**< Time of the start of the last preframe */
    WorldCreator* mWorld;
    OsgNavigator  mNavigator;
+   Navigation mNavigation;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand
