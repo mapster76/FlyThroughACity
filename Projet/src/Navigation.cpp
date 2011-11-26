@@ -201,16 +201,16 @@ void Navigation::seDeplacer()
 		/*if(rotationWandAxeZ!=0) {
 			vitesseRotation[2]=-rotationWandAxeX;
 		}*/
-		if(abs(rotationWandAxeX)<0.1) {
+		if(abs(rotationWandAxeX)<0.2) {
 			vitesseRotation[0]=0;
 		}
-		if(rotationWandAxeX>0.1)
-			vitesseRotation[0]-=0.1;
-		if(rotationWandAxeX<-0.1)
-			vitesseRotation[0]+=0.1;
+		if(rotationWandAxeX>0.2)
+			vitesseRotation[0]-=0.2;
+		if(rotationWandAxeX<-0.2)
+			vitesseRotation[0]+=0.2;
 
 
-		if(abs(rotationWandAxeZ)<0.1) {
+		if(abs(rotationWandAxeZ)<0.2) {
 			/*gmtl::Vec3f directionCourante=mNavigator->getVelocity();
 			directionCourante.getData()[1]=0;
 			mNavigator->setVelocity(directionCourante);
@@ -230,10 +230,10 @@ void Navigation::seDeplacer()
 
 			vitesseRotation[1]=0;
 		}
-		if(rotationWandAxeZ>0.1)
-			vitesseRotation[1]-=0.1;
-		if(rotationWandAxeZ<-0.1)
-			vitesseRotation[1]+=0.1;
+		if(rotationWandAxeZ>0.2)
+			vitesseRotation[1]-=0.2;
+		if(rotationWandAxeZ<-0.2)
+			vitesseRotation[1]+=0.2;
 
 		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
 		/*if(!estEnTrainDAvancer)
