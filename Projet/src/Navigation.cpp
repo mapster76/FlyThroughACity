@@ -201,19 +201,16 @@ void Navigation::seDeplacer()
 		/*if(rotationWandAxeZ!=0) {
 			vitesseRotation[2]=-rotationWandAxeX;
 		}*/
-		if(abs(rotationWandAxeX)<0.2) {
+		if(abs(rotationWandAxeX)<0.1) {
 			vitesseRotation[0]=0;
 		}
-		if(rotationWandAxeX>0.2)
-			vitesseRotation[0]-=0.2;
-		if(rotationWandAxeX<-0.2)
-			vitesseRotation[0]+=0.2;
+		if(rotationWandAxeX>0.1)
+			vitesseRotation[0]-=0.1;
+		if(rotationWandAxeX<-0.1)
+			vitesseRotation[0]+=0.1;
 
-		if(rotationWandAxeZ>0.2)
-			vitesseRotation[1]-=0.2;
-		if(rotationWandAxeZ<-0.2)
-			vitesseRotation[1]+=0.2;
-		if(abs(rotationWandAxeZ)<0.2) {
+
+		if(abs(rotationWandAxeZ)<0.1) {
 			/*gmtl::Vec3f directionCourante=mNavigator->getVelocity();
 			directionCourante.getData()[1]=0;
 			mNavigator->setVelocity(directionCourante);
@@ -232,19 +229,22 @@ void Navigation::seDeplacer()
 				}
 
 			vitesseRotation[1]=0;
-		} else {
-
-			//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
-			/*if(!estEnTrainDAvancer)
-			  detectionRotationExcessive(vitesseRotation);*/
-			//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
-
-			gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
-			//cout << euler << endl;
-			gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-
-			mNavigator->setRotationalVelocity(rot_mat);
 		}
+		if(rotationWandAxeZ>0.1)
+			vitesseRotation[1]-=0.1;
+		if(rotationWandAxeZ<-0.1)
+			vitesseRotation[1]+=0.1;
+
+		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+		/*if(!estEnTrainDAvancer)
+		  detectionRotationExcessive(vitesseRotation);*/
+		//cout << "0 : " << vitesseRotation[0] << "   1 : " << vitesseRotation[1] << "    2 : " << vitesseRotation[2] << endl;
+
+		gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
+		//cout << euler << endl;
+		gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
+
+		mNavigator->setRotationalVelocity(rot_mat);
 
 
 
