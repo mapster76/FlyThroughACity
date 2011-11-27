@@ -52,6 +52,7 @@ private:
    long tempsPourDecceleration;
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
+   bool estStabilise;
    OsgNavigator  *mNavigator;
 
 public:
