@@ -218,29 +218,30 @@ void Navigation::seDeplacer()
 			vitesseRotation[0]-=vitesseRotation[0];*/
 			float angleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
 			cout << "angle horizon " << angleHorizon <<endl;
-				if(ancienAngleHorizon*angleHorizon>0) {
-					if(angleHorizon>0.1) {
+				if(ancienAngleHorizon*angleHorizon>=0) {
+					if(angleHorizon>0.04) {
+						gmtl::EulerAngleXYZf eulerAngle(0,0,-0.0025);
+						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
+						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+					}
+					if(angleHorizon<-0.04) {
+						gmtl::EulerAngleXYZf eulerAngle(0,0,0.0025);
+						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
+						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+					}
+					if(angleHorizon>4) {
 						gmtl::EulerAngleXYZf eulerAngle(0,0,-0.01);
 						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
 						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
 					}
-					if(angleHorizon<-0.1) {
+					if(angleHorizon<-4) {
 						gmtl::EulerAngleXYZf eulerAngle(0,0,0.01);
 						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
 						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
 					}
 					ancienAngleHorizon=angleHorizon;
 				} else {
-					if(angleHorizon>0.025) {
-						gmtl::EulerAngleXYZf eulerAngle(0,0,-0.0025);
-						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-					}
-					if(angleHorizon<-0.025) {
-						gmtl::EulerAngleXYZf eulerAngle(0,0,0.0025);
-						gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-						mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-					}
+					ancienAngleHorizon=0;
 				}
 
 			vitesseRotation[1]=0;
