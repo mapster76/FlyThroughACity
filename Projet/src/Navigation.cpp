@@ -177,6 +177,37 @@ void Navigation::droitDeTourner() {
       peutTourner = true;
 }
 
+void Navigation::stabiliserCamera(float incrementRadian,float angleHorizon) {
+	if(angleHorizon>0.025) {
+		gmtl::EulerAngleXYZf eulerAngle(0,0,-incrementRadian);
+		gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
+		mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+		cout << " sup .025" << endl;
+		float nouvelAngleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
+		if(nouvelAngleHorizon>1.7) {
+			nouvelAngleHorizon=gmtl::Math::PI-nouvelAngleHorizon;
+		}
+		if(nouvelAngleHorizon<-1.7) {
+			cout << angleHorizon << endl;
+			nouvelAngleHorizon=gmtl::Math::PI+nouvelAngleHorizon;
+		}
+		if(nouvelAngleHorizon<-0.025) {
+			cout << "nouvelAngleHorizon" << nouvelAngleHorizon << endl;
+			gmtl::EulerAngleXYZf eulerAngle(0,0,-nouvelAngleHorizon);
+			gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
+			mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+			cout << "c'est la fin" << gmtl::makeZRot(mNavigator->getCurPos()) << endl;
+		}
+	} else {
+		if(angleHorizon<-0.025) {
+			gmtl::EulerAngleXYZf eulerAngle(0,0,incrementRadian);
+			gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
+			mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+			cout << " inf -.025" << endl;
+		}
+	}
+}
+
 void Navigation::seDeplacer()
 {
 	if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
@@ -210,31 +241,41 @@ void Navigation::seDeplacer()
 		if(rotationWandAxeX<-0.2)
 			vitesseRotation[0]+=0.2;
 
-		cout << "angle x " << gmtl::makeXRot(mNavigator->getCurPos()) << "angle y " << gmtl::makeYRot(mNavigator->getCurPos()) << "angle horizon " <<  gmtl::makeZRot(mNavigator->getCurPos()) <<endl;
+		//cout << "angle x " << gmtl::makeXRot(mNavigator->getCurPos()) << "angle y " << gmtl::makeYRot(mNavigator->getCurPos()) << "angle horizon " <<  gmtl::makeZRot(mNavigator->getCurPos()) <<endl;
 		if(abs(rotationWandAxeZ)<0.2) {
 			/*gmtl::Vec3f directionCourante=mNavigator->getVelocity();
 			directionCourante.getData()[1]=0;
 			mNavigator->setVelocity(directionCourante);
 			vitesseRotation[0]-=vitesseRotation[0];*/
 			float angleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
-			float angleY=gmtl::makeYRot(mNavigator->getCurPos());
-			float increment=0.001;
+			//float angleY=gmtl::makeYRot(mNavigator->getCurPos());
+			float increment=0.01;
 			/*if((angleY>3.14/2 && (angleY<3.15)) || ((angleY>-3.15) && (angleY<-3.14/2))) {
 				angleHorizon=M_PI-angleHorizon;
 				increment=-0.01;
 			}*/
-			cout << "angle x " << gmtl::makeXRot(mNavigator->getCurPos()) << "angle y " << gmtl::makeYRot(mNavigator->getCurPos()) << "angle horizon " << angleHorizon <<endl;
-			if(angleHorizon>0.025) {
-				gmtl::EulerAngleXYZf eulerAngle(0,0,-increment);
-				gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-				mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-			}
-			if(angleHorizon<-0.025) {
-				gmtl::EulerAngleXYZf eulerAngle(0,0,increment);
-				gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-				mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
+			//cout << "angle x " << gmtl::makeXRot(mNavigator->getCurPos()) << "angle y " << gmtl::makeYRot(mNavigator->getCurPos()) << "angle horizon " << angleHorizon <<endl;
 
+			if(abs(angleHorizon)<1.5 && abs(angleHorizon)>0) {
+				stabiliserCamera(increment,angleHorizon);
 			}
+
+			if(angleHorizon>1.7) {
+				cout << angleHorizon << endl;
+				angleHorizon=gmtl::Math::PI-angleHorizon;
+				cout << "angle horizon>1.7 +" << angleHorizon<< endl ;
+				stabiliserCamera(increment,angleHorizon);
+			}
+
+			if(angleHorizon<-1.7) {
+				cout << angleHorizon << endl;
+				angleHorizon=gmtl::Math::PI+angleHorizon;
+				cout << "angle horizon<-1.7 +" << angleHorizon << endl;
+				stabiliserCamera(-increment,angleHorizon);
+			}
+
+
+
 			/*	if((ancienAngleHorizon>=0 && angleHorizon>=0) || (ancienAngleHorizon<=0 && angleHorizon<=0)) {
 					if(angleHorizon>0.04) {
 						gmtl::EulerAngleXYZf eulerAngle(0,0,-0.0025);

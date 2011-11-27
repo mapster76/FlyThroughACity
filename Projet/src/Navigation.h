@@ -33,6 +33,7 @@ public:
 	void deccelerer(long tempsCourant);
 	void droitDeTourner();
 	void detectionRotationExcessive(float*);
+	void stabiliserCamera(float incrementRadian,float angleHorizon);
 
 	/**
 	* Returns the scale factor for this application.  For this sample, we
