@@ -8,22 +8,37 @@ osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::route = osgDB::readNodeFile(ROUTE);
 
 ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 	   mNombreEtages=nombreEtages;
-/*	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> rdcStateSet (rezDeChausse->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> toitStateSet (toit->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> trotoirStateSet (trotoir->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> routeStateSet (route->getOrCreateStateSet());
+
 	   //Its shader objects
-	   	osg::ref_ptr<osg::Program> goochShader (new osg::Program);
+	   	osg::ref_ptr<osg::Program> shader (new osg::Program);
 	   	 osg::ref_ptr<osg::Shader> capsulevertexShader(
 	         osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommets.glsl"));
 
 	   	 osg::ref_ptr<osg::Shader> capsulefragShader(
 	         osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragments.glsl"));
 
+	   	shader->addShader(capsulevertexShader.get());
+	   	shader->addShader(capsulefragShader.get());
+	   	osg::ref_ptr<osg::Program> shader2 (new osg::Program);
+	   		   	 osg::ref_ptr<osg::Shader> texturevertexShader(
+	   		         osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommetsTexture.glsl"));
+
+	   		   	 osg::ref_ptr<osg::Shader> texturefragShader(
+	   		         osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragmentsTexture.glsl"));
 	   	//Binding the box shaders to its program
-	   	goochShader->addShader(capsulevertexShader.get());
-	   	goochShader->addShader(capsulefragShader.get());
+		shader2->addShader(texturevertexShader.get());
+		shader2->addShader(texturefragShader.get());
 
-	   	etageStateSet->setAttribute(goochShader);*/
-
-
+	   	etageStateSet->setAttribute(shader);
+	   	rdcStateSet->setAttribute(shader);
+	   	toitStateSet->setAttribute(shader);
+	   	trotoirStateSet->setAttribute(shader);
+	   	routeStateSet->setAttribute(shader2);
 
 }
 
@@ -70,5 +85,6 @@ osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::construireUnImmeuble() {
 	for(int i=1;i<mNombreEtages;i++)
 		placeNodeElement(etage,setCoordonnes(0,i*4,0),navTrans);
 	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),navTrans);
+
 	return rootNode;
 }

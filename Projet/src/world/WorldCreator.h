@@ -10,6 +10,7 @@
 #include <osg/Material>
 #include <vector>
 #include "world/CustomDrawable.h"
+#include <osg/ShapeDrawable>
 #include "world/ImmeublePlat.h"
 #include "world/Sol.h"
 #include "util.h"

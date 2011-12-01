@@ -18,9 +18,10 @@ void WorldCreator::initialiseWorld() {
 void WorldCreator::drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg::MatrixTransform> &navTrans) {
 	initialiseWorld();
 
+	illuminateScene();
 	createMap();
 	generateSceneGraph();
-	illuminateScene();
+
 
 	rootNode=pRootNode;
 	navTrans=pNavTrans;
@@ -131,27 +132,39 @@ void WorldCreator::generateSceneGraph() {
 }
 
 void WorldCreator::illuminateScene() {
+	/*osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
+
+	mModel->preMult( osg::Matrix::translate(0, 0, 0));*/
+	pRootNode->getOrCreateStateSet()->setMode( GL_LIGHTING, osg::StateAttribute::OVERRIDE || osg::StateAttribute::OFF);
+	pNavTrans->getOrCreateStateSet()->setMode( GL_LIGHTING, osg::StateAttribute::ON);
 	osg::ref_ptr<osg::Group> lightGroup (new osg::Group);
 	osg::ref_ptr<osg::StateSet> lightSS (pNavTrans->getOrCreateStateSet());
 
 	osg::ref_ptr<osg::LightSource> lightSource1 = new osg::LightSource;
-	osg::Vec4f lightPosition(osg::Vec4f(0.0,0.0,1.0,0.0f));
+	osg::Vec4f lightPosition(osg::Vec4f(0.0,200.0,200.0,1.0));
+	osg::Vec3f lightDirection(osg::Vec3f(0.0,0.0,1.0));
 	osg::ref_ptr<osg::Light> myLight = new osg::Light;
-	myLight->setLightNum(0);
-	myLight->setPosition(lightPosition);
-	myLight->setAmbient(osg::Vec4(.4f,.4f,.4f,1.0f));
-	myLight->setDiffuse(osg::Vec4(.5f,.5f,.5f,1.0f));
-	myLight->setSpecular(osg::Vec4(.3f,.3f,.3f,1.0f));
-	lightSource1->setLight(myLight.get());
+	myLight->setLightNum(1);
 
+	myLight->setPosition(lightPosition);
+	myLight->setDirection(lightDirection);
+	myLight->setAmbient(osg::Vec4(.3f,.3f,.3f,1.0f));
+	myLight->setDiffuse(osg::Vec4(.5f,.5f,.5f,1.0f));
+	myLight->setSpecular(osg::Vec4(.7f,.7f,.7f,1.0f));
+	lightSource1->setLight(myLight.get());
+	//pRootNode->getOrCreateStateSet()->setMode(GL_LIGHT1, osg::StateAttribute::ON);
 	lightSource1->setLocalStateSetModes(osg::StateAttribute::ON);
 	lightSource1->setStateSetModes(*lightSS,osg::StateAttribute::ON);
 	lightGroup->addChild(lightSource1.get());
 
-	/*	osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
-	osg::Vec4f lightPosition2(osg::Vec4f(0.0,1.0,0.0,0.0f));
+	//Light markers: small spheres
+	osg::ref_ptr<osg::Geode> lightMarkerGeode (new osg::Geode);
+	lightMarkerGeode->addDrawable(new osg::ShapeDrawable(new osg::Sphere(osg::Vec3f(0.0f,1.0f,0.0f),0.5f)));
+
+	/*osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
+	osg::Vec4f lightPosition2(osg::Vec4f(0.0,0.0,1.0,0.0f));
 	osg::ref_ptr<osg::Light> myLight2 = new osg::Light;
-	myLight2->setLightNum(1);
+	myLight2->setLightNum(2);
 	myLight2->setPosition(lightPosition);
 	myLight2->setAmbient(osg::Vec4(.4f,.4f,.4f,1.0f));
 	myLight2->setDiffuse(osg::Vec4(.5f,.5f,.5f,1.0f));
@@ -161,5 +174,7 @@ void WorldCreator::illuminateScene() {
 	lightSource2->setLocalStateSetModes(osg::StateAttribute::ON);
 	lightSource2->setStateSetModes(*lightSS,osg::StateAttribute::ON);
 	lightGroup->addChild(lightSource2.get());*/
-	pNavTrans->addChild(lightGroup.get());
+	//mModel->addChild(lightGroup.get());
+	pNavTrans->addChild(lightMarkerGeode);
+	pNavTrans->addChild(lightGroup);
 }

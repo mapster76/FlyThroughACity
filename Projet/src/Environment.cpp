@@ -96,8 +96,9 @@ void Environment::initScene()
 
 void Environment::myInit()
 {
-	mWorld->drawWorld(mRootNode,mNavTrans);
 	mNavigator.init();
+	mWorld->drawWorld(mRootNode,mNavTrans);
+
 	mNavigation.init(&mNavigator,mWand,mHead,mButton0,mButton1,mButton2);
 
 }
