@@ -1,0 +1,99 @@
+Group {
+   UniqueID uniqid_Group_28
+   name "Root"
+   cullingActive TRUE
+   StateSet {
+      UniqueID uniqid_StateSet_30
+      GL_LIGHT0 ON
+      LightModel {
+         UniqueID uniqid_LightModel_32
+         ambientIntensity 0.0000 0.0000 0.0000 1.0000
+         colorControl SEPARATE_SPECULAR_COLOR
+         localViewer FALSE
+      }
+   }
+   num_children 2
+   MatrixTransform {
+      UniqueID uniqid_MatrixTransform_0
+      name "Plane"
+      cullingActive TRUE
+      Matrix {
+         13.0000 0.0000 0.0000 0.0000
+         0.0000 13.0000 0.0000 0.0000
+         0.0000 0.0000 1.0000 0.0000
+         0.0000 0.0000 0.0000 1.0000
+      }
+      num_children 1
+      Geode {
+         UniqueID uniqid_Geode_2
+         name "GeodePlane"
+         cullingActive TRUE
+         num_drawables 1
+         Geometry {
+            UniqueID uniqid_Geometry_4
+            name "Plane"
+            Primitives 1 {
+               DrawElementsUByte QUADS 4 {
+                  0 1 2 3 
+               }
+            }
+            VertexArray UniqueID VertexArray_6 Vec3Array 4
+            {
+               1.0000 1.0000 0.0000
+               -1.0000 1.0000 0.0000
+               -1.0000 -1.0000 0.0000
+               1.0000 -1.0000 0.0000
+            }
+            NormalBinding PER_VERTEX
+            NormalArray UniqueID NormalArray_8 Vec3Array 4
+            {
+               0.0000 -0.0000 1.0000
+               0.0000 -0.0000 1.0000
+               0.0000 -0.0000 1.0000
+               0.0000 -0.0000 1.0000
+            }
+            TexCoordArray 0 UniqueID TexCoordArray_11 Vec2Array 4
+            {
+               0.0000 0.0000
+               1.0000 0.0000
+               1.0000 1.0000
+               0.0000 1.0000
+            }
+            StateSet {
+               UniqueID uniqid_StateSet_16
+            }
+         }
+      }
+   }
+   MatrixTransform {
+      UniqueID uniqid_MatrixTransform_20
+      name "Lamp"
+      cullingActive TRUE
+      Matrix {
+         -0.2909 0.9552 -0.0552 0.0000
+         -0.7711 -0.1999 0.6045 0.0000
+         0.5664 0.2184 0.7947 0.0000
+         4.0762 1.0055 5.9039 1.0000
+      }
+      num_children 1
+      LightSource {
+         UniqueID uniqid_LightSource_22
+         name "Lamp"
+         cullingActive FALSE
+         Light {
+            light_num 0
+            ambient 0.0500 0.0500 0.0500 1.0000
+            diffuse 1.0000 1.0000 1.0000 1.0000
+            specular 1.0000 1.0000 1.0000 1.0000
+            position 0.0000 0.0000 1.0000 0.0000
+            direction 0.0000 0.0000 -1.0000
+            constant_attenuation 1.0000
+            linear_attenuation 0.0000
+            quadratic_attenuation 0.0000
+            spot_exponent 0.0000
+            spot_cutoff 180.0000
+         }
+         num_children 0
+      }
+   }
+}
