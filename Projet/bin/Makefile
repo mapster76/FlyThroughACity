@@ -1,27 +1,40 @@
-all: Town
+# Le nom de l'application
+APP = Town
 
-APP_NAME= Town
+# La liste des fichiers � compiler
+#SRC = main.cpp simpleApp.cpp
+SRC = ../src/util.cpp ../src/world/Sol.cpp ../src/world/ImmeubleAvecFenetre.cpp ../src/world/ImmeublePlat.cpp ../src/world/WorldCreator.cpp ../src/Navigation.cpp ../src/Environment.cpp ../src/main.cpp  
+OBJ = $(SRC:.cpp=.o)
+
+# Les options de compilation + r�pertoire des .h
+CXXFLAGS += -g -Wall -fexceptions -pthread -Wall -DHAVE_CONFIG_H -DJUGGLER_DEBUG
+CXXFLAGS += -I.
+CXXFLAGS += -I${VJ_BASE_DIR}/include/vrjuggler-2.2/
+CXXFLAGS += -I${VJ_BASE_DIR}/include/gadgeteer-1.2/
+CXXFLAGS += -I${VJ_BASE_DIR}/include/jccl-1.2/
+CXXFLAGS += -I${VJ_BASE_DIR}/include/vpr-2.0/
+CXXFLAGS += -I${VJ_BASE_DIR}/include/cppdom-0.7.10/
+CXXFLAGS += -I${VJ_BASE_DIR}/include/gmtl-0.5.4/
+CXXFLAGS += -I${FMODROOT}/inc
+CXXFLAGS += -I../src
+CXXFLAGS += -I../src/world
 
 
-# Basic options.
-srcdir=		../src
 
-SRCS=		util.cpp world/Sol.cpp world/ImmeubleAvecFenetre.cpp world/ImmeublePlat.cpp world/WorldCreator.cpp Environment.cpp main.cpp 
+# Les options d'�dition des liens + r�pertoires et noms des .so
+LDFLAGS += -L$(VJ_BASE_DIR)/lib -lvrj-2_2 -lvrj_ogl-2_2 -lgadget-1_2 -ljccl-1_2 -lvpr-2_0
+LDFLAGS += -L$(FMODROOT)/lib -lfmodex
+LDFLAGS += -losg -losgDB -losgUtil -lOpenThreads
+LDFLAGS += -lGLU -lGL -lm
+# ( pour linker avec ${HOME}/plib/libplibssg.so et ${HOME}/plib/libplibnet.so
+#   on ajoutera "-L${HOME}/plib -lplibssg  -lplibnet" )
 
+$(APP) : $(OBJ)
+	$(CXX) $(LDFLAGS) -o $(APP) $(OBJ)
 
-DZR_BASE_DIR=	$(shell flagpoll doozer --get-prefix)
-include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.mk
-include $(DZR_BASE_DIR)/ext/vrjuggler/dzr.vrjuggler.glapp.mk
-include $(DZR_BASE_DIR)/ext/tweek/dzr.tweek.mk
+clean:
+	-\rm ../src/*.o $(APP)
 
-EXTRA_INCLUDES+=	-I$(OSGHOME)/include -I../fmod -I../src/world
-EXTRA_LIBS+=		-L$(OSGHOME)/lib -L../lib -losg -losgDB -losgGA -losgUtil -lOpenThreads -lfmodex
-# -----------------------------------------------------------------------------
-# Application build targets.
-# -----------------------------------------------------------------------------
-all:
-	$(MAKE) $(APP_NAME)
-
-Town: $(OBJS)
-	$(LINK) $(LINK_OUT)$@ $(OBJS) $(EXTRA_LIBS) $(LIBS)
-
+include Dep.mk
+dep:
+	 g++ -MM -MG $(SRC) >Dep.mk
