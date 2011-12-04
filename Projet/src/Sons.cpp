@@ -7,6 +7,7 @@ Sons::Sons() {
 
 
 Sons::~Sons() {
+	printf("destroy");
 	if(sound!=NULL) {
 		result = sound->release();
 		ERRCHECK(result);
@@ -47,10 +48,12 @@ FMOD_RESULT Sons::Initialisation()
      * Initialiastion du positionnement 3D
      */
     result = system->set3DSettings(1.0f, 1.0f, 1.0f);
-
-    result = system->createSound("../fmod/Audio/AmbianceVille.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM, 0, &sound);
-    sound->setLoopCount(-1);
     ERRCHECK(result);
+
+    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound);
+    ERRCHECK(result);
+
+    result = sound->setMode(FMOD_LOOP_NORMAL);
 
     return result;
 
@@ -60,7 +63,6 @@ void Sons::ambiance()
 {
 	//FMOD_VECTOR position(20.0f, 0.0f, 0.0f);
 	//FMOD_VECTOR velocity(0.0f, 0.0f, 0.0f);
-
 	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
 	ERRCHECK(result);
 

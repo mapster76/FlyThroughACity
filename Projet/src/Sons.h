@@ -1,6 +1,7 @@
 #ifndef SONS_H_
 #define SONS_H_
 
+#include <fmod.h>
 #include <fmod.hpp>
 #include <fmod_errors.h>
 //#include <wincompat.h>

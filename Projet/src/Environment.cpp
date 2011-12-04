@@ -88,79 +88,9 @@ void Environment::collisions(const gmtl::Matrix44f& wandMatrix)
    
    const osg::Matrix wand_matrix_rowmajor(wandMatrix.mData);
 
-   //map < vector<GLfloat> , osg::ref_ptr<osg::Node> > laCarte = WorldCreator::getCarte();
 
 }
-   
-   // Only perform the intersection testing when we are not already grabbing
-   // an object.
-   //   if ( mGrabbedObj == NULL )
-   //   {
-   //GrabObject* intersect_obj(NULL);
-      // Find the first object--if any--in mObjects with which the wand
-      // intersects.
-      //      for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
-      //           o != mObjects.end();
-      //            ++o )
-      //      {
-	 //on récupère la boundingbox de la matrice de transformation MatrixTransform
-   /*       const osg::BoundingSphere& bbox = (*mObjects.begin())->xformCore->getBound();
-         if ( bbox.contains(wand_point) )
-         {
-	   mCollision = true;
-	   gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
-	   
-	   gmtl::Vec3f direction(0.0f, 0.0f, 0.0f); // Choix de la vitesse
-	   gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-	   gmtl::xform(direction, wandMatrix, Zdir);
 
-	   mNavigator.setVelocity(direction);
-
-	 } else {
-	   mCollision = false;
-	 }
-}
-*/
-
-/*
-      // If the intersected object changed since the last frame, we need to
-      // update things.
-      if ( intersect_obj != mIntersectedObj )
-      {
-         mIntersectedObj = intersect_obj;
-      }
-      //   }
-
-   // Enable grabbing only when no other object is currently grabbed, when
-   // the wand button is intersecting an object, and when button 1 is pressed.
-   if ( mIntersectedObj != NULL && mGrabbedObj == NULL &&
-        mButton1->getData() == gadget::Digital::ON )
-   {
-      mGrabbedObj = mIntersectedObj;
-      mGrabbedObj->xformStart.set(mGrabbedObj->xformCore->getMatrix());  // save start matrix
-      mGrabbedObj->xformSaved.invert(wand_matrix_rowmajor); // save inverted wand matrix
-   }
-   // We cannot be grabbing anything unless button 1 is pressed.
-   else if ( mButton1->getData() != gadget::Digital::ON )
-   {
-      mGrabbedObj = NULL;
-   }
-
-   // If mGrabbedObj is non-NULL, then we are grabbing the object pointed at
-   // by mGrabbedObj.
-   if ( mGrabbedObj != NULL )
-   {
-      osg::Matrix new_xform;
-      new_xform.set(mGrabbedObj->xformStart);
-      
-      //new_xform.set(wandMatrix.mData);
-      new_xform.postMult(mGrabbedObj->xformSaved);
-      
-      new_xform.postMult(wand_matrix_rowmajor);
-      
-      mGrabbedObj->xformCore->setMatrix(new_xform);
-   }
-*/
 
 
 
