@@ -51,12 +51,26 @@ public:
    virtual void configSceneView(osgUtil::SceneView* newSceneViewer)
    {
       vrj::OsgApp::configSceneView(newSceneViewer);
+      sceneView=newSceneViewer;
+      //->getViewMatrixAsLookAt(eye,center,up,distance);
       /*newSceneViewer->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
       newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
       newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));*/
       newSceneViewer->getLight()->setAmbient(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));
+   }
+
+   float* getEye() {
+	   return eye._v;
+   }
+
+   float* getCenter() {
+   	   return center._v;
+   }
+
+   float* getUp() {
+   	   return up._v;
    }
 
    void bufferPreDraw();
@@ -116,57 +130,6 @@ public:
 
 
  private : 
-
-   struct GrabObject
-   {
-      GrabObject(osg::Node* node, osg::MatrixTransform* xform,
-            const osg::Matrix& pos)
-         : xformNode(node)
-         , xformCore(xform)
-         , homePos(pos)
-      {
-         ;
-      }
-
-      /** The transform node (parent) for the grabbable object. */
-      osg::Node* xformNode;
-
-      /** The transform core for the grabbable object. */
-      osg::MatrixTransform* xformCore;
-
-      /**
-      * The original transformation for the grabbable object.  This is used
-      * for resetting the scene.
-      */
-      const osg::Matrix homePos;
-
-      osg::Matrix xformStart;
-      osg::Matrix xformSaved;
-   };
-
-   /**
-    * Creates a GrabObject instance for the given model that is to be located
-    * initially at the given position.
-    *
-    * @param model      The model (i.e., geometric object) that will be
-    *                   grabbable.
-    * @param modelPos   The starting position for the given model.
-    *
-    * @return A new GrabObject instance.  It is the responsibility of the
-    *         caller to release the memory.
-    */
-   GrabObject* makeGrabbable(osg::Node* model, osg::MatrixTransform* modelPos);
-   void rotateObjects();
-   void updateGrabbing(const gmtl::Matrix44f& wandMatrix);
-
-   /** @name Grabbed object management */
-   //@{
-   std::vector<GrabObject*> mObjects;
-   GrabObject*              mIntersectedObj;
-   GrabObject*              mGrabbedObj;
-   //@}
-
-
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;
@@ -176,6 +139,9 @@ public:
    OsgNavigator  mNavigator;
    Navigation mNavigation;
    osg::Camera *mCamera;
+   osgUtil::SceneView* sceneView;
+   osg::Vec3f eye,center,up;
+   double distance;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand

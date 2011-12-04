@@ -32,7 +32,7 @@ public:
 	void avancerOuArreter();
 	void deccelerer(long tempsCourant);
 	void droitDeTourner();
-	gmtl::Vec3f getVecteurPosition();
+	float* getVecteurPosition();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float incrementRadian,float angleHorizon);
 

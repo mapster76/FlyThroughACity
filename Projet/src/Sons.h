@@ -16,7 +16,7 @@ public:
   Sons();
   virtual ~Sons();
 
-  void updateFmod();
+  //void updateFmod(float*,float*,float*,float*,float);
 
   void ambiance();
 
@@ -30,7 +30,7 @@ public:
     FMOD_RESULT       result;
     int               key;
     unsigned int      version;
-    FMOD_VECTOR forward, up, vel, listenerpos, lastpos;
+    FMOD_VECTOR forward, up, velocity, listenerPos, lastPos;
 
 };
 

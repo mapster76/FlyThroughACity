@@ -263,9 +263,10 @@ void Navigation::seDeplacer()
 
 }
 
-gmtl::Vec3f Navigation::getVecteurPosition() {
+float* Navigation::getVecteurPosition() {
 	gmtl::Vec3f vecteurTranslation =gmtl::makeTrans<gmtl::Vec3f>(mNavigator->getCurPos());
-	return vecteurTranslation;
+	float* translation = vecteurTranslation.mData;
+	return translation;
 }
 
 void Navigation::avancerOuArreter() {

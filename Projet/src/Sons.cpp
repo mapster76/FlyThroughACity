@@ -61,9 +61,14 @@ FMOD_RESULT Sons::Initialisation()
 
 void Sons::ambiance()
 {
-	//FMOD_VECTOR position(20.0f, 0.0f, 0.0f);
-	//FMOD_VECTOR velocity(0.0f, 0.0f, 0.0f);
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+	ERRCHECK(result);
+
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
 	ERRCHECK(result);
 
 
@@ -71,31 +76,31 @@ void Sons::ambiance()
 
 
 
-void Sons::updateFmod()
+/*void Sons::updateFmod(float* positionEspace, float* upCamera, float *eye, float *center. float updateTime)
 {
     // ==========================================================================================
     // UPDATE THE LISTENER
     // ==========================================================================================
 
-   /* listenerpos = camera.getPosition();
 
     // ********* NOTE ******* READ NEXT COMMENT!!!!!
     // velocity = how far we moved last FRAME (m/f), then time compensate it to SECONDS (m/s).
-    velocity.setX( (listenerPos.getX()-lastPos.getX()) / INTERFACE_UPDATETIME );
-    velocity.setY( (listenerPos.getY()-lastPos.getY()) / INTERFACE_UPDATETIME );
-    velocity.setZ( (listenerPos.getZ()-lastPos.getZ()) / INTERFACE_UPDATETIME );
+    velocity.x( (positionEspace[0]-lastPos.x()) / updateTime);
+    velocity.y( (positionEspace[1]-lastPos.y()) / updateTime);
+    velocity.z( (positionEspace[2]-lastPos.z()) / updateTime);
 
     FMOD_VECTOR forward = camera.getForward();
-    FMOD_VECTOR up      = camera.getUp();
+    FMOD_VECTOR up;
+    up.x(upCamera[0],upCamera[1],upCamera[2]);
 
     //Update listener attributes
     result = system.set3DListenerAttributes(0, listenerPos, velocity, forward, up);
     ERRCHECK(result);
 
     //Update FMOD Ex system
-    system.update();
+    system->update();
 
     //Store pos for next time
     lastPos.release();
-    lastPos = listenerPos;*/
-}
+    lastPos = listenerPos;
+}*/
