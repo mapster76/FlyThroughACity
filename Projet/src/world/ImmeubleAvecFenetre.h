@@ -16,10 +16,10 @@
 #include <osg/LightSource>
 
 
-#define REZ_DE_CHAUSSE std::string("../model/rdc.osg")
-#define ETAGE std::string("../model/etageSimple.osg")
-#define TOIT std::string("../model/toitSimple.osg")
-#define TROTOIR std::string("../model/trotoir.osg")
+#define REZ_DE_CHAUSSE std::string("../model/rdc.3ds")
+#define ETAGE std::string("../model/etage.3ds")
+#define TOIT std::string("../model/toit.3ds")
+#define TROTOIR std::string("../model/trotoir.3ds")
 #define ROUTE std::string("../model/route.obj")
 
 using namespace std;
