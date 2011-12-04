@@ -101,4 +101,6 @@ void Environment::myInit()
 
 	mNavigation.init(&mNavigator,mWand,mHead,mButton0,mButton1,mButton2);
 
+	mSons.ambiance();
+
 }

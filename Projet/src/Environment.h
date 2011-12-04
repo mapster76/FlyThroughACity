@@ -16,6 +16,7 @@
 #include <osg/Transform>
 #include <osg/MatrixTransform>
 #include <osgUtil/SceneView>
+#include <Sons.h>
 
 #include <vrj/Draw/OSG/OsgApp.h>
 #include "world/WorldCreator.h"
@@ -117,6 +118,7 @@ private:
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;
    vpr::Interval mLastPreFrameTime;   /**< Time of the start of the last preframe */
    WorldCreator* mWorld;
+   Sons mSons;
    OsgNavigator  mNavigator;
    Navigation mNavigation;
    osg::Camera *mCamera;

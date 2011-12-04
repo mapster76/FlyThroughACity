@@ -3,7 +3,7 @@
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
-#include <wincompat.h>
+//#include <wincompat.h>
 #include <stdio.h>
 
 
@@ -15,14 +15,14 @@ public:
   Sons();
   virtual ~Sons();
 
-  FMOD_RESULT Initialisation();
 
-  void Ambiance();
+
+  void ambiance();
 
   void ERRCHECK(FMOD_RESULT);
 
  private:
-
+  	FMOD_RESULT Initialisation();
     FMOD::System     *system;
     FMOD::Sound      *sound;
     FMOD::Channel    *channel;
