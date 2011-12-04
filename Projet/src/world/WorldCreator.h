@@ -33,11 +33,14 @@ public:
 	osg::ref_ptr<osg::Group>  pRootNode;
 	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
 	map < GLfloat,osg::ref_ptr<osg::Node> > immeubleParTaille;
-	map< vector<GLfloat> , osg::ref_ptr<osg::Node> > laCarte;
+	map < vector<GLfloat> , osg::ref_ptr<osg::Node> > laCarte;
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
 	 */
 	void initialiseWorld();
+
+	// Accesseur 
+	map < vector<GLfloat> , osg::ref_ptr<osg::Node> > getCarte();
 
 	/**
 	 * Cette fonction cree un nouvel immeuble et l'ajoute a la map qui repertorie les immeubles par taille.

@@ -131,6 +131,12 @@ void WorldCreator::generateSceneGraph() {
 	}
 }
 
+map < vector<GLfloat> , osg::ref_ptr<osg::Node> > WorldCreator::getCarte() {
+
+  return laCarte;
+
+}
+
 void WorldCreator::illuminateScene() {
 	/*osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
 

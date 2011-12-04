@@ -57,11 +57,112 @@ void Environment::preFrame()
 
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
+   
+   // Gestion des collisions
+   //collisions(wand_mat);
    // Update the navigation using the time delta between
    mNavigator.update(time_delta);
 
 
 }
+
+
+void Environment::collisions(const gmtl::Matrix44f& wandMatrix)
+{
+   // The navigation matrix is w_M_vw, so invert it for use here.
+   const osg::Matrix& nav_mat(mNavTrans->getMatrix());
+   osg::Matrix vw_M_w;
+   nav_mat.inverse(vw_M_w);
+   
+   // Transform the wand matrix from real world coordinates into virtual world
+   // coordinates.
+   osg::Matrix osg_wandMatrix(
+            wandMatrix[0][0],wandMatrix[0][1],wandMatrix[0][2],wandMatrix[0][3],
+            wandMatrix[1][0],wandMatrix[1][1],wandMatrix[1][2],wandMatrix[1][3],
+            wandMatrix[2][0],wandMatrix[2][1],wandMatrix[2][2],wandMatrix[2][3],
+            wandMatrix[3][0],wandMatrix[3][1],wandMatrix[3][2],wandMatrix[3][3]);
+   const osg::Matrix wand_matrix = vw_M_w * osg_wandMatrix;
+   
+   //On récupère la position du wand que l'on stocke dans wand_point
+   const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+   
+   const osg::Matrix wand_matrix_rowmajor(wandMatrix.mData);
+
+   //map < vector<GLfloat> , osg::ref_ptr<osg::Node> > laCarte = WorldCreator::getCarte();
+
+}
+   
+   // Only perform the intersection testing when we are not already grabbing
+   // an object.
+   //   if ( mGrabbedObj == NULL )
+   //   {
+   //GrabObject* intersect_obj(NULL);
+      // Find the first object--if any--in mObjects with which the wand
+      // intersects.
+      //      for ( std::vector<GrabObject*>::iterator o = mObjects.begin();
+      //           o != mObjects.end();
+      //            ++o )
+      //      {
+	 //on récupère la boundingbox de la matrice de transformation MatrixTransform
+   /*       const osg::BoundingSphere& bbox = (*mObjects.begin())->xformCore->getBound();
+         if ( bbox.contains(wand_point) )
+         {
+	   mCollision = true;
+	   gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+	   
+	   gmtl::Vec3f direction(0.0f, 0.0f, 0.0f); // Choix de la vitesse
+	   gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+	   gmtl::xform(direction, wandMatrix, Zdir);
+
+	   mNavigator.setVelocity(direction);
+
+	 } else {
+	   mCollision = false;
+	 }
+}
+*/
+
+/*
+      // If the intersected object changed since the last frame, we need to
+      // update things.
+      if ( intersect_obj != mIntersectedObj )
+      {
+         mIntersectedObj = intersect_obj;
+      }
+      //   }
+
+   // Enable grabbing only when no other object is currently grabbed, when
+   // the wand button is intersecting an object, and when button 1 is pressed.
+   if ( mIntersectedObj != NULL && mGrabbedObj == NULL &&
+        mButton1->getData() == gadget::Digital::ON )
+   {
+      mGrabbedObj = mIntersectedObj;
+      mGrabbedObj->xformStart.set(mGrabbedObj->xformCore->getMatrix());  // save start matrix
+      mGrabbedObj->xformSaved.invert(wand_matrix_rowmajor); // save inverted wand matrix
+   }
+   // We cannot be grabbing anything unless button 1 is pressed.
+   else if ( mButton1->getData() != gadget::Digital::ON )
+   {
+      mGrabbedObj = NULL;
+   }
+
+   // If mGrabbedObj is non-NULL, then we are grabbing the object pointed at
+   // by mGrabbedObj.
+   if ( mGrabbedObj != NULL )
+   {
+      osg::Matrix new_xform;
+      new_xform.set(mGrabbedObj->xformStart);
+      
+      //new_xform.set(wandMatrix.mData);
+      new_xform.postMult(mGrabbedObj->xformSaved);
+      
+      new_xform.postMult(wand_matrix_rowmajor);
+      
+      mGrabbedObj->xformCore->setMatrix(new_xform);
+   }
+*/
+
+
 
 void Environment::bufferPreDraw()
 {

@@ -61,6 +61,8 @@ public:
 
    void bufferPreDraw();
 
+   void collisions(const gmtl::Matrix44f&);
+
    // ----- Drawing Loop Functions ------
    //
    //  The drawing loop will look similar to this:
@@ -112,7 +114,59 @@ public:
       return gadget::PositionUnitConversion::ConvertToFeet;
    }
 
-private:
+
+ private : 
+
+   struct GrabObject
+   {
+      GrabObject(osg::Node* node, osg::MatrixTransform* xform,
+            const osg::Matrix& pos)
+         : xformNode(node)
+         , xformCore(xform)
+         , homePos(pos)
+      {
+         ;
+      }
+
+      /** The transform node (parent) for the grabbable object. */
+      osg::Node* xformNode;
+
+      /** The transform core for the grabbable object. */
+      osg::MatrixTransform* xformCore;
+
+      /**
+      * The original transformation for the grabbable object.  This is used
+      * for resetting the scene.
+      */
+      const osg::Matrix homePos;
+
+      osg::Matrix xformStart;
+      osg::Matrix xformSaved;
+   };
+
+   /**
+    * Creates a GrabObject instance for the given model that is to be located
+    * initially at the given position.
+    *
+    * @param model      The model (i.e., geometric object) that will be
+    *                   grabbable.
+    * @param modelPos   The starting position for the given model.
+    *
+    * @return A new GrabObject instance.  It is the responsibility of the
+    *         caller to release the memory.
+    */
+   GrabObject* makeGrabbable(osg::Node* model, osg::MatrixTransform* modelPos);
+   void rotateObjects();
+   void updateGrabbing(const gmtl::Matrix44f& wandMatrix);
+
+   /** @name Grabbed object management */
+   //@{
+   std::vector<GrabObject*> mObjects;
+   GrabObject*              mIntersectedObj;
+   GrabObject*              mGrabbedObj;
+   //@}
+
+
    gmtl::Matrix44f  mNavMatrix;
    osg::ref_ptr<osg::Group>  mRootNode;
    osg::ref_ptr<osg::MatrixTransform> mNavTrans;
