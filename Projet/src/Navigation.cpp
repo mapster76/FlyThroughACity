@@ -263,8 +263,12 @@ void Navigation::seDeplacer()
 
 }
 
-void Navigation::avancerOuArreter(){
+gmtl::Vec3f Navigation::getVecteurPosition() {
+	gmtl::Vec3f vecteurTranslation =gmtl::makeTrans<gmtl::Vec3f>(mNavigator->getCurPos());
+	return vecteurTranslation;
+}
 
+void Navigation::avancerOuArreter() {
   if(!estEnTrainDAvancer) {
 	  droitDeTourner();
       estEnTrainDAvancer = true;

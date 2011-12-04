@@ -37,10 +37,19 @@ FMOD_RESULT Sons::Initialisation()
     result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
     ERRCHECK(result);
 
+    /**
+     * Initialisation
+     */
     result = system->init(1, FMOD_INIT_NORMAL, 0);
     ERRCHECK(result);
 
-    result = system->createSound("../fmod/Audio/AmbianceVille.mp3", FMOD_SOFTWARE | FMOD_2D | FMOD_CREATESTREAM, 0, &sound);
+    /**
+     * Initialiastion du positionnement 3D
+     */
+    result = system->set3DSettings(1.0f, 1.0f, 1.0f);
+
+    result = system->createSound("../fmod/Audio/AmbianceVille.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM, 0, &sound);
+    sound->setLoopCount(-1);
     ERRCHECK(result);
 
     return result;
@@ -49,6 +58,42 @@ FMOD_RESULT Sons::Initialisation()
 
 void Sons::ambiance()
 {
+	//FMOD_VECTOR position(20.0f, 0.0f, 0.0f);
+	//FMOD_VECTOR velocity(0.0f, 0.0f, 0.0f);
+
 	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
-	 ERRCHECK(result);
+	ERRCHECK(result);
+
+
+}
+
+
+
+void Sons::updateFmod()
+{
+    // ==========================================================================================
+    // UPDATE THE LISTENER
+    // ==========================================================================================
+
+   /* listenerpos = camera.getPosition();
+
+    // ********* NOTE ******* READ NEXT COMMENT!!!!!
+    // velocity = how far we moved last FRAME (m/f), then time compensate it to SECONDS (m/s).
+    velocity.setX( (listenerPos.getX()-lastPos.getX()) / INTERFACE_UPDATETIME );
+    velocity.setY( (listenerPos.getY()-lastPos.getY()) / INTERFACE_UPDATETIME );
+    velocity.setZ( (listenerPos.getZ()-lastPos.getZ()) / INTERFACE_UPDATETIME );
+
+    FMOD_VECTOR forward = camera.getForward();
+    FMOD_VECTOR up      = camera.getUp();
+
+    //Update listener attributes
+    result = system.set3DListenerAttributes(0, listenerPos, velocity, forward, up);
+    ERRCHECK(result);
+
+    //Update FMOD Ex system
+    system.update();
+
+    //Store pos for next time
+    lastPos.release();
+    lastPos = listenerPos;*/
 }
