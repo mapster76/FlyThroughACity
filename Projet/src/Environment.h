@@ -136,7 +136,8 @@ public:
    vpr::Interval mLastPreFrameTime;   /**< Time of the start of the last preframe */
    WorldCreator* mWorld;
    Sons mSons;
-   OsgNavigator  mNavigator;
+   //OsgNavigator  mNavigator;
+   osg::Matrix mCurrentMatrix;
    Navigation mNavigation;
    osg::Camera *mCamera;
    osgUtil::SceneView* sceneView;

@@ -23,18 +23,24 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
 {
 	mWorld=new WorldCreator();
+	mCurrentMatrix=mCurrentMatrix.identity();
 }
 
 void Environment::latePreFrame()
 {
-   gmtl::Matrix44f world_transform;
-   gmtl::invertFull(world_transform, mNavigator.getCurPos());
-   // Update the scene graph
-   osg::Matrix osg_current_matrix;
-   osg_current_matrix.set(world_transform.getData());
-   mNavTrans->setMatrix(osg_current_matrix);
-   // Finish updating the scene graph.
-   vrj::OsgApp::latePreFrame();
+	osg::Matrix T;
+
+	T.makeTranslate(-mNavigation.getTranslation());
+	osg::Matrix R;
+	osg::Vec3 x(1,0,0);
+	osg::Vec3 y(0,1,0);
+	osg::Vec3 z(0,0,1);
+	R.makeRotate(-mNavigation.getRotation().x()/100,x,-mNavigation.getRotation().y()/100,y,-mNavigation.getRotation().z()/100,z);
+	cout << "rotation" << -mNavigation.getRotation().x()/100 << ", " << -mNavigation.getRotation().y()/100 << ", " << -mNavigation.getRotation().z()/100 << endl;
+	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+	mCurrentMatrix = mCurrentMatrix * R * T;
+	mNavTrans->setMatrix(mCurrentMatrix);
+	vrj::OsgApp::latePreFrame();
 }
 
 void Environment::preFrame()
@@ -61,7 +67,7 @@ void Environment::preFrame()
    // Gestion des collisions
    //collisions(wand_mat);
    // Update the navigation using the time delta between
-   mNavigator.update(time_delta);
+   mNavigation.update(time_delta);
 
 
 }
@@ -127,10 +133,9 @@ void Environment::initScene()
 
 void Environment::myInit()
 {
-	mNavigator.init();
 	mWorld->drawWorld(mRootNode,mNavTrans);
 
-	mNavigation.init(&mNavigator,mWand,mHead,mButton0,mButton1,mButton2);
+	mNavigation.init(mWand,mHead,mButton0,mButton1,mButton2);
 
 	mSons.ambiance();
 

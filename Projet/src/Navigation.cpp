@@ -12,12 +12,12 @@ Navigation::Navigation() {
 }
 
 Navigation::~Navigation() {
-	delete mNavigator;
 }
 
-void Navigation::init(OsgNavigator *navigator,gadget::PositionInterface &wand,gadget::PositionInterface &head,
+void Navigation::init(gadget::PositionInterface &wand,gadget::PositionInterface &head,
 				gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2) {
-	mNavigator=navigator;
+	vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
+	mNavigator.init(new_guid);
 	mWand=wand;
 	mHead=head;
 	mButton0=button0;
@@ -156,7 +156,7 @@ void Navigation::droitDeTourner() {
 }
 
 void Navigation::stabiliserCamera(float incrementRadian,float angleHorizon) {
-  if(angleHorizon>0.05) {
+  /*if(angleHorizon>0.05) {
     gmtl::EulerAngleXYZf eulerAngle(0,0,-incrementRadian);
     gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
     mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
@@ -194,7 +194,7 @@ void Navigation::stabiliserCamera(float incrementRadian,float angleHorizon) {
 	mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
       }
     }
-  }
+  }*/
 }
 
 void Navigation::seDeplacer()
@@ -212,9 +212,13 @@ void Navigation::seDeplacer()
 
 		float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
 		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
-		float rotationWandAxeY=gmtl::makeYRot(mWand->getData());
+		//float rotationWandAxeY=gmtl::makeYRot(mWand->getData());
 
-		if(abs(rotationWandAxeY) < gmtl::Math::PI/2) {
+		gmtl::Vec3f rotationXYZ(rotationWandAxeX*2,rotationWandAxeZ*2 ,0);
+
+		mNavigator->setRotation(rotationXYZ);
+
+		/*if(abs(rotationWandAxeY) < gmtl::Math::PI/2) {
 			float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()),gmtl::makeZRot(mWand->getData()),0};
 			if(abs(rotationWandAxeX)<0.2) {
 				vitesseRotation[0]=0;
@@ -258,16 +262,32 @@ void Navigation::seDeplacer()
 			gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
 			gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
 			mNavigator->setRotationalVelocity(rot_mat);
-		}
+		}*/
 	}
 
 }
 
-float* Navigation::getVecteurPosition() {
+void Navigation::update(float time_delta) {
+	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
+	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
+	cout << "translation " << translation << endl;
+	gmtl::Vec3f rotation =mNavigator->getRotation();
+	mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
+	cout << "rotation " << rotation << endl;
+}
+
+osg::Vec3 Navigation::getTranslation() {
+	return mTranslation;
+}
+
+osg::Vec3 Navigation::getRotation() {
+	return mRotation;
+}
+/*float* Navigation::getVecteurPosition() {
 	gmtl::Vec3f vecteurTranslation =gmtl::makeTrans<gmtl::Vec3f>(mNavigator->getCurPos());
 	float* translation = vecteurTranslation.mData;
 	return translation;
-}
+}*/
 
 void Navigation::avancerOuArreter() {
   if(!estEnTrainDAvancer) {

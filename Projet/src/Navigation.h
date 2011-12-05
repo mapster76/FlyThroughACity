@@ -20,9 +20,8 @@ class Navigation {
 public:
 	Navigation();
 	virtual ~Navigation();
-
 	void updateNavigation();
-	void init(OsgNavigator *navigator,gadget::PositionInterface &wand,gadget::PositionInterface &head,
+	void init(gadget::PositionInterface &wand,gadget::PositionInterface &head,
 			gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2);
 	void ralentirPuisSAreter(long tempsCourant);
 	void accelerer(long tempsCourant);
@@ -32,9 +31,12 @@ public:
 	void avancerOuArreter();
 	void deccelerer(long tempsCourant);
 	void droitDeTourner();
-	float* getVecteurPosition();
+	//float* getVecteurPosition();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float incrementRadian,float angleHorizon);
+	void update(float time_delta);
+	osg::Vec3 getTranslation();
+	osg::Vec3 getRotation();
 
 	/**
 	* Returns the scale factor for this application.  For this sample, we
@@ -55,7 +57,10 @@ private:
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
    bool estStabilise;
-   OsgNavigator  *mNavigator;
+   osg::Vec3 mTranslation;
+   osg::Vec3 mRotation;
+   //OsgNavigator  *mNavigator;
+   cluster::UserData< NavData >  mNavigator;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand
