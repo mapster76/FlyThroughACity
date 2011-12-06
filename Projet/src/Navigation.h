@@ -33,7 +33,7 @@ public:
 	void droitDeTourner();
 	//float* getVecteurPosition();
 	void detectionRotationExcessive(float*);
-	void stabiliserCamera(float incrementRadian,float angleHorizon);
+	//void stabiliserCamera(float incrementRadian,float angleHorizon);
 	void update(float time_delta);
 	osg::Vec3 getTranslation();
 	osg::Vec3 getRotation();

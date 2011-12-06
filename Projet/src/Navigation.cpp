@@ -159,48 +159,6 @@ void Navigation::droitDeTourner() {
       peutTourner = true;
 }
 
-void Navigation::stabiliserCamera(float incrementRadian,float angleHorizon) {
-  /*if(angleHorizon>0.05) {
-    gmtl::EulerAngleXYZf eulerAngle(0,0,-incrementRadian);
-    gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-    mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-    float nouvelAngleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
-    if(nouvelAngleHorizon>gmtl::Math::PI/2) {
-      nouvelAngleHorizon=gmtl::Math::PI-nouvelAngleHorizon;
-    } else {
-      if(nouvelAngleHorizon<-gmtl::Math::PI/2) {
-	nouvelAngleHorizon=gmtl::Math::PI+nouvelAngleHorizon;
-      }
-    }
-    if(nouvelAngleHorizon<-0.02) {
-      gmtl::EulerAngleXYZf eulerAngle(0,0,-nouvelAngleHorizon/2);
-      gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-      mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-    }
-  } else {
-    if(angleHorizon<-0.05) {
-      gmtl::EulerAngleXYZf eulerAngle(0,0,incrementRadian);
-      gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-      mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-      float nouvelAngleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
-      if(nouvelAngleHorizon>gmtl::Math::PI/2) {
-	nouvelAngleHorizon=gmtl::Math::PI-nouvelAngleHorizon;
-      } else {
-	if(nouvelAngleHorizon<-gmtl::Math::PI/2) {
-	  nouvelAngleHorizon=gmtl::Math::PI+nouvelAngleHorizon;
-	  nouvelAngleHorizon=-nouvelAngleHorizon;
-	}
-      }
-      //	cout << "nouvelAngleHorizon" << nouvelAngleHorizon << endl;
-      if(nouvelAngleHorizon>0.02) {
-	gmtl::EulerAngleXYZf eulerAngle(0,0,-nouvelAngleHorizon/2);
-	gmtl::Matrix44f rotMat = gmtl::makeRot<gmtl::Matrix44f>( eulerAngle );
-	mNavigator->setCurPos(mNavigator->getCurPos()*rotMat);
-      }
-    }
-  }*/
-}
-
 void Navigation::seDeplacer()
 {
 
@@ -217,7 +175,6 @@ void Navigation::seDeplacer()
 
 		float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
 		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
-		//float rotationWandAxeY=gmtl::makeYRot(mWand->getData());
 
 
 		gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
@@ -238,12 +195,9 @@ int signe(int nombre) {
 void Navigation::update(float time_delta) {
 	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
 	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
-	//cout << "translation " << translation << endl;
+
 	gmtl::Vec3f rotation =mNavigator->getRotation();
 	mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
-	//cout << "rotation " << rotation << endl;
-
-	//Calcul de la matrice position
 	//Translation
 	osg::Matrix T;
 	T.makeTranslate(-mTranslation);
@@ -255,8 +209,6 @@ void Navigation::update(float time_delta) {
 	osg::Vec3 z(0,0,1);
 	R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
 
-	//R1.makeRotate(-mRotation.x(),x,-mRotation.y(),y,-mRotation.z(),z);
-	//cout << "angle " << -mRotation.x()/100 << ", " << -mRotation.y()/100 << ", " << -mRotation.z()/100 << endl;
 	osg::Matrix H;
 	H.makeIdentity();
 	osg::Matrix D;
@@ -265,7 +217,7 @@ void Navigation::update(float time_delta) {
 	float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
 	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
 	osg::Quat adapte;
-	cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
+	//cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
 
 	double qx=0,qz=0,qw=0;
 	if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
@@ -274,23 +226,23 @@ void Navigation::update(float time_delta) {
 		if(rotationActuelle.y()>0.97) {
 			if(rotationActuelle.z()>0.15) {
 				cout << "z=-0.00001;" << endl;
-				qz=-0.0001;
+				qz=-0.0005;
 				qw=rotationActuelle.w();
 			}
 			if( rotationActuelle.z()<-0.15) {
 				cout << "z=+0.000001;" << endl;
-				qz=+0.0001;
+				qz=+0.0005;
 				qw=rotationActuelle.w();
 
 			}
 			if( rotationActuelle.x()>0.15) {
 				cout << "x=-0.000001;" << endl;
-				qx=-0.0001;
+				qx=-0.0005;
 				qw=rotationActuelle.w();
 			}
 			if( rotationActuelle.x()<-0.15) {
 				cout << "x=+0.000001;" << endl;
-				qx=+0.0001;
+				qx=+0.0005;
 				qw=rotationActuelle.w();
 			}
 			if(rotationActuelle.z()>0.15 || rotationActuelle.z()<-0.15 || rotationActuelle.x()>0.15 || rotationActuelle.x()<-0.15) {
@@ -303,23 +255,23 @@ void Navigation::update(float time_delta) {
 			if(rotationActuelle.y()>0.8) {
 				if(rotationActuelle.z()>0.05) {
 					cout << "z=-0.00001;" << endl;
-					qz=-0.0001;
+					qz=-0.0005;
 					qw=rotationActuelle.w();
 				}
 				if( rotationActuelle.z()<-0.05) {
 					cout << "z=+0.000001;" << endl;
-					qz=+0.0001;
+					qz=+0.0005;
 					qw=rotationActuelle.w();
 
 				}
 				if( rotationActuelle.x()>0.05) {
 					cout << "x=-0.000001;" << endl;
-					qx=-0.0001;
+					qx=-0.0005;
 					qw=rotationActuelle.w();
 				}
 				if( rotationActuelle.x()<-0.05) {
 					cout << "x=+0.000001;" << endl;
-					qx=+0.0001;
+					qx=+0.001;
 					qw=rotationActuelle.w();
 				}
 				if(rotationActuelle.z()>0.05 || rotationActuelle.z()<-0.05 || rotationActuelle.x()>0.05 || rotationActuelle.x()<-0.05) {
