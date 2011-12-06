@@ -19,13 +19,14 @@ public:
   //void updateFmod(float*,float*,float*,float*,float);
 
   void ambiance();
+  void fxSound(FMOD::Sound *);
 
   void ERRCHECK(FMOD_RESULT);
 
  private:
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
-    FMOD::Sound      *sound;
+    FMOD::Sound      *ambiance1, *sound1, *sound2, *sound3;
     FMOD::Channel    *channel;
     FMOD_RESULT       result;
     int               key;

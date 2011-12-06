@@ -8,8 +8,8 @@ Sons::Sons() {
 
 Sons::~Sons() {
 	printf("destroy");
-	if(sound!=NULL) {
-		result = sound->release();
+	if(ambiance1!=NULL) {
+		result = ambiance1->release();
 		ERRCHECK(result);
 
 	}
@@ -50,12 +50,38 @@ FMOD_RESULT Sons::Initialisation()
     result = system->set3DSettings(1.0f, 1.0f, 1.0f);
     ERRCHECK(result);
 
-    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound);
+    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiance1);
     ERRCHECK(result);
+    result = ambiance1->setMode(FMOD_LOOP_NORMAL);
 
-    result = sound->setMode(FMOD_LOOP_NORMAL);
+   result = system->createSound("../fmod/Audio/fx15.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound1);
+    ERRCHECK(result);
+    result = sound1->setMode(FMOD_LOOP_OFF);
+
+   result = system->createSound("../fmod/Audio/fx8.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound2);
+    ERRCHECK(result);
+    result = sound2->setMode(FMOD_LOOP_OFF);
+
+   result = system->createSound("../fmod/Audio/fx11.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound3);
+    ERRCHECK(result);
+    result = sound3->setMode(FMOD_LOOP_OFF);
 
     return result;
+
+}
+
+void Sons::fxSound(FMOD::Sound *sound)
+{
+
+	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+	ERRCHECK(result);
+
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
+	ERRCHECK(result);
 
 }
 
@@ -63,7 +89,7 @@ void Sons::ambiance()
 {
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
+	result = system->playSound(FMOD_CHANNEL_FREE, ambiance1, false, &channel);
 	ERRCHECK(result);
 
 	result = channel->set3DAttributes(&position, &velocity);

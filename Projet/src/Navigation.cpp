@@ -272,6 +272,8 @@ void Navigation::gestionBouton2(long tempsCourant)
   }
   seDeplacer();
   ralentirPuisSAreter(tempsCourant);
+
+  //mSons.fxSound(sound1);
 }
 
 void Navigation::gestionGachette(long tempsCourant) {

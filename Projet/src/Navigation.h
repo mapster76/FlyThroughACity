@@ -14,6 +14,8 @@
 #include <osg/Transform>
 #include <osg/MatrixTransform>
 
+#include <Sons.h>
+
 using namespace std;
 
 class Navigation {
