@@ -37,6 +37,7 @@ public:
 	void update(float time_delta);
 	osg::Vec3 getTranslation();
 	osg::Vec3 getRotation();
+	osg::Matrix getCurrentMatrix();
 
 	/**
 	* Returns the scale factor for this application.  For this sample, we
@@ -56,10 +57,13 @@ private:
    long tempsPourDecceleration;
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
-   bool estStabilise;
+   bool estStabilise,estInferieur,estSuperieur;
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
-   //OsgNavigator  *mNavigator;
+   osg::Matrix mCurrentMatrix;
+   osg::Matrix H;
+   osg::Matrix previousT,previousR;
+
    cluster::UserData< NavData >  mNavigator;
 
 public:

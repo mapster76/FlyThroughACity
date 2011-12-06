@@ -9,6 +9,10 @@ Navigation::Navigation() {
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
 	estStabilise=false;
+	previousT.makeIdentity();
+	previousR.makeIdentity();
+	estInferieur=false;
+	estSuperieur=false;
 }
 
 Navigation::~Navigation() {
@@ -199,6 +203,7 @@ void Navigation::stabiliserCamera(float incrementRadian,float angleHorizon) {
 
 void Navigation::seDeplacer()
 {
+
 	if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
 		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
 
@@ -214,66 +219,108 @@ void Navigation::seDeplacer()
 		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
 		//float rotationWandAxeY=gmtl::makeYRot(mWand->getData());
 
-		gmtl::Vec3f rotationXYZ(rotationWandAxeX*2,rotationWandAxeZ*2 ,0);
+
+		gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
 
 		mNavigator->setRotation(rotationXYZ);
 
-		/*if(abs(rotationWandAxeY) < gmtl::Math::PI/2) {
-			float vitesseRotation[3] = {gmtl::makeXRot(mWand->getData()),gmtl::makeZRot(mWand->getData()),0};
-			if(abs(rotationWandAxeX)<0.2) {
-				vitesseRotation[0]=0;
-			}
-			
-
-			if(abs(rotationWandAxeZ)<0.2) {
-				float angleHorizon=gmtl::makeZRot(mNavigator->getCurPos());
-				float increment=0.02;
-
-				if(angleHorizon>gmtl::Math::PI/2) {
-					angleHorizon=gmtl::Math::PI-angleHorizon;
-
-				} else {
-
-					if(angleHorizon<=-gmtl::Math::PI/2) {
-						angleHorizon=gmtl::Math::PI+angleHorizon;
-						increment=-increment;
-					}
-				}
-				stabiliserCamera(increment,angleHorizon);
-				if(abs(angleHorizon)<0.05) {
-				  vitesseRotation[1]=rotationWandAxeY; 
-				  if(rotationWandAxeY>0.2)
-				    vitesseRotation[1]-=0.2;
-				  if(rotationWandAxeY<-0.2)
-				    vitesseRotation[1]+=0.2;
-				} else
-				  vitesseRotation[0]=0;
-			}else {
-			  if(rotationWandAxeX>0.2)
-			    vitesseRotation[0]-=0.2;
-			  if(rotationWandAxeX<-0.2)
-			    vitesseRotation[0]+=0.2;
-			  if(rotationWandAxeZ>0.2)
-			    vitesseRotation[1]-=0.2;
-			  if(rotationWandAxeZ<-0.2)
-			    vitesseRotation[1]+=0.2;
-			}
-
-			gmtl::EulerAngleXYZf euler(vitesseRotation[0],vitesseRotation[1],vitesseRotation[2]);
-			gmtl::Matrix44f rot_mat = gmtl::makeRot<gmtl::Matrix44f>( euler );
-			mNavigator->setRotationalVelocity(rot_mat);
-		}*/
 	}
 
+}
+
+int signe(int nombre) {
+	if(nombre>=0)
+		return 1;
+	else
+		return -1;
 }
 
 void Navigation::update(float time_delta) {
 	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
 	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
-	cout << "translation " << translation << endl;
+	//cout << "translation " << translation << endl;
 	gmtl::Vec3f rotation =mNavigator->getRotation();
 	mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
-	cout << "rotation " << rotation << endl;
+	//cout << "rotation " << rotation << endl;
+
+	//Calcul de la matrice position
+	//Translation
+	osg::Matrix T;
+	T.makeTranslate(-mTranslation);
+	//Rotation
+	osg::Matrix R;
+	R.makeIdentity();
+	//R1.makeRotate(-mRotation.x(),x,-mRotation.y(),y,-mRotation.z(),z);
+	//cout << "angle " << -mRotation.x()/100 << ", " << -mRotation.y()/100 << ", " << -mRotation.z()/100 << endl;
+	osg::Matrix H;
+	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
+	H.makeIdentity();
+	if(abs(rotationWandAxeZ)<0.1) {
+		//cout << "rotation" << endl;
+		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+		gmtl::Matrix44f rotation;
+		rotation.set((float*) mCurrentMatrix.ptr());
+		osg::Quat adapte;
+		//cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
+		double x=0,z=0,w=0;
+		if(abs(rotationActuelle.z())>0.05 && abs(rotationActuelle.x())>0.05) {
+			if(rotationActuelle.z()>0.05 && rotationActuelle.x()>0.05) {
+				z=-0.01;
+				x=-0.01;
+				w=rotationActuelle.w();
+			}
+			if(rotationActuelle.z()<-0.05 && rotationActuelle.x()>0.05) {
+				z=+0.01;
+				x=-0.01;
+				w=rotationActuelle.w();
+			}
+			if(rotationActuelle.z()<-0.05 && rotationActuelle.x()<-0.05) {
+				z=+0.01;
+				x=+0.01;
+				w=rotationActuelle.w();
+			}
+			if(rotationActuelle.z()>0.05 && rotationActuelle.x()<-0.05) {
+				z=-0.01;
+				x=+0.01;
+				w=rotationActuelle.w();
+			}
+		} else {
+			if(rotationActuelle.z()>0.05) {
+				cout << "z=-0.01;" << endl;
+				z=-0.01;
+				w=rotationActuelle.w();
+			}
+			if( rotationActuelle.z()<-0.05) {
+				cout << "z=+0.01;" << endl;
+				z=+0.01;
+				w=rotationActuelle.w();
+			}
+			if( rotationActuelle.x()>0.05) {
+				cout << "x=-0.01;" << endl;
+				x=-0.01;
+				w=rotationActuelle.w();
+			}
+			if( rotationActuelle.x()<-0.05) {
+				cout << "x=+0.01;" << endl;
+				x=+0.01;
+				w=rotationActuelle.w();
+			}
+		}
+		if(rotationActuelle.z()>0.05 || rotationActuelle.z()<-0.05 || rotationActuelle.x()>0.05 || rotationActuelle.x()<-0.05) {
+			adapte.set(x,0,z,w);
+			H.makeRotate(adapte);
+		}
+
+	} else {
+		osg::Vec3 x(1,0,0);
+		osg::Vec3 y(0,1,0);
+		osg::Vec3 z(0,0,1);
+		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+	}
+	mCurrentMatrix = mCurrentMatrix * H * R * T;
+	//cout << "rotation" << -mNavigation.getRotation().x()/100 << ", " << -mNavigation.getRotation().y()/100 << ", " << -mNavigation.getRotation().z()/100 << endl;
+	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+
 }
 
 osg::Vec3 Navigation::getTranslation() {
@@ -283,11 +330,10 @@ osg::Vec3 Navigation::getTranslation() {
 osg::Vec3 Navigation::getRotation() {
 	return mRotation;
 }
-/*float* Navigation::getVecteurPosition() {
-	gmtl::Vec3f vecteurTranslation =gmtl::makeTrans<gmtl::Vec3f>(mNavigator->getCurPos());
-	float* translation = vecteurTranslation.mData;
-	return translation;
-}*/
+
+osg::Matrix Navigation::getCurrentMatrix() {
+	return mCurrentMatrix;
+}
 
 void Navigation::avancerOuArreter() {
   if(!estEnTrainDAvancer) {

@@ -28,18 +28,8 @@ Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
 
 void Environment::latePreFrame()
 {
-	osg::Matrix T;
-
-	T.makeTranslate(-mNavigation.getTranslation());
-	osg::Matrix R;
-	osg::Vec3 x(1,0,0);
-	osg::Vec3 y(0,1,0);
-	osg::Vec3 z(0,0,1);
-	R.makeRotate(-mNavigation.getRotation().x()/100,x,-mNavigation.getRotation().y()/100,y,-mNavigation.getRotation().z()/100,z);
-	cout << "rotation" << -mNavigation.getRotation().x()/100 << ", " << -mNavigation.getRotation().y()/100 << ", " << -mNavigation.getRotation().z()/100 << endl;
-	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
-	mCurrentMatrix = mCurrentMatrix * R * T;
-	mNavTrans->setMatrix(mCurrentMatrix);
+	//on applique la matrice de transformation calculée dans navigation
+	mNavTrans->setMatrix(mNavigation.getCurrentMatrix());
 	vrj::OsgApp::latePreFrame();
 }
 
