@@ -13,7 +13,7 @@ Navigation::Navigation() {
 Navigation::~Navigation() {
 }
 
-void Navigation::init(gadget::PositionInterface &wand,gadget::PositionInterface &head,
+void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,
 				gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2) {
 	vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
 	mNavigator.init(new_guid);
@@ -22,6 +22,7 @@ void Navigation::init(gadget::PositionInterface &wand,gadget::PositionInterface 
 	mButton0=button0;
 	mButton1=button1;
 	mButton2=button2;
+	mWorld=world;
 }
 
 
@@ -161,8 +162,8 @@ void Navigation::seDeplacer()
 		mNavigator->setVelocity(direction);
 	}
 	if(peutTourner) {
-		float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
-		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
+		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
+		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
 		gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
 		mNavigator->setRotation(rotationXYZ);
 	}
@@ -221,8 +222,8 @@ void Navigation::update(float time_delta) {
 	//Correction de l'angle de la caméra
 	osg::Matrix H;
 	H.makeIdentity();
-	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
-	float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
+	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
+	float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
 	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
 
 	if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
@@ -240,6 +241,26 @@ void Navigation::update(float time_delta) {
 	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
 	mCurrentMatrix = mCurrentMatrix * H * R * T;
 
+
+	collisions();
+}
+
+void Navigation::collisions() {
+	const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+	//On récupère la position du wand que l'on stocke dans wand_point
+	const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+	osg::BoundingBox bbox;
+	bbox.set(-10,-10,-10, 10, 10, 10);
+	osg::BoundingBox bboxTrans;
+	for( unsigned int i = 0; i < 8; ++i ) {
+		osg::Vec3 xvec = bbox.corner( i ) * mWorld.pNavTrans.get()->getMatrix();
+		bboxTrans.expandBy( xvec );
+	}
+	if(bboxTrans.contains(wand_point)) {
+		cout << "collisions !" << endl;
+	} else {
+		cout << "pas collisions !" << endl;
+	}
 }
 
 osg::Vec3 Navigation::getTranslation() {

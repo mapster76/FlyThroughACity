@@ -51,11 +51,6 @@ public:
    virtual void configSceneView(osgUtil::SceneView* newSceneViewer)
    {
       vrj::OsgApp::configSceneView(newSceneViewer);
-      sceneView=newSceneViewer;
-      //->getViewMatrixAsLookAt(eye,center,up,distance);
-      /*newSceneViewer->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
-      newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
-      newSceneViewer->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));*/
       newSceneViewer->getLight()->setAmbient(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));
@@ -139,8 +134,6 @@ public:
    //OsgNavigator  mNavigator;
    osg::Matrix mCurrentMatrix;
    Navigation mNavigation;
-   osg::Camera *mCamera;
-   osgUtil::SceneView* sceneView;
    osg::Vec3f eye,center,up;
    double distance;
 

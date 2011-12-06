@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <math.h>
 #include <gadget/Type/Position/PositionUnitConversion.h>
-
+#include "world/WorldCreator.h"
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/AnalogInterface.h>
 #include <gadget/Type/DigitalInterface.h>
@@ -23,7 +23,7 @@ public:
 	Navigation();
 	virtual ~Navigation();
 	void updateNavigation();
-	void init(gadget::PositionInterface &wand,gadget::PositionInterface &head,
+	void init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,
 			gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2);
 	void ralentirPuisSAreter(long tempsCourant);
 	void accelerer(long tempsCourant);
@@ -33,6 +33,7 @@ public:
 	void avancerOuArreter();
 	void deccelerer(long tempsCourant);
 	void droitDeTourner();
+	void collisions();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
 	void update(float time_delta);
@@ -61,7 +62,7 @@ private:
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
    osg::Matrix mCurrentMatrix;
-
+   WorldCreator mWorld;
    cluster::UserData< NavData >  mNavigator;
 
    //Sons mSons;
