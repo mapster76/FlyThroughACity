@@ -250,77 +250,114 @@ void Navigation::update(float time_delta) {
 	//Rotation
 	osg::Matrix R;
 	R.makeIdentity();
+	osg::Vec3 x(1,0,0);
+	osg::Vec3 y(0,1,0);
+	osg::Vec3 z(0,0,1);
+	R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+
 	//R1.makeRotate(-mRotation.x(),x,-mRotation.y(),y,-mRotation.z(),z);
 	//cout << "angle " << -mRotation.x()/100 << ", " << -mRotation.y()/100 << ", " << -mRotation.z()/100 << endl;
 	osg::Matrix H;
-	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
 	H.makeIdentity();
-	if(abs(rotationWandAxeZ)<0.1) {
-		//cout << "rotation" << endl;
-		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
-		gmtl::Matrix44f rotation;
-		rotation.set((float*) mCurrentMatrix.ptr());
-		osg::Quat adapte;
-		//cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
-		double x=0,z=0,w=0;
-		if(abs(rotationActuelle.z())>0.05 && abs(rotationActuelle.x())>0.05) {
-			if(rotationActuelle.z()>0.05 && rotationActuelle.x()>0.05) {
-				z=-0.01;
-				x=-0.01;
-				w=rotationActuelle.w();
+	osg::Matrix D;
+	D.makeIdentity();
+	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
+	//float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
+	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+	osg::Quat adapte;
+	cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
+
+	double qx=0,qz=0,qw=0;
+	if(abs(rotationWandAxeZ)<0.2) {
+		R.makeIdentity();
+		R.makeRotate(0,x,-mRotation.y()/100,y,0.0,z);
+		if(rotationActuelle.y()>0.97) {
+			if(rotationActuelle.z()>0.15) {
+				cout << "z=-0.00001;" << endl;
+				qz=-0.0001;
+				qw=rotationActuelle.w();
 			}
-			if(rotationActuelle.z()<-0.05 && rotationActuelle.x()>0.05) {
-				z=+0.01;
-				x=-0.01;
-				w=rotationActuelle.w();
+			if( rotationActuelle.z()<-0.15) {
+				cout << "z=+0.000001;" << endl;
+				qz=+0.0001;
+				qw=rotationActuelle.w();
+
 			}
-			if(rotationActuelle.z()<-0.05 && rotationActuelle.x()<-0.05) {
-				z=+0.01;
-				x=+0.01;
-				w=rotationActuelle.w();
+			if( rotationActuelle.x()>0.15) {
+				cout << "x=-0.000001;" << endl;
+				qx=-0.0001;
+				qw=rotationActuelle.w();
 			}
-			if(rotationActuelle.z()>0.05 && rotationActuelle.x()<-0.05) {
-				z=-0.01;
-				x=+0.01;
-				w=rotationActuelle.w();
+			if( rotationActuelle.x()<-0.15) {
+				cout << "x=+0.000001;" << endl;
+				qx=+0.0001;
+				qw=rotationActuelle.w();
+			}
+			if(rotationActuelle.z()>0.15 || rotationActuelle.z()<-0.15 || rotationActuelle.x()>0.15 || rotationActuelle.x()<-0.15) {
+				adapte.set(qx,0,qz,qw);
+				H.makeRotate(adapte);
+
 			}
 		} else {
-			if(rotationActuelle.z()>0.05) {
-				cout << "z=-0.01;" << endl;
-				z=-0.01;
-				w=rotationActuelle.w();
-			}
-			if( rotationActuelle.z()<-0.05) {
-				cout << "z=+0.01;" << endl;
-				z=+0.01;
-				w=rotationActuelle.w();
-			}
-			if( rotationActuelle.x()>0.05) {
-				cout << "x=-0.01;" << endl;
-				x=-0.01;
-				w=rotationActuelle.w();
-			}
-			if( rotationActuelle.x()<-0.05) {
-				cout << "x=+0.01;" << endl;
-				x=+0.01;
-				w=rotationActuelle.w();
-			}
-		}
-		if(rotationActuelle.z()>0.05 || rotationActuelle.z()<-0.05 || rotationActuelle.x()>0.05 || rotationActuelle.x()<-0.05) {
-			adapte.set(x,0,z,w);
-			H.makeRotate(adapte);
-		}
+			if(rotationActuelle.y()>0.8) {
+				if(rotationActuelle.z()>0.05) {
+					cout << "z=-0.00001;" << endl;
+					qz=-0.0001;
+					qw=rotationActuelle.w();
+				}
+				if( rotationActuelle.z()<-0.05) {
+					cout << "z=+0.000001;" << endl;
+					qz=+0.0001;
+					qw=rotationActuelle.w();
 
-	} else {
-		osg::Vec3 x(1,0,0);
-		osg::Vec3 y(0,1,0);
-		osg::Vec3 z(0,0,1);
-		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+				}
+				if( rotationActuelle.x()>0.05) {
+					cout << "x=-0.000001;" << endl;
+					qx=-0.0001;
+					qw=rotationActuelle.w();
+				}
+				if( rotationActuelle.x()<-0.05) {
+					cout << "x=+0.000001;" << endl;
+					qx=+0.0001;
+					qw=rotationActuelle.w();
+				}
+				if(rotationActuelle.z()>0.05 || rotationActuelle.z()<-0.05 || rotationActuelle.x()>0.05 || rotationActuelle.x()<-0.05) {
+					adapte.set(qx,0,qz,qw);
+					H.makeRotate(adapte);
+
+				}
+			} else {
+				if(rotationActuelle.z()>0.005) {
+					cout << "z=-0.001;" << endl;
+					qz=-0.001;
+					qw=rotationActuelle.w();
+				}
+				if( rotationActuelle.z()<-0.005) {
+					cout << "z=+0.001;" << endl;
+					qz=+0.001;
+					qw=rotationActuelle.w();
+
+				}
+				if( rotationActuelle.x()>0.005) {
+					cout << "x=-0.001;" << endl;
+					qx=-0.001;
+					qw=rotationActuelle.w();
+				}
+				if( rotationActuelle.x()<-0.005) {
+					cout << "x=+0.001;" << endl;
+					qx=+0.001;
+					qw=rotationActuelle.w();
+				}
+				if(rotationActuelle.z()>0.005 || rotationActuelle.z()<-0.005 || rotationActuelle.x()>0.005 || rotationActuelle.x()<-0.005) {
+					adapte.set(qx,0,qz,qw);
+					H.makeRotate(adapte);
+
+				}
+			}
+		}
 	}
-	mCurrentMatrix = mCurrentMatrix * H * R * T;
-	//cout << "rotation" << -mNavigation.getRotation().x()/100 << ", " << -mNavigation.getRotation().y()/100 << ", " << -mNavigation.getRotation().z()/100 << endl;
+	mCurrentMatrix = mCurrentMatrix * H  * R * T;
 	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
-
 }
 
 osg::Vec3 Navigation::getTranslation() {
