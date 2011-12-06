@@ -262,15 +262,15 @@ void Navigation::update(float time_delta) {
 	osg::Matrix D;
 	D.makeIdentity();
 	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData());
-	//float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
+	float rotationWandAxeX=gmtl::makeXRot(mWand->getData());
 	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
 	osg::Quat adapte;
 	cout << rotationActuelle.x() << "," << rotationActuelle.y() << "," << rotationActuelle.z() << "," << rotationActuelle.w() << endl;
 
 	double qx=0,qz=0,qw=0;
-	if(abs(rotationWandAxeZ)<0.2) {
+	if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
 		R.makeIdentity();
-		R.makeRotate(0,x,-mRotation.y()/100,y,0.0,z);
+		//R.makeRotate(0,x,-mRotation.y()/100,y,0.0,z);
 		if(rotationActuelle.y()>0.97) {
 			if(rotationActuelle.z()>0.15) {
 				cout << "z=-0.00001;" << endl;
@@ -299,6 +299,7 @@ void Navigation::update(float time_delta) {
 
 			}
 		} else {
+			//R.makeRotate(0,x,-mRotation.y()/100,y,0.0,z);
 			if(rotationActuelle.y()>0.8) {
 				if(rotationActuelle.z()>0.05) {
 					cout << "z=-0.00001;" << endl;
