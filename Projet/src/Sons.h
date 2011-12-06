@@ -19,7 +19,8 @@ public:
   //void updateFmod(float*,float*,float*,float*,float);
 
   void ambiance();
-  void fxSound(FMOD::Sound *);
+  //void fxSound(FMOD::Sound *);
+  void fxSoundTest();
 
   void ERRCHECK(FMOD_RESULT);
 

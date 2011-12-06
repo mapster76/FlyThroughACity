@@ -64,6 +64,8 @@ private:
 
    cluster::UserData< NavData >  mNavigator;
 
+   //Sons mSons;
+
 public:
    gadget::PositionInterface  mWand;     // the Wand
    gadget::PositionInterface  mHead;     // the head

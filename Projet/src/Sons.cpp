@@ -70,6 +70,7 @@ FMOD_RESULT Sons::Initialisation()
 
 }
 
+/*
 void Sons::fxSound(FMOD::Sound *sound)
 {
 
@@ -84,6 +85,23 @@ void Sons::fxSound(FMOD::Sound *sound)
 	ERRCHECK(result);
 
 }
+*/
+
+void Sons::fxSoundTest()
+{
+
+  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, sound1, false, &channel);
+	ERRCHECK(result);
+
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
+	ERRCHECK(result);
+
+}
+
 
 void Sons::ambiance()
 {
