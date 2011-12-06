@@ -271,7 +271,7 @@ void Navigation::update(float time_delta) {
 				}
 				if( rotationActuelle.x()<-0.05) {
 					cout << "x=+0.000001;" << endl;
-					qx=+0.001;
+					qx=+0.0005;
 					qw=rotationActuelle.w();
 				}
 				if(rotationActuelle.z()>0.05 || rotationActuelle.z()<-0.05 || rotationActuelle.x()>0.05 || rotationActuelle.x()<-0.05) {
