@@ -31,9 +31,8 @@ public:
 	void avancerOuArreter();
 	void deccelerer(long tempsCourant);
 	void droitDeTourner();
-	//float* getVecteurPosition();
 	void detectionRotationExcessive(float*);
-	//void stabiliserCamera(float incrementRadian,float angleHorizon);
+	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
 	void update(float time_delta);
 	osg::Vec3 getTranslation();
 	osg::Vec3 getRotation();
@@ -57,12 +56,9 @@ private:
    long tempsPourDecceleration;
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
-   bool estStabilise,estInferieur,estSuperieur;
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
    osg::Matrix mCurrentMatrix;
-   osg::Matrix H;
-   osg::Matrix previousT,previousR;
 
    cluster::UserData< NavData >  mNavigator;
 
