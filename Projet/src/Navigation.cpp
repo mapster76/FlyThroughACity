@@ -9,6 +9,7 @@ Navigation::Navigation() {
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
 	arretEnDouceur=false;
+	inverserDirection=false;
 }
 
 Navigation::~Navigation() {
@@ -163,11 +164,9 @@ void Navigation::seDeplacer()
 
 	if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
 		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
-
 		gmtl::Vec3f direction; // Choix de la vitesse
 		gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
 		gmtl::xform(direction, wandMatrix, Zdir);
-
 		mNavigator->setVelocity(direction);
 	}
 	if(peutTourner) {
@@ -177,13 +176,6 @@ void Navigation::seDeplacer()
 		mNavigator->setRotation(rotationXYZ);
 	}
 
-}
-
-int signe(int nombre) {
-	if(nombre>=0)
-		return 1;
-	else
-		return -1;
 }
 
 void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
@@ -234,6 +226,7 @@ void Navigation::jouerSonImmeuble()
 
 
 void Navigation::update(float time_delta) {
+	collisions();
 	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
 	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
 
@@ -272,17 +265,18 @@ void Navigation::update(float time_delta) {
 	mCurrentMatrix = mCurrentMatrix * H * R * T;
 
 
-	collisions();
 }
 
 void Navigation::collisions() {
 	const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
 	//On récupère la position du wand que l'on stocke dans wand_point
-	const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+	const osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+	osg::BoundingBox wandBbox;
+	wandBbox.set(wandPoint[0]-0.5,wandPoint[1]-0.5,wandPoint[2]-0.5,wandPoint[0]+0.5,wandPoint[1]+0.5,wandPoint[2]+0.5);
 	mWorld.updateBoundingBox();
+
 	for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
-		if(boundingBox->second.contains(wand_point)) {
-		  //cout << "collisions !" << endl;
+		if(boundingBox->second.intersects(wandBbox)) {
 			arretBrutal();
 		}
 	}

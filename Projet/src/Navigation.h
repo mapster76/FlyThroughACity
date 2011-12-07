@@ -62,6 +62,7 @@ private:
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
    bool arretEnDouceur;
+   bool inverserDirection;
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
    osg::Matrix mCurrentMatrix;

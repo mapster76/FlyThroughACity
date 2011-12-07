@@ -59,7 +59,6 @@ void Environment::preFrame()
    // Update the navigation using the time delta between
    mNavigation.update(time_delta);
 
-
 }
 
 
