@@ -63,6 +63,7 @@ private:
    long estEnTrainDeDecelerer;
    bool arretEnDouceur;
    bool inverserDirection;
+   int mCompteurCollisions;
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
    osg::Matrix mCurrentMatrix;

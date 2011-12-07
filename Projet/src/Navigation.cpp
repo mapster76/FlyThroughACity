@@ -10,6 +10,7 @@ Navigation::Navigation() {
 	estEnTrainDeDecelerer=false;
 	arretEnDouceur=false;
 	inverserDirection=false;
+	mCompteurCollisions=0;
 }
 
 Navigation::~Navigation() {
@@ -226,60 +227,69 @@ void Navigation::jouerSonImmeuble()
 
 
 void Navigation::update(float time_delta) {
-	collisions();
-	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
-	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
+	if(estEnTrainDAvancer) {
+		osg::Matrix T;
 
-	gmtl::Vec3f rotation =mNavigator->getRotation();
-	mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
-	//Translation
-	osg::Matrix T;
-	T.makeTranslate(-mTranslation);
-	//Rotation
-	osg::Matrix R;
-	R.makeIdentity();
-	osg::Vec3 x(1,0,0);
-	osg::Vec3 y(0,1,0);
-	osg::Vec3 z(0,0,1);
-	R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
-	//Correction de l'angle de la caméra
-	osg::Matrix H;
-	H.makeIdentity();
-	float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
-	float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
-	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+		gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
+		mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
 
-	if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
+		gmtl::Vec3f rotation =mNavigator->getRotation();
+		mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
+		//Translation
+		T.makeTranslate(-mTranslation);
+		//Rotation
+		osg::Matrix R;
 		R.makeIdentity();
-		if(rotationActuelle.y()>0.97) {
-			stabiliserCamera(0.15,0.0005,rotationActuelle,H);
-		} else {
-			if(rotationActuelle.y()>0.8) {
-				stabiliserCamera(0.05,0.0005,rotationActuelle,H);
+		osg::Vec3 x(1,0,0);
+		osg::Vec3 y(0,1,0);
+		osg::Vec3 z(0,0,1);
+		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+		//Correction de l'angle de la caméra
+		osg::Matrix H;
+		H.makeIdentity();
+		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
+		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
+		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+
+		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
+			R.makeIdentity();
+			if(rotationActuelle.y()>0.97) {
+				stabiliserCamera(0.15,0.0005,rotationActuelle,H);
 			} else {
-				stabiliserCamera(0.005,0.001,rotationActuelle,H);
+				if(rotationActuelle.y()>0.8) {
+					stabiliserCamera(0.05,0.0005,rotationActuelle,H);
+				} else {
+					stabiliserCamera(0.005,0.001,rotationActuelle,H);
+				}
 			}
 		}
+		collisions();
+		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+		mCurrentMatrix = mCurrentMatrix * H * R * T;
 	}
-	//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
-	mCurrentMatrix = mCurrentMatrix * H * R * T;
-
 
 }
 
 void Navigation::collisions() {
-	const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
-	//On récupère la position du wand que l'on stocke dans wand_point
-	const osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-	osg::BoundingBox wandBbox;
-	wandBbox.set(wandPoint[0]-0.5,wandPoint[1]-0.5,wandPoint[2]-0.5,wandPoint[0]+0.5,wandPoint[1]+0.5,wandPoint[2]+0.5);
-	mWorld.updateBoundingBox();
+	//if(estEnTrainDAvancer) {
+		const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+		//On récupère la position du wand que l'on stocke dans wand_point
+		const osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+		osg::BoundingBox wandBbox;
+		wandBbox.set(wandPoint[0]-0.5,wandPoint[1]-0.5,wandPoint[2]-0.5,wandPoint[0]+0.5,wandPoint[1]+0.5,wandPoint[2]+0.5);
+		mWorld.updateBoundingBox();
 
-	for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
-		if(boundingBox->second.intersects(wandBbox)) {
-			arretBrutal();
+		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
+			if(boundingBox->second.intersects(wandBbox)) {
+				mCompteurCollisions++;
+				if(mCompteurCollisions>5) {
+					cout << "collisions" << endl;
+					arretBrutal();
+					mCompteurCollisions=0;
+				}
+			}
 		}
-	}
+	//}
 }
 
 osg::Vec3 Navigation::getTranslation() {
