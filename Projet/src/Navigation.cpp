@@ -210,8 +210,8 @@ void Navigation::jouerSonImmeuble()
 
   const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
   //On récupère la position du wand que l'on stocke dans wand_point
-  const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-
+  osg::Vec3f wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+  wand_point = wand_point * mWorld.pNavTrans.get()->getMatrix();
   int vitesseMinimale = 50, altitudeMaximale = 20;
 
   gmtl::Vec3f Zdir = mNavigator->getVelocity();
@@ -223,6 +223,7 @@ void Navigation::jouerSonImmeuble()
     mSons1.jouerEffetDoppler();
   }
 
+  cout << wand_point[0] << "  " << wand_point[1] << "  " << wand_point[2] << endl;
 }
 
 
@@ -266,7 +267,10 @@ void Navigation::update(float time_delta) {
 		collisions();
 		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
 		mCurrentMatrix = mCurrentMatrix * H * R * T;
+		jouerSonImmeuble();
 	}
+
+
 
 }
 
