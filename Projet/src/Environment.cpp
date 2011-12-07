@@ -127,7 +127,9 @@ void Environment::myInit()
 
 	mNavigation.init(*mWorld,mWand,mHead,mButton0,mButton1,mButton2);
 
-	mSons.ambiance();
+	mSons.jouerAmbiancePluie();
+	//sleep(12);
+	//mSons.jouerSonDemarrage();
 
 }
 

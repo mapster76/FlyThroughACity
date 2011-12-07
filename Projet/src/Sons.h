@@ -18,16 +18,17 @@ public:
 
   //void updateFmod(float*,float*,float*,float*,float);
 
-  void ambiance();
-  //void fxSound(FMOD::Sound *);
-  void fxSoundTest();
+  void jouerAmbiancePluie();
+  void jouerSonDemarrage();
+  void jouerSonDeceleration();
+  void jouerEffetDoppler();
 
   void ERRCHECK(FMOD_RESULT);
 
  private:
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
-    FMOD::Sound      *ambiance1, *sound1, *sound2, *sound3;
+    FMOD::Sound      *ambiancePluie, *sonDemarrage, *sonDeceleration, *effetDoppler;
     FMOD::Channel    *channel;
     FMOD_RESULT       result;
     int               key;

@@ -8,11 +8,27 @@ Sons::Sons() {
 
 Sons::~Sons() {
 	printf("destroy");
-	if(ambiance1!=NULL) {
-		result = ambiance1->release();
+	if(ambiancePluie!=NULL) {
+		result = ambiancePluie->release();
 		ERRCHECK(result);
-
 	}
+
+	if(sonDeceleration!=NULL) {
+		result = sonDeceleration->release();
+		ERRCHECK(result);
+	}
+
+	if(sonDemarrage!=NULL) {
+		result = sonDemarrage->release();
+		ERRCHECK(result);
+	}
+
+	if(effetDoppler!=NULL) {
+		result = effetDoppler->release();
+		ERRCHECK(result);
+	}
+
+
 	if(system!=NULL) {
 		result = system->close();
 		ERRCHECK(result);
@@ -50,72 +66,86 @@ FMOD_RESULT Sons::Initialisation()
     result = system->set3DSettings(1.0f, 1.0f, 1.0f);
     ERRCHECK(result);
 
-    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiance1);
+    //  AMBIANCE PLUIE
+    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiancePluie);
     ERRCHECK(result);
-    result = ambiance1->setMode(FMOD_LOOP_NORMAL);
+    result = ambiancePluie->setMode(FMOD_LOOP_NORMAL);
 
-   result = system->createSound("../fmod/Audio/fx15.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound1);
+    // DEMARRAGE
+   result = system->createSound("../fmod/Audio/fx2.MP3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDemarrage);
     ERRCHECK(result);
-    result = sound1->setMode(FMOD_LOOP_OFF);
+    result = sonDemarrage->setMode(FMOD_LOOP_OFF);
 
-   result = system->createSound("../fmod/Audio/fx8.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound2);
+    // DECELERATION
+   result = system->createSound("../fmod/Audio/fx12.MP3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
     ERRCHECK(result);
-    result = sound2->setMode(FMOD_LOOP_OFF);
+    result = sonDeceleration->setMode(FMOD_LOOP_OFF);
 
-   result = system->createSound("../fmod/Audio/fx11.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sound3);
+   // EFFET DOPPLER
+   result = system->createSound("../fmod/Audio/fx18.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &effetDoppler);
     ERRCHECK(result);
-    result = sound3->setMode(FMOD_LOOP_OFF);
+    result = effetDoppler->setMode(FMOD_LOOP_OFF);
+
 
     return result;
 
 }
 
-/*
-void Sons::fxSound(FMOD::Sound *sound)
-{
-
-	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
-	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
-	ERRCHECK(result);
-
-	result = channel->set3DAttributes(&position, &velocity);
-	ERRCHECK(result);
-	result = channel->setPaused(false);
-	ERRCHECK(result);
-
-}
-*/
-
-void Sons::fxSoundTest()
+void Sons::jouerSonDeceleration()
 {
 
   	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sound1, false, &channel);
+	result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channel);
 	ERRCHECK(result);
 
 	result = channel->set3DAttributes(&position, &velocity);
 	ERRCHECK(result);
 	result = channel->setPaused(false);
 	ERRCHECK(result);
+}
 
+void Sons::jouerEffetDoppler()
+{
+
+  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, effetDoppler, false, &channel);
+	ERRCHECK(result);
+
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
+	ERRCHECK(result);
 }
 
 
-void Sons::ambiance()
+void Sons::jouerSonDemarrage()
 {
-	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+
+  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, ambiance1, false, &channel);
+	result = system->playSound(FMOD_CHANNEL_FREE, sonDemarrage, false, &channel);
 	ERRCHECK(result);
 
 	result = channel->set3DAttributes(&position, &velocity);
 	ERRCHECK(result);
 	result = channel->setPaused(false);
 	ERRCHECK(result);
+}
+ 
 
+void Sons::jouerAmbiancePluie()
+{
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, ambiancePluie, false, &channel);
+	ERRCHECK(result);
 
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
+	ERRCHECK(result);
 }
 
 

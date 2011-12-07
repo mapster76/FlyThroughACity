@@ -212,6 +212,27 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 	}
 }
 
+void Navigation::jouerSonImmeuble()
+{
+
+  const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+  //On récupère la position du wand que l'on stocke dans wand_point
+  const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+
+  int vitesseMinimale = 50, altitudeMaximale = 20;
+
+  gmtl::Vec3f Zdir = mNavigator->getVelocity();
+  float* vitesse=Zdir.getData();
+  
+  //Si vitesse suffisamment grande ET altitude assez  basse
+  if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>vitesseMinimale && wand_point[2]<altitudeMaximale) {
+
+    mSons1.jouerEffetDoppler();
+  }
+
+}
+
+
 void Navigation::update(float time_delta) {
 	gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
 	mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
@@ -261,7 +282,7 @@ void Navigation::collisions() {
 	mWorld.updateBoundingBox();
 	for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 		if(boundingBox->second.contains(wand_point)) {
-			cout << "collisions !" << endl;
+		  //cout << "collisions !" << endl;
 			arretBrutal();
 		}
 	}
@@ -286,6 +307,7 @@ void Navigation::avancerOuArreter() {
   } else {
       estEnTrainDAvancer = false;
       arretEnDouceur=true;
+      mSons1.jouerSonDeceleration();
   }
 }
 
@@ -298,8 +320,6 @@ void Navigation::gestionBouton2(long tempsCourant)
   }
   seDeplacer();
   ralentirPuisSAreter(tempsCourant);
-
-  //mSons.fxSoundTest();
 }
 
 void Navigation::gestionGachette(long tempsCourant) {

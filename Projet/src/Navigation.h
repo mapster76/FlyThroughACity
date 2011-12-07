@@ -35,6 +35,7 @@ public:
 	void arretBrutal();
 	void droitDeTourner();
 	void collisions();
+	void jouerSonImmeuble();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
 	void update(float time_delta);
@@ -67,7 +68,7 @@ private:
    WorldCreator mWorld;
    cluster::UserData< NavData >  mNavigator;
 
-   //Sons mSons;
+   Sons mSons1;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand
