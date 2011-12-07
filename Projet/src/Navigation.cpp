@@ -223,7 +223,7 @@ void Navigation::jouerSonImmeuble()
     mSons1.jouerEffetDoppler();
   }
 
-  cout << wand_point[0] << "  " << wand_point[1] << "  " << wand_point[2] << endl;
+
 }
 
 
@@ -276,7 +276,20 @@ void Navigation::update(float time_delta) {
 
 void Navigation::collisions() {
 	//if(estEnTrainDAvancer) {
-		const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+	gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+	// The navigation matrix is w_M_vw, so invert it for use here.
+	/*const osg::Matrix& nav_mat(mWorld.pNavTrans->getMatrix());
+	osg::Matrix vw_M_w;
+	nav_mat.inverse(vw_M_w);
+
+	// Transform the wand matrix from real world coordinates into virtual world
+	// coordinates.
+	osg::Matrix osg_wandMatrix(
+			wand_matrix[0][0],wand_matrix[0][1],wand_matrix[0][2],wand_matrix[0][3],
+			wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
+			wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
+			wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
+	osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix;*/
 		//On récupère la position du wand que l'on stocke dans wand_point
 		const osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
 		osg::BoundingBox wandBbox;
@@ -286,8 +299,9 @@ void Navigation::collisions() {
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
 				mCompteurCollisions++;
+				cout << "collisions" << endl;
 				if(mCompteurCollisions>5) {
-					cout << "collisions" << endl;
+
 					arretBrutal();
 					mCompteurCollisions=0;
 				}

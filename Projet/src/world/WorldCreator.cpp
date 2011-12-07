@@ -62,7 +62,7 @@ void WorldCreator::updateBoundingBox() {
 		bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
 		osg::BoundingBox bboxTrans;
 		for( unsigned int i = 0; i < 8; ++i ) {
-			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix();
+			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix() ;
 			bboxTrans.expandBy( xvec );
 		}
 		lesBoundingBoxes[coordonnes]=bboxTrans;
