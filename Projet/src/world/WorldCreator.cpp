@@ -27,7 +27,7 @@ void WorldCreator::drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg
 	navTrans=pNavTrans;
 }
 
-osg::ref_ptr<osg::Geode> WorldCreator::createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height) {
+/*osg::ref_ptr<osg::Geode> WorldCreator::createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height) {
 	osg::ref_ptr<osg::Geode> geodeNode (new osg::Geode);
 	GLfloat color[3]={r,g,b};
 	osg::ref_ptr<ImmeublePlat> unImmeuble(new ImmeublePlat(size,height,color));
@@ -35,13 +35,13 @@ osg::ref_ptr<osg::Geode> WorldCreator::createImmeublePlatNode(GLfloat r,GLfloat 
 	geodeNode->addDrawable((osg::Drawable*)shape.get());
 	immeubleParTaille[unImmeuble->getHeight()]=geodeNode;
 	return geodeNode;
-}
+}*/
 
 osg::ref_ptr<osg::Node> WorldCreator::createImmeubleAvecFenetreNode(GLfloat nombreEtage) {
 	osg::ref_ptr<osg::Node> resultNode;
 	ImmeubleAvecFenetre unImmeuble(nombreEtage);
-	resultNode=unImmeuble.construireUnImmeuble();
-	immeubleParTaille[unImmeuble.getNombreEtage()]=resultNode;
+	unImmeuble.construireUnImmeuble();
+	immeubleParTaille[unImmeuble.getNombreEtage()]=unImmeuble;
 	return resultNode;
 }
 
@@ -53,11 +53,28 @@ bool WorldCreator::estUnEmplacementVide(vector<GLfloat> coordonnes) {
 	return laCarte.find(coordonnes)==laCarte.end();
 }
 
+void WorldCreator::updateBoundingBox() {
+	float coteImmeuble=11;
+	for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
+		osg::BoundingBox bbox;
+		ImmeubleAvecFenetre lImmeuble=unImmeuble->second;
+		vector<GLfloat> coordonnes=unImmeuble->first;
+		bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
+		osg::BoundingBox bboxTrans;
+		for( unsigned int i = 0; i < 8; ++i ) {
+			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix();
+			bboxTrans.expandBy( xvec );
+		}
+		lesBoundingBoxes[coordonnes]=bboxTrans;
+	}
+}
+
 void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
 	//Generation d'un nombre d'étage entre 1 et 10 pseudo-aleatoirement
 	GLfloat nombreEtage=randomParPas(3,20,1);
 	if(!noeudImmeubleExiste(nombreEtage)) {
 		createImmeubleAvecFenetreNode(nombreEtage);
+
 		//createImmeublePlatNode(0,0,1,COTE_IMMEUBLE,nombreEtage*10);
 	}
 	laCarte[coordonnes]=immeubleParTaille[nombreEtage];
@@ -126,12 +143,12 @@ void WorldCreator::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLflo
 }
 
 void WorldCreator::generateSceneGraph() {
-	for (map< vector<GLfloat> , osg::ref_ptr<osg::Node> >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
-		placeNodeElement(unImmeuble->second,unImmeuble->first);
+	for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
+		placeNodeElement(unImmeuble->second.getNode(),unImmeuble->first);
 	}
 }
 
-map < vector<GLfloat> , osg::ref_ptr<osg::Node> > WorldCreator::getCarte() {
+map < vector<GLfloat> , ImmeubleAvecFenetre > WorldCreator::getCarte() {
 
   return laCarte;
 

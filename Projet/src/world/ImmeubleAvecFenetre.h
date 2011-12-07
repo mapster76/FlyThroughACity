@@ -30,16 +30,23 @@ private:
 	int mNombreEtages;
 public:
 	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route;
+	osg::ref_ptr<osg::Group> mImmeuble;
+	ImmeubleAvecFenetre() {}
+
 	ImmeubleAvecFenetre(int nombreEtages);
 
 	~ImmeubleAvecFenetre() {}
 
+	osg::ref_ptr<osg::Group> getNode();
 
 	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> pNavTrans);
 
-	osg::ref_ptr<osg::Group> construireUnImmeuble();
+	void construireUnImmeuble();
 
 	int getNombreEtage();
+
+	int getTaille();
+
 };
 
 #endif /* IMMEUBLEAVECFENETRE_H_ */

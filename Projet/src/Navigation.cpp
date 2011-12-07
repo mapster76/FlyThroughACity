@@ -8,6 +8,7 @@ Navigation::Navigation() {
 	peutTourner = false;
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
+	arretEnDouceur=false;
 }
 
 Navigation::~Navigation() {
@@ -117,30 +118,38 @@ void Navigation::deccelerer(long tempsCourant) {
 	}
 }
 
+void Navigation::arretBrutal() {
+	estEnTrainDAvancer=false;
+	arretEnDouceur=false;
+}
 
 void Navigation::ralentirPuisSAreter(long tempsCourant)
 {
-	if(!estEnTrainDAvancer) {
+	if(!estEnTrainDAvancer && arretEnDouceur) {
 		if(tempsPourArret==0)
 			tempsPourArret=tempsCourant;
-
-
-		gmtl::Vec3f direction;
-
-		gmtl::Vec3f Zdir = mNavigator->getVelocity();
-		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourArret>40000) {
-
+			gmtl::Vec3f direction;
+			gmtl::Vec3f Zdir = mNavigator->getVelocity();
+			float* vitesse=Zdir.getData();
+			if(tempsCourant-tempsPourArret>40000) {
 			ralentir(vitesse[0]);
 			ralentir(vitesse[1]);
 			ralentir(vitesse[2]);
-		  Zdir.set(vitesse);
-		  mNavigator->setVelocity(Zdir);
-		  tempsPourArret=tempsCourant;
+			Zdir.set(vitesse);
+			mNavigator->setVelocity(Zdir);
+			tempsPourArret=tempsCourant;
 		}
-		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0)
+		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
 			tempsPourArret=0;
-
+		}
+	}
+	if(!estEnTrainDAvancer && !arretEnDouceur) {
+		gmtl::Vec3f Zdir = mNavigator->getVelocity();
+		float* vitesse=Zdir.getData();
+		vitesse[0]=0;
+		vitesse[1]=0;
+		vitesse[2]=0;
+		mNavigator->setVelocity(Zdir);
 	}
 }
 
@@ -249,17 +258,12 @@ void Navigation::collisions() {
 	const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
 	//On récupère la position du wand que l'on stocke dans wand_point
 	const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-	osg::BoundingBox bbox;
-	bbox.set(-10,-10,-10, 10, 10, 10);
-	osg::BoundingBox bboxTrans;
-	for( unsigned int i = 0; i < 8; ++i ) {
-		osg::Vec3 xvec = bbox.corner( i ) * mWorld.pNavTrans.get()->getMatrix();
-		bboxTrans.expandBy( xvec );
-	}
-	if(bboxTrans.contains(wand_point)) {
-		cout << "collisions !" << endl;
-	} else {
-		cout << "pas collisions !" << endl;
+	mWorld.updateBoundingBox();
+	for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
+		if(boundingBox->second.contains(wand_point)) {
+			cout << "collisions !" << endl;
+			arretBrutal();
+		}
 	}
 }
 
@@ -281,6 +285,7 @@ void Navigation::avancerOuArreter() {
       estEnTrainDAvancer = true;
   } else {
       estEnTrainDAvancer = false;
+      arretEnDouceur=true;
   }
 }
 

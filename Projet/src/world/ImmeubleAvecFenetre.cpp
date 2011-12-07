@@ -71,7 +71,7 @@ void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> n
 	mModel->addChild(ImmeubleAvecFenetre::route.get());
 }
 
-osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::construireUnImmeuble() {
+void ImmeubleAvecFenetre::construireUnImmeuble() {
 	osg::ref_ptr<osg::Group>  rootNode;
 	osg::ref_ptr<osg::MatrixTransform> navTrans;
 	rootNode = new osg::Group();
@@ -86,5 +86,13 @@ osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::construireUnImmeuble() {
 		placeNodeElement(etage,setCoordonnes(0,i*4,0),navTrans);
 	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),navTrans);
 
-	return rootNode;
+	mImmeuble=rootNode;
+}
+
+int ImmeubleAvecFenetre::getTaille() {
+	return (mNombreEtages+1)*4;
+}
+
+osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::getNode() {
+	return mImmeuble;
 }

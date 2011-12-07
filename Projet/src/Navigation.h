@@ -32,6 +32,7 @@ public:
 	void gestionBouton2(long tempsCourant);
 	void avancerOuArreter();
 	void deccelerer(long tempsCourant);
+	void arretBrutal();
 	void droitDeTourner();
 	void collisions();
 	void detectionRotationExcessive(float*);
@@ -59,6 +60,7 @@ private:
    long tempsPourDecceleration;
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
+   bool arretEnDouceur;
    osg::Vec3 mTranslation;
    osg::Vec3 mRotation;
    osg::Matrix mCurrentMatrix;
