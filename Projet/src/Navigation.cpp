@@ -276,9 +276,9 @@ void Navigation::update(float time_delta) {
 
 void Navigation::collisions() {
 	//if(estEnTrainDAvancer) {
-	gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
+	gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
 	// The navigation matrix is w_M_vw, so invert it for use here.
-	/*const osg::Matrix& nav_mat(mWorld.pNavTrans->getMatrix());
+	const osg::Matrix& nav_mat(mWorld.pNavTrans->getMatrix());
 	osg::Matrix vw_M_w;
 	nav_mat.inverse(vw_M_w);
 
@@ -289,24 +289,45 @@ void Navigation::collisions() {
 			wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
 			wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
 			wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
-	osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix;*/
+	osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix;
+
 		//On récupère la position du wand que l'on stocke dans wand_point
-		const osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+		//osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
+		osg::Vec3f wandPoint(wandMatrix.getTrans());
+		cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 		osg::BoundingBox wandBbox;
 		wandBbox.set(wandPoint[0]-0.5,wandPoint[1]-0.5,wandPoint[2]-0.5,wandPoint[0]+0.5,wandPoint[1]+0.5,wandPoint[2]+0.5);
-		mWorld.updateBoundingBox();
 
+		mWorld.updateBoundingBox();
+		/*osg::ComputeBoundsVisitor cbv;
+		mWorld.pRootNode->accept(cbv);
+		const osg::BoundingBox bb( cbv.getBoundingBox() );
+		if(bb.intersects(wandBbox)) {
+			cout << "bbox" << endl;
+		} else {
+			cout << " pas bbox" << endl;
+		}*/
+		/*for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = mWorld.laCarte.begin(); unImmeuble != mWorld.laCarte.end(); ++unImmeuble) {
+			cout << "unImmeuble" << endl;
+			if(unImmeuble->second.getBoundingBox().intersects(wandBbox)) {
+				cout << "bbox" << endl;
+				//arretBrutal();
+			}
+		}*/
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
-				mCompteurCollisions++;
-				cout << "collisions" << endl;
-				if(mCompteurCollisions>5) {
+				cout << "min "<< boundingBox->second.xMin() << ", " << boundingBox->second.yMin() << ", " << boundingBox->second.zMin() << endl;
+				cout << "max "<< boundingBox->second.xMax() << ", " << boundingBox->second.yMax() << ", " << boundingBox->second.zMax() << endl;
+				/*mCompteurCollisions++;
 
+				if(mCompteurCollisions>5) {*/
+				cout << "collisions" << endl;
 					arretBrutal();
-					mCompteurCollisions=0;
-				}
+					/*mCompteurCollisions=0;
+				}*/
 			}
 		}
+
 	//}
 }
 

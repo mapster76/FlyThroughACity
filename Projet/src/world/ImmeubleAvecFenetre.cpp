@@ -85,12 +85,22 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	for(int i=1;i<mNombreEtages;i++)
 		placeNodeElement(etage,setCoordonnes(0,i*4,0),navTrans);
 	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),navTrans);
-
 	mImmeuble=rootNode;
+
 }
 
 int ImmeubleAvecFenetre::getTaille() {
 	return (mNombreEtages+1)*4;
+}
+
+osg::BoundingBox ImmeubleAvecFenetre::getBoundingBox() {
+	osg::ComputeBoundsVisitor cbv;
+	mImmeuble->accept(cbv);
+	const osg::BoundingBox bb( cbv.getBoundingBox() );
+	return bb;
+	/*mt->setMatrix( osg::Matrix::translate( bb.center() ) );
+	osg::Vec3 ext( bb._max - bb._min );
+	geode->addDrawable( osgwTools::makeWireBox( ext * 0.5 ) );*/
 }
 
 osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::getNode() {

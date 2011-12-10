@@ -54,18 +54,37 @@ bool WorldCreator::estUnEmplacementVide(vector<GLfloat> coordonnes) {
 }
 
 void WorldCreator::updateBoundingBox() {
-	float coteImmeuble=11;
+	//float coteImmeuble=11;
 	for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
 		osg::BoundingBox bbox;
 		ImmeubleAvecFenetre lImmeuble=unImmeuble->second;
 		vector<GLfloat> coordonnes=unImmeuble->first;
-		bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
-		osg::BoundingBox bboxTrans;
+		if(coordonnes[0]>0)
+			coordonnes[0]+=13;
+		else
+			coordonnes[0]-=13;
+
+		if(coordonnes[2]>0)
+			coordonnes[2]+=13;
+		else
+			coordonnes[2]-=13;
+		osg::Vec3f position(coordonnes[0],0,coordonnes[2]);
+		bbox=lImmeuble.getBoundingBox();
+		/*cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
+		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
+		//bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
+		//cout << "coord " << coordonnes[0] << " " << coordonnes[1] << " " << coordonnes[2] << endl;
+		bbox.set(bbox._min+position,bbox._max+position);
+		/*osg::BoundingBox bboxTrans;
 		for( unsigned int i = 0; i < 8; ++i ) {
 			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix() ;
 			bboxTrans.expandBy( xvec );
-		}
-		lesBoundingBoxes[coordonnes]=bboxTrans;
+		}*/
+		/*cout << "min apres Trans"<< bboxTrans.xMin() << ", " << bboxTrans.yMin() << ", " << bboxTrans.zMin() << endl;
+		cout << "max apres Trans"<< bboxTrans.xMax() << ", " << bboxTrans.yMax() << ", " << bboxTrans.zMax() << endl;*/
+		/*cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
+		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
+		lesBoundingBoxes[coordonnes]=bbox;
 	}
 }
 

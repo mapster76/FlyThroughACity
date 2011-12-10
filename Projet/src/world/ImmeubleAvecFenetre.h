@@ -13,6 +13,7 @@
 #include <gmtl/Math.h>
 #include <Sol.h>
 #include <osg/Light>
+#include <osg/ComputeBoundsVisitor>
 #include <osg/LightSource>
 
 
@@ -44,6 +45,8 @@ public:
 	void construireUnImmeuble();
 
 	int getNombreEtage();
+
+	osg::BoundingBox getBoundingBox();
 
 	int getTaille();
 
