@@ -1,5 +1,9 @@
 #include <ImmeublePlat.h>
 
+
+ImmeublePlat::ImmeublePlat() {}
+
+
 ImmeublePlat::ImmeublePlat(GLfloat size,GLfloat height,GLfloat color[])
 {
 	mLength=size;

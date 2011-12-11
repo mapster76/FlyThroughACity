@@ -16,6 +16,8 @@ private:
 	GLfloat mColor[3];
 
 public:
+	ImmeublePlat();
+
 	ImmeublePlat(GLfloat size,GLfloat height,GLfloat color[]);
 
 	ImmeublePlat(GLfloat length,GLfloat depth,GLfloat height,GLfloat color[]);

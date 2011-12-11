@@ -19,7 +19,7 @@
 #include<osg/Light>
 #include<osg/LightSource>
 
-#define RAYON_MAX_VILLE 200
+#define RAYON_MAX_VILLE 20
 #define ESPACE_ENTRE_IMMEUBLE 26
 using namespace std;
 
@@ -34,6 +34,7 @@ public:
 	osg::ref_ptr<osg::MatrixTransform> pNavTrans;
 	map < GLfloat,ImmeubleAvecFenetre > immeubleParTaille;
 	map < vector<GLfloat> , ImmeubleAvecFenetre > laCarte;
+	map < GLfloat ,  osg::Geode* > laCarteBox;
 	map < vector<GLfloat> , osg::BoundingBox > lesBoundingBoxes;
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
@@ -47,8 +48,7 @@ public:
 	 * Cette fonction cree un nouvel immeuble et l'ajoute a la map qui repertorie les immeubles par taille.
 	 * return un pointeur intelligent vers un noeud de type Geode permettant de dessiner des fonction opengl
 	 */
-	osg::ref_ptr<osg::Geode> createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height);
-
+	osg::ref_ptr<osg::Geode> createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,osg::Vec3f coordonnees,GLfloat size, GLfloat height);
 	/**
 	 * Cette fonction verifie si l'immeuble avec la hauteur donnée est déjà présent dans la map immeubleParTaille
 	 */

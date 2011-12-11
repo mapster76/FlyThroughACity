@@ -32,6 +32,9 @@ private:
 public:
 	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route;
 	osg::ref_ptr<osg::Group> mImmeuble;
+	osg::ref_ptr<osg::Group> mRoute;
+	osg::ref_ptr<osg::Group> mEnsemble;
+
 	ImmeubleAvecFenetre() {}
 
 	ImmeubleAvecFenetre(int nombreEtages);
@@ -40,7 +43,7 @@ public:
 
 	osg::ref_ptr<osg::Group> getNode();
 
-	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> pNavTrans);
+	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter);
 
 	void construireUnImmeuble();
 

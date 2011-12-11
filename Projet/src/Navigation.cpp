@@ -11,6 +11,8 @@ Navigation::Navigation() {
 	arretEnDouceur=false;
 	inverserDirection=false;
 	mCompteurCollisions=0;
+	mCurrentMatrix.makeIdentity();
+
 }
 
 Navigation::~Navigation() {
@@ -26,6 +28,7 @@ void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget:
 	mButton1=button1;
 	mButton2=button2;
 	mWorld=world;
+	mWorld.updateBoundingBox();
 }
 
 
@@ -228,7 +231,7 @@ void Navigation::jouerSonImmeuble()
 
 
 void Navigation::update(float time_delta) {
-	if(estEnTrainDAvancer) {
+	//if(estEnTrainDAvancer) {
 		osg::Matrix T;
 
 		gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
@@ -264,19 +267,26 @@ void Navigation::update(float time_delta) {
 				}
 			}
 		}
-		collisions();
 		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
 		mCurrentMatrix = mCurrentMatrix * H * R * T;
+		collisions();
+
 		jouerSonImmeuble();
-	}
+	//}
 
 
 
 }
 
+void printMatrice(osg::Matrix vw_M_w) {
+	cout << vw_M_w.ptr()[0] << " "<< vw_M_w.ptr()[1] << " "<<vw_M_w.ptr()[2] << " "<<vw_M_w.ptr()[3] << endl;
+	cout << vw_M_w.ptr()[4] << " "<<vw_M_w.ptr()[5] << " "<<vw_M_w.ptr()[6] <<" "<< vw_M_w.ptr()[7] << endl;
+	cout << vw_M_w.ptr()[8] << " "<<vw_M_w.ptr()[9] << " "<<vw_M_w.ptr()[10] << " "<<vw_M_w.ptr()[11] << endl;
+	cout << vw_M_w.ptr()[12] << " "<<vw_M_w.ptr()[13] << " "<<vw_M_w.ptr()[14] << " "<<vw_M_w.ptr()[15] << endl;
+}
 void Navigation::collisions() {
 	//if(estEnTrainDAvancer) {
-	gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
+	/*gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
 	// The navigation matrix is w_M_vw, so invert it for use here.
 	const osg::Matrix& nav_mat(mWorld.pNavTrans->getMatrix());
 	osg::Matrix vw_M_w;
@@ -290,15 +300,39 @@ void Navigation::collisions() {
 			wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
 			wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
 	osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix;
+	wandMatrix=wandMatrix* mCurrentMatrix;
 
 		//On récupère la position du wand que l'on stocke dans wand_point
 		//osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-		osg::Vec3f wandPoint(wandMatrix.getTrans());
-		cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
-		osg::BoundingBox wandBbox;
-		wandBbox.set(wandPoint[0]-0.5,wandPoint[1]-0.5,wandPoint[2]-0.5,wandPoint[0]+0.5,wandPoint[1]+0.5,wandPoint[2]+0.5);
+		osg::Vec3f wandPoint(wandMatrix.ptr()[3],wandMatrix.ptr()[7],wandMatrix.ptr()[11]);
+		cout << wand_matrix << endl;
 
-		mWorld.updateBoundingBox();
+
+*/
+		gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
+		const osg::Matrix& nav_mat(/*mWorld.pNavTrans->getMatrix()*/mCurrentMatrix);
+		osg::Matrix vw_M_w;
+		vw_M_w=vw_M_w.inverse(nav_mat);
+		cout << "vw_M_w" << endl;
+		printMatrice(vw_M_w);
+
+		osg::Matrix osg_wandMatrix(
+				wand_matrix[0][0],wand_matrix[0][1],wand_matrix[0][2],wand_matrix[0][3],
+				wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
+				wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
+				wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
+		cout << "osg_wandMatrix" << endl;
+		printMatrice(osg_wandMatrix);
+
+		osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix ;
+		//cout << "wandMatrix" << endl;
+		//printMatrice(wandMatrix);
+		//wandMatrix=wandMatrix * mCurrentMatrix;
+		osg::Vec3f wandPoint(vw_M_w.ptr()[12],vw_M_w.ptr()[13]+wand_matrix[1][3],vw_M_w.ptr()[14]);
+		//osg::Vec3f wandPoint(mCurrentMatrix.getTrans());
+		//cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
+		osg::BoundingBox wandBbox;
+		wandBbox.set(wandPoint[0]-1,wandPoint[1]-1,wandPoint[2]-1,wandPoint[0]+1,wandPoint[1]+1,wandPoint[2]+1);
 		/*osg::ComputeBoundsVisitor cbv;
 		mWorld.pRootNode->accept(cbv);
 		const osg::BoundingBox bb( cbv.getBoundingBox() );
@@ -316,15 +350,16 @@ void Navigation::collisions() {
 		}*/
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
+				cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 				cout << "min "<< boundingBox->second.xMin() << ", " << boundingBox->second.yMin() << ", " << boundingBox->second.zMin() << endl;
 				cout << "max "<< boundingBox->second.xMax() << ", " << boundingBox->second.yMax() << ", " << boundingBox->second.zMax() << endl;
-				/*mCompteurCollisions++;
+				//mCompteurCollisions++;
 
-				if(mCompteurCollisions>5) {*/
+				//if(mCompteurCollisions>5) {
 				cout << "collisions" << endl;
-					arretBrutal();
-					/*mCompteurCollisions=0;
-				}*/
+				arretBrutal();
+					//mCompteurCollisions=0;
+				//}
 			}
 		}
 

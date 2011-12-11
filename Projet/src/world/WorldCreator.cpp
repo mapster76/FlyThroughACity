@@ -27,15 +27,19 @@ void WorldCreator::drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg
 	navTrans=pNavTrans;
 }
 
-/*osg::ref_ptr<osg::Geode> WorldCreator::createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,GLfloat size, GLfloat height) {
+osg::ref_ptr<osg::Geode> WorldCreator::createImmeublePlatNode(GLfloat r,GLfloat g,GLfloat b,osg::Vec3f coordonnees,GLfloat size, GLfloat height) {
 	osg::ref_ptr<osg::Geode> geodeNode (new osg::Geode);
 	GLfloat color[3]={r,g,b};
 	osg::ref_ptr<ImmeublePlat> unImmeuble(new ImmeublePlat(size,height,color));
 	osg::ref_ptr<CustomDrawable> shape=unImmeuble;
 	geodeNode->addDrawable((osg::Drawable*)shape.get());
-	immeubleParTaille[unImmeuble->getHeight()]=geodeNode;
+	laCarteBox[unImmeuble->getHeight()]=geodeNode;
+	osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
+	mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
+	pNavTrans->addChild(mModel);
+	mModel->addChild(geodeNode.get());
 	return geodeNode;
-}*/
+}
 
 osg::ref_ptr<osg::Node> WorldCreator::createImmeubleAvecFenetreNode(GLfloat nombreEtage) {
 	osg::ref_ptr<osg::Node> resultNode;
@@ -55,26 +59,33 @@ bool WorldCreator::estUnEmplacementVide(vector<GLfloat> coordonnes) {
 
 void WorldCreator::updateBoundingBox() {
 	//float coteImmeuble=11;
+	cout << "update" << endl;
 	for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
 		osg::BoundingBox bbox;
 		ImmeubleAvecFenetre lImmeuble=unImmeuble->second;
 		vector<GLfloat> coordonnes=unImmeuble->first;
-		if(coordonnes[0]>0)
-			coordonnes[0]+=13;
+		/*if(coordonnes[0]>0)
+			coordonnes[0]-=1;
 		else
-			coordonnes[0]-=13;
+			coordonnes[0]+=1;
 
 		if(coordonnes[2]>0)
-			coordonnes[2]+=13;
+			coordonnes[2]-=1;
 		else
-			coordonnes[2]-=13;
+			coordonnes[2]+=1;*/
+
 		osg::Vec3f position(coordonnes[0],0,coordonnes[2]);
 		bbox=lImmeuble.getBoundingBox();
-		/*cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
-		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
+		cout << coordonnes[0] << "," << coordonnes[2] <<endl;
+		cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
+		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;
+		osg::BoundingBox nouvelBox(bbox._min+position,bbox._max+position);
+		//Box (position,bbox._max.x()- bbox._min.x(),bbox._max.y()- bbox._min.y() , bbox._max.y()- bbox._min.y());
+		//createImmeublePlatNode(0.0,0.0,1.0,position,(bbox._max.x()- bbox._min.x())/2 , lImmeuble.getTaille());
+
 		//bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
 		//cout << "coord " << coordonnes[0] << " " << coordonnes[1] << " " << coordonnes[2] << endl;
-		bbox.set(bbox._min+position,bbox._max+position);
+		//bbox.set(bbox._min+position,bbox._max+position);
 		/*osg::BoundingBox bboxTrans;
 		for( unsigned int i = 0; i < 8; ++i ) {
 			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix() ;
@@ -82,9 +93,9 @@ void WorldCreator::updateBoundingBox() {
 		}*/
 		/*cout << "min apres Trans"<< bboxTrans.xMin() << ", " << bboxTrans.yMin() << ", " << bboxTrans.zMin() << endl;
 		cout << "max apres Trans"<< bboxTrans.xMax() << ", " << bboxTrans.yMax() << ", " << bboxTrans.zMax() << endl;*/
-		/*cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
-		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
-		lesBoundingBoxes[coordonnes]=bbox;
+		cout << "min avant Trans "<< nouvelBox.xMin() << ", " << nouvelBox.yMin() << ", " << nouvelBox.zMin() << endl;
+		cout << "max avant Trans "<< nouvelBox.xMax() << ", " << nouvelBox.yMax() << ", " << nouvelBox.zMax() << endl;
+		lesBoundingBoxes[coordonnes]=nouvelBox;
 	}
 }
 

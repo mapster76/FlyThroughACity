@@ -7,6 +7,8 @@ osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::trotoir = osgDB::readNodeFile(TROTO
 osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::route = osgDB::readNodeFile(ROUTE);
 
 ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
+		mImmeuble=new osg::Group();
+		mRoute= new osg::Group();
 	   mNombreEtages=nombreEtages;
 	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
 	   osg::ref_ptr<osg::StateSet> rdcStateSet (rezDeChausse->getOrCreateStateSet());
@@ -47,17 +49,17 @@ int ImmeubleAvecFenetre::getNombreEtage() {
 }
 
 
-void ImmeubleAvecFenetre::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> navTrans) {
+void ImmeubleAvecFenetre::placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter) {
 	osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
 
 	mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
 	mModel->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f ), 1.0f, 0.0f, 0.0f) );
 
-	navTrans->addChild(mModel);
+	noeudAAjouter->addChild(mModel);
 	mModel->addChild(element.get());
 }
 
-void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> navTrans) {
+void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter) {
 	/*osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
 	GLfloat color[3]={0.2,0.2,0.2};
 	osg::ref_ptr<CustomDrawable> sol(new Sol(13,color));
@@ -67,7 +69,7 @@ void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::MatrixTransform> n
 	mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
 	mModel->preMult( osg::Matrix::rotate( gmtl::Math::deg2Rad( -90.0f), 1.0f, 0.0f, 0.0f) );
 
-	navTrans->addChild(mModel);
+	noeudAAjouter->addChild(mModel);
 	mModel->addChild(ImmeubleAvecFenetre::route.get());
 }
 
@@ -76,16 +78,18 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	osg::ref_ptr<osg::MatrixTransform> navTrans;
 	rootNode = new osg::Group();
 	navTrans = new osg::MatrixTransform();
-	rootNode->addChild(navTrans);
 
-	creerLeSol(setCoordonnes(0,0,0),navTrans);
-	//placeNodeElement(route,setCoordonnes(0,0,0),navTrans);
-	placeNodeElement(trotoir,setCoordonnes(0,0,0),navTrans);
-	placeNodeElement(rezDeChausse,setCoordonnes(0,0,0),navTrans);
+	rootNode->addChild(navTrans);
+	navTrans->addChild(mImmeuble);
+	navTrans->addChild(mRoute);
+
+	creerLeSol(setCoordonnes(0,0,0),mRoute);
+	placeNodeElement(trotoir,setCoordonnes(0,0,0),mRoute);
+	placeNodeElement(rezDeChausse,setCoordonnes(0,0,0),mImmeuble);
 	for(int i=1;i<mNombreEtages;i++)
-		placeNodeElement(etage,setCoordonnes(0,i*4,0),navTrans);
-	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),navTrans);
-	mImmeuble=rootNode;
+		placeNodeElement(etage,setCoordonnes(0,i*4,0),mImmeuble);
+	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),mImmeuble);
+	mEnsemble=rootNode;
 
 }
 
@@ -104,5 +108,5 @@ osg::BoundingBox ImmeubleAvecFenetre::getBoundingBox() {
 }
 
 osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::getNode() {
-	return mImmeuble;
+	return mEnsemble;
 }
