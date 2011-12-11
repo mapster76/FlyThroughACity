@@ -177,6 +177,14 @@ void Navigation::seDeplacer()
 		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
 		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
 		gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
+		if(rotationWandAxeX>=0.2)
+			rotationWandAxeX-=0.2;
+		if(rotationWandAxeX<=-0.2)
+			rotationWandAxeX+=0.2;
+		if(rotationWandAxeZ>=0.2)
+			rotationWandAxeZ-=0.2;
+		if(rotationWandAxeZ<=-0.2)
+			rotationWandAxeZ+=0.2;
 		mNavigator->setRotation(rotationXYZ);
 	}
 
@@ -233,7 +241,8 @@ void Navigation::jouerSonImmeuble()
 void Navigation::update(float time_delta) {
 	//if(estEnTrainDAvancer) {
 		osg::Matrix T;
-
+		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
+		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
 		gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
 		mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
 
@@ -247,12 +256,11 @@ void Navigation::update(float time_delta) {
 		osg::Vec3 x(1,0,0);
 		osg::Vec3 y(0,1,0);
 		osg::Vec3 z(0,0,1);
-		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+		R.makeRotate(-mRotation.x()/200,x,-mRotation.y()/200,y,-mRotation.z()/200,z);
 		//Correction de l'angle de la caméra
 		osg::Matrix H;
 		H.makeIdentity();
-		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
-		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
+
 		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
 
 		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
@@ -284,51 +292,48 @@ void printMatrice(osg::Matrix vw_M_w) {
 	cout << vw_M_w.ptr()[8] << " "<<vw_M_w.ptr()[9] << " "<<vw_M_w.ptr()[10] << " "<<vw_M_w.ptr()[11] << endl;
 	cout << vw_M_w.ptr()[12] << " "<<vw_M_w.ptr()[13] << " "<<vw_M_w.ptr()[14] << " "<<vw_M_w.ptr()[15] << endl;
 }
+
 void Navigation::collisions() {
-	//if(estEnTrainDAvancer) {
-	/*gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
-	// The navigation matrix is w_M_vw, so invert it for use here.
-	const osg::Matrix& nav_mat(mWorld.pNavTrans->getMatrix());
-	osg::Matrix vw_M_w;
-	nav_mat.inverse(vw_M_w);
-
-	// Transform the wand matrix from real world coordinates into virtual world
-	// coordinates.
-	osg::Matrix osg_wandMatrix(
-			wand_matrix[0][0],wand_matrix[0][1],wand_matrix[0][2],wand_matrix[0][3],
-			wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
-			wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
-			wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
-	osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix;
-	wandMatrix=wandMatrix* mCurrentMatrix;
-
-		//On récupère la position du wand que l'on stocke dans wand_point
-		//osg::Vec3f wandPoint(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-		osg::Vec3f wandPoint(wandMatrix.ptr()[3],wandMatrix.ptr()[7],wandMatrix.ptr()[11]);
-		cout << wand_matrix << endl;
-
-
-*/
 		gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
-		const osg::Matrix& nav_mat(/*mWorld.pNavTrans->getMatrix()*/mCurrentMatrix);
-		osg::Matrix vw_M_w;
-		vw_M_w=vw_M_w.inverse(nav_mat);
-		cout << "vw_M_w" << endl;
-		printMatrice(vw_M_w);
+		const osg::Matrix& matNav(/*mWorld.pNavTrans->getMatrix()*/mCurrentMatrix);
+		osg::Matrix matNavInverse;
+		matNavInverse=matNavInverse.inverse(matNav);
+		//cout << "matNavInverse" << endl;
+		//printMatrice(matNavInverse);
 
-		osg::Matrix osg_wandMatrix(
+		/*osg::Matrix osg_wandMatrix(
 				wand_matrix[0][0],wand_matrix[0][1],wand_matrix[0][2],wand_matrix[0][3],
 				wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
 				wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
 				wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
 		cout << "osg_wandMatrix" << endl;
-		printMatrice(osg_wandMatrix);
+		printMatrice(osg_wandMatrix);*/
 
-		osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix ;
+		osg::Matrix wandMatrix=matNavInverse;
+		float decalageWandX,decalageWandY,decalageWandZ;
+		float positionX,positionY,positionZ;
+		decalageWandX=0;
+		decalageWandY=wand_matrix[1][3];
+		decalageWandZ=0;
+		positionX=matNavInverse.ptr()[12];
+		positionY=matNavInverse.ptr()[13];
+		positionZ=matNavInverse.ptr()[14];
+		/*if(positionX<0)
+			decalageWandX=-decalageWandX;
+		if(positionY<0)
+			decalageWandY=-decalageWandY;
+		if(positionZ<0)
+			decalageWandZ=-decalageWandZ;*/
+
+		wandMatrix.makeTranslate(positionX+decalageWandX,positionY+decalageWandY,positionZ+decalageWandZ);
+		//wandMatrix.makeTranslate(matNavInverse.ptr()[12],matNavInverse.ptr()[13]+wand_matrix[1][3],matNavInverse.ptr()[14]+wand_matrix[2][3]);
+		//osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix ;
 		//cout << "wandMatrix" << endl;
 		//printMatrice(wandMatrix);
 		//wandMatrix=wandMatrix * mCurrentMatrix;
-		osg::Vec3f wandPoint(vw_M_w.ptr()[12],vw_M_w.ptr()[13]+wand_matrix[1][3],vw_M_w.ptr()[14]);
+		//osg::Vec3f wandPoint(vw_M_w.ptr()[12],vw_M_w.ptr()[13],vw_M_w.ptr()[14]-wand_matrix[2][3]);
+		//osg::Vec3f wandPoint(vw_M_w.getTrans());
+		osg::Vec3f wandPoint(wandMatrix.getTrans());
 		//osg::Vec3f wandPoint(mCurrentMatrix.getTrans());
 		//cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 		osg::BoundingBox wandBbox;
