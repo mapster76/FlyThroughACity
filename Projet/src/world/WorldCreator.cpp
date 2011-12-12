@@ -10,7 +10,7 @@ void WorldCreator::initialiseWorld() {
 	noeudSol->addDrawable((osg::Drawable*)sol.get());*/
 
 	pRootNode->addChild(pNavTrans);
-	osg::ref_ptr<Skybox> box(new Skybox(300));
+	osg::ref_ptr<Skybox> box(new Skybox(RAYON_MAX_VILLE+200));
 	osg::ref_ptr<osg::Geode> noeudSkybox=new osg::Geode();
 	noeudSkybox->addDrawable(box);
 	pNavTrans->addChild(noeudSkybox);
@@ -198,8 +198,8 @@ void WorldCreator::illuminateScene() {
 	lightGroup->addChild(lightSource1.get());
 
 	//Light markers: small spheres
-	osg::ref_ptr<osg::Geode> lightMarkerGeode (new osg::Geode);
-	lightMarkerGeode->addDrawable(new osg::ShapeDrawable(new osg::Sphere(osg::Vec3f(0.0f,1.0f,0.0f),0.5f)));
+	/*osg::ref_ptr<osg::Geode> lightMarkerGeode (new osg::Geode);
+	lightMarkerGeode->addDrawable(new osg::ShapeDrawable(new osg::Sphere(osg::Vec3f(0.0f,1.0f,0.0f),0.5f)));*/
 
 	/*osg::ref_ptr<osg::LightSource> lightSource2 = new osg::LightSource;
 	osg::Vec4f lightPosition2(osg::Vec4f(0.0,0.0,1.0,0.0f));
@@ -215,6 +215,6 @@ void WorldCreator::illuminateScene() {
 	lightSource2->setStateSetModes(*lightSS,osg::StateAttribute::ON);
 	lightGroup->addChild(lightSource2.get());*/
 	//mModel->addChild(lightGroup.get());
-	pNavTrans->addChild(lightMarkerGeode);
+	//pNavTrans->addChild(lightMarkerGeode);
 	pNavTrans->addChild(lightGroup);
 }

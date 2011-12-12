@@ -202,7 +202,6 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 	if( rotationActuelle.z()<-limiteHorizon) {
 		qz=+increment;
 		qw=rotationActuelle.w();
-
 	}
 	if( rotationActuelle.x()>limiteHorizon) {
 		qx=-increment;
@@ -210,6 +209,33 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 	}
 	if( rotationActuelle.x()<-limiteHorizon) {
 		qx=+increment;
+		qw=rotationActuelle.w();
+	}
+	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
+		adapte.set(qx,0,qz,qw);
+		matriceCorrection.makeRotate(adapte);
+	}
+}
+
+
+void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
+	double qx=0,qz=0,qw=0;
+	osg::Quat adapte;
+
+	if( rotationActuelle.x()>limiteHorizon) {
+		qx=-increment;
+		qw=rotationActuelle.w();
+	}
+	if( rotationActuelle.x()<-limiteHorizon) {
+		qx=+increment;
+		qw=rotationActuelle.w();
+	}
+	if(rotationActuelle.z()>limiteHorizon) {
+		qz=-increment;
+		qw=rotationActuelle.w();
+	}
+	if( rotationActuelle.z()<-limiteHorizon) {
+		qz=+increment;
 		qw=rotationActuelle.w();
 	}
 	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
@@ -267,11 +293,11 @@ void Navigation::update(float time_delta) {
 
 		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
 			R.makeIdentity();
-			if(rotationActuelle.y()>0.97) {
-				stabiliserCamera(0.15,0.0005,rotationActuelle,H);
+			if(rotationActuelle.y()>0.95) {
+				stabiliserCameraInverse(0.1,0.0005,rotationActuelle,H);
 			} else {
 				if(rotationActuelle.y()>0.8) {
-					stabiliserCamera(0.05,0.0005,rotationActuelle,H);
+					stabiliserCameraInverse(0.05,0.0005,rotationActuelle,H);
 				} else {
 					stabiliserCamera(0.005,0.001,rotationActuelle,H);
 				}
@@ -323,7 +349,7 @@ void Navigation::collisions() {
 		wandMatrix.makeTranslate(positionX+decalageWandX,positionY+decalageWandY,positionZ+decalageWandZ);
 		osg::Vec3f wandPoint(wandMatrix.getTrans());
 		osg::BoundingBox wandBbox;
-		wandBbox.set(wandPoint[0]-1,wandPoint[1]-1,wandPoint[2]-1,wandPoint[0]+1,wandPoint[1]+1,wandPoint[2]+1);
+		wandBbox.set(wandPoint[0]-0.2,wandPoint[1]-0.2,wandPoint[2]-0.2,wandPoint[0]+0.2,wandPoint[1]+0.2,wandPoint[2]+0.2);
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
 				/*cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;

@@ -31,6 +31,7 @@ public:
 	void gestionGachette(long tempsCourant);
 	void gestionBouton2(long tempsCourant);
 	void avancerOuArreter();
+	void stabiliserCameraInverse(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
 	void ralentir(long tempsCourant);
 	void arretBrutal();
 	void droitDeTourner();
