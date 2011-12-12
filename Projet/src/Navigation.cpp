@@ -338,6 +338,7 @@ void Navigation::collisions() {
 		//cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 		osg::BoundingBox wandBbox;
 		wandBbox.set(wandPoint[0]-1,wandPoint[1]-1,wandPoint[2]-1,wandPoint[0]+1,wandPoint[1]+1,wandPoint[2]+1);
+
 		/*osg::ComputeBoundsVisitor cbv;
 		mWorld.pRootNode->accept(cbv);
 		const osg::BoundingBox bb( cbv.getBoundingBox() );

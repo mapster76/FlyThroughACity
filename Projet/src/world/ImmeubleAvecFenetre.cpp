@@ -100,7 +100,10 @@ int ImmeubleAvecFenetre::getTaille() {
 osg::BoundingBox ImmeubleAvecFenetre::getBoundingBox() {
 	osg::ComputeBoundsVisitor cbv;
 	mImmeuble->accept(cbv);
-	const osg::BoundingBox bb( cbv.getBoundingBox() );
+	osg::BoundingBox bb( cbv.getBoundingBox() );
+	osg::Vec3f max=bb._max;
+	max.set(bb._max.x(),bb._max.y()+2i,bb._max.z());
+	bb.set(bb._min,max);
 	return bb;
 	/*mt->setMatrix( osg::Matrix::translate( bb.center() ) );
 	osg::Vec3 ext( bb._max - bb._min );
