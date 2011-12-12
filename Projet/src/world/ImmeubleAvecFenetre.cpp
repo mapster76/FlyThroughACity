@@ -89,6 +89,10 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	for(int i=1;i<mNombreEtages;i++)
 		placeNodeElement(etage,setCoordonnes(0,i*4,0),mImmeuble);
 	placeNodeElement(toit,setCoordonnes(0,mNombreEtages*4,0),mImmeuble);
+	//Permet de rendre invisible l'interieur d'un batiment
+	osg::StateSet* immeubleStateSet=mImmeuble->getOrCreateStateSet();
+	osg::CullFace* cf = new osg::CullFace(osg::CullFace::BACK);
+	immeubleStateSet->setAttributeAndModes(cf, osg::StateAttribute::ON);
 	mEnsemble=rootNode;
 
 }
