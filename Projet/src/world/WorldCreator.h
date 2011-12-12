@@ -16,10 +16,11 @@
 #include "util.h"
 #include <utility>
 #include <map>
+#include "Skybox.h"
 #include<osg/Light>
 #include<osg/LightSource>
 
-#define RAYON_MAX_VILLE 30
+#define RAYON_MAX_VILLE 50
 #define ESPACE_ENTRE_IMMEUBLE 26
 using namespace std;
 

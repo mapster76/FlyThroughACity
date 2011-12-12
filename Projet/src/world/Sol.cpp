@@ -7,6 +7,9 @@ void Sol::drawImplementation(osg::RenderInfo& renderInfo) const{
 	osg::ref_ptr<osg::Texture2D> texture (new osg::Texture2D(image.get()));
 
 	osg::ref_ptr<osg::StateSet> texSS (new osg::StateSet);
+	texture->setInternalFormat(GL_RGBA);
+	texture->setFilter(osg::Texture2D::MIN_FILTER, osg::Texture2D::LINEAR);
+	texture->setFilter(osg::Texture2D::MAG_FILTER, osg::Texture2D::LINEAR);
 	texSS->setTextureAttributeAndModes (0,   // unit
                                           texture.get(),
                                           osg::StateAttribute::ON);
@@ -15,7 +18,7 @@ void Sol::drawImplementation(osg::RenderInfo& renderInfo) const{
 	renderInfo.getState()->apply(texSS.get());
 
 
-	glColor3fv(mColor);
+	//glColor3fv(mColor);
 	glBegin(GL_QUADS);
 		glNormal3f (0, 1, 0);
 

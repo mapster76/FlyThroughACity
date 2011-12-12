@@ -31,10 +31,11 @@ public:
 	void gestionGachette(long tempsCourant);
 	void gestionBouton2(long tempsCourant);
 	void avancerOuArreter();
-	void deccelerer(long tempsCourant);
+	void ralentir(long tempsCourant);
 	void arretBrutal();
 	void droitDeTourner();
 	void collisions();
+	void rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante);
 	void jouerSonImmeuble();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);

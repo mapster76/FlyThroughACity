@@ -10,6 +10,16 @@ void WorldCreator::initialiseWorld() {
 	noeudSol->addDrawable((osg::Drawable*)sol.get());*/
 
 	pRootNode->addChild(pNavTrans);
+	osg::ref_ptr<Skybox> box(new Skybox(300));
+	osg::ref_ptr<osg::Geode> noeudSkybox=new osg::Geode();
+	noeudSkybox->addDrawable(box);
+	pNavTrans->addChild(noeudSkybox);
+	//pNavTrans->addChild(box.getBox());
+	/*GLfloat color[3]={0.2,0.2,0.2};
+	osg::ref_ptr<Sol> sol=new Sol(RAYON_MAX_VILLE*2,color);
+	osg::ref_ptr<osg::Geode> noeudSol=new osg::Geode();
+	noeudSol->addDrawable(sol);
+	pNavTrans->addChild(noeudSol);*/
 	//pNavTrans->addChild(mModelSol);
 	//mModelSol->addChild(noeudSol.get());
 }
