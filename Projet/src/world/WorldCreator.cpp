@@ -64,37 +64,14 @@ void WorldCreator::updateBoundingBox() {
 		osg::BoundingBox bbox;
 		ImmeubleAvecFenetre lImmeuble=unImmeuble->second;
 		vector<GLfloat> coordonnes=unImmeuble->first;
-		/*if(coordonnes[0]>0)
-			coordonnes[0]-=1;
-		else
-			coordonnes[0]+=1;
-
-		if(coordonnes[2]>0)
-			coordonnes[2]-=1;
-		else
-			coordonnes[2]+=1;*/
-
 		osg::Vec3f position(coordonnes[0],0,coordonnes[2]);
 		bbox=lImmeuble.getBoundingBox();
-		cout << coordonnes[0] << "," << coordonnes[2] <<endl;
+		/*cout << coordonnes[0] << "," << coordonnes[2] <<endl;
 		cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
-		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;
+		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
 		osg::BoundingBox nouvelBox(bbox._min+position,bbox._max+position);
-		//Box (position,bbox._max.x()- bbox._min.x(),bbox._max.y()- bbox._min.y() , bbox._max.y()- bbox._min.y());
-		//createImmeublePlatNode(0.0,0.0,1.0,position,(bbox._max.x()- bbox._min.x())/2 , lImmeuble.getTaille());
-
-		//bbox.set(coordonnes[0]+1-coteImmeuble/2,0,coordonnes[2]+1-coteImmeuble/2,coordonnes[0]-1+coteImmeuble/2,lImmeuble.getTaille(),coordonnes[2]-1+coteImmeuble/2);
-		//cout << "coord " << coordonnes[0] << " " << coordonnes[1] << " " << coordonnes[2] << endl;
-		//bbox.set(bbox._min+position,bbox._max+position);
-		/*osg::BoundingBox bboxTrans;
-		for( unsigned int i = 0; i < 8; ++i ) {
-			osg::Vec3 xvec = bbox.corner( i ) * pNavTrans.get()->getMatrix() ;
-			bboxTrans.expandBy( xvec );
-		}*/
-		/*cout << "min apres Trans"<< bboxTrans.xMin() << ", " << bboxTrans.yMin() << ", " << bboxTrans.zMin() << endl;
-		cout << "max apres Trans"<< bboxTrans.xMax() << ", " << bboxTrans.yMax() << ", " << bboxTrans.zMax() << endl;*/
-		cout << "min avant Trans "<< nouvelBox.xMin() << ", " << nouvelBox.yMin() << ", " << nouvelBox.zMin() << endl;
-		cout << "max avant Trans "<< nouvelBox.xMax() << ", " << nouvelBox.yMax() << ", " << nouvelBox.zMax() << endl;
+		/*cout << "min avant Trans "<< nouvelBox.xMin() << ", " << nouvelBox.yMin() << ", " << nouvelBox.zMin() << endl;
+		cout << "max avant Trans "<< nouvelBox.xMax() << ", " << nouvelBox.yMax() << ", " << nouvelBox.zMax() << endl;*/
 		lesBoundingBoxes[coordonnes]=nouvelBox;
 	}
 }

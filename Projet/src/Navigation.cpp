@@ -295,19 +295,9 @@ void printMatrice(osg::Matrix vw_M_w) {
 
 void Navigation::collisions() {
 		gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
-		const osg::Matrix& matNav(/*mWorld.pNavTrans->getMatrix()*/mCurrentMatrix);
+		const osg::Matrix& matNav(mCurrentMatrix);
 		osg::Matrix matNavInverse;
 		matNavInverse=matNavInverse.inverse(matNav);
-		//cout << "matNavInverse" << endl;
-		//printMatrice(matNavInverse);
-
-		/*osg::Matrix osg_wandMatrix(
-				wand_matrix[0][0],wand_matrix[0][1],wand_matrix[0][2],wand_matrix[0][3],
-				wand_matrix[1][0],wand_matrix[1][1],wand_matrix[1][2],wand_matrix[1][3],
-				wand_matrix[2][0],wand_matrix[2][1],wand_matrix[2][2],wand_matrix[2][3],
-				wand_matrix[3][0],wand_matrix[3][1],wand_matrix[3][2],wand_matrix[3][3]);
-		cout << "osg_wandMatrix" << endl;
-		printMatrice(osg_wandMatrix);*/
 
 		osg::Matrix wandMatrix=matNavInverse;
 		float decalageWandX,decalageWandY,decalageWandZ;
@@ -318,58 +308,20 @@ void Navigation::collisions() {
 		positionX=matNavInverse.ptr()[12];
 		positionY=matNavInverse.ptr()[13];
 		positionZ=matNavInverse.ptr()[14];
-		/*if(positionX<0)
-			decalageWandX=-decalageWandX;
-		if(positionY<0)
-			decalageWandY=-decalageWandY;
-		if(positionZ<0)
-			decalageWandZ=-decalageWandZ;*/
 
 		wandMatrix.makeTranslate(positionX+decalageWandX,positionY+decalageWandY,positionZ+decalageWandZ);
-		//wandMatrix.makeTranslate(matNavInverse.ptr()[12],matNavInverse.ptr()[13]+wand_matrix[1][3],matNavInverse.ptr()[14]+wand_matrix[2][3]);
-		//osg::Matrix wandMatrix= vw_M_w * osg_wandMatrix ;
-		//cout << "wandMatrix" << endl;
-		//printMatrice(wandMatrix);
-		//wandMatrix=wandMatrix * mCurrentMatrix;
-		//osg::Vec3f wandPoint(vw_M_w.ptr()[12],vw_M_w.ptr()[13],vw_M_w.ptr()[14]-wand_matrix[2][3]);
-		//osg::Vec3f wandPoint(vw_M_w.getTrans());
 		osg::Vec3f wandPoint(wandMatrix.getTrans());
-		//osg::Vec3f wandPoint(mCurrentMatrix.getTrans());
-		//cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 		osg::BoundingBox wandBbox;
 		wandBbox.set(wandPoint[0]-1,wandPoint[1]-1,wandPoint[2]-1,wandPoint[0]+1,wandPoint[1]+1,wandPoint[2]+1);
-
-		/*osg::ComputeBoundsVisitor cbv;
-		mWorld.pRootNode->accept(cbv);
-		const osg::BoundingBox bb( cbv.getBoundingBox() );
-		if(bb.intersects(wandBbox)) {
-			cout << "bbox" << endl;
-		} else {
-			cout << " pas bbox" << endl;
-		}*/
-		/*for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = mWorld.laCarte.begin(); unImmeuble != mWorld.laCarte.end(); ++unImmeuble) {
-			cout << "unImmeuble" << endl;
-			if(unImmeuble->second.getBoundingBox().intersects(wandBbox)) {
-				cout << "bbox" << endl;
-				//arretBrutal();
-			}
-		}*/
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
-				cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
+				/*cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
 				cout << "min "<< boundingBox->second.xMin() << ", " << boundingBox->second.yMin() << ", " << boundingBox->second.zMin() << endl;
 				cout << "max "<< boundingBox->second.xMax() << ", " << boundingBox->second.yMax() << ", " << boundingBox->second.zMax() << endl;
-				//mCompteurCollisions++;
-
-				//if(mCompteurCollisions>5) {
-				cout << "collisions" << endl;
+				cout << "collisions" << endl;*/
 				arretBrutal();
-					//mCompteurCollisions=0;
-				//}
 			}
 		}
-
-	//}
 }
 
 osg::Vec3 Navigation::getTranslation() {

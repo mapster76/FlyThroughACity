@@ -102,12 +102,9 @@ osg::BoundingBox ImmeubleAvecFenetre::getBoundingBox() {
 	mImmeuble->accept(cbv);
 	osg::BoundingBox bb( cbv.getBoundingBox() );
 	osg::Vec3f max=bb._max;
-	max.set(bb._max.x(),bb._max.y()+2i,bb._max.z());
+	max.set(bb._max.x(),bb._max.y()+2,bb._max.z());
 	bb.set(bb._min,max);
 	return bb;
-	/*mt->setMatrix( osg::Matrix::translate( bb.center() ) );
-	osg::Vec3 ext( bb._max - bb._min );
-	geode->addDrawable( osgwTools::makeWireBox( ext * 0.5 ) );*/
 }
 
 osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::getNode() {
