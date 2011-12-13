@@ -20,7 +20,7 @@
 #include <osg/LOD>
 #include <osgUtil/Simplifier>
 
-#define REZ_DE_CHAUSSE std::string("../model/rdc.osg")
+#define REZ_DE_CHAUSSE std::string("../model/rdcSimple.osg")
 #define ETAGE std::string("../model/etageSimple.osg")
 #define TOIT std::string("../model/toitSimple.osg")
 #define TROTOIR std::string("../model/trotoir.osg")
