@@ -3,7 +3,7 @@ APP = Town
 
 # La liste des fichiers � compiler
 #SRC = main.cpp simpleApp.cpp
-SRC = ../src/util.cpp ../src/world/Sol.cpp ../src/world/ImmeubleAvecFenetre.cpp ../src/world/ImmeublePlat.cpp ../src/world/WorldCreator.cpp ../src/Navigation.cpp ../src/Sons.cpp ../src/Environment.cpp ../src/main.cpp  
+SRC = ../src/util.cpp ../src/world/Sol.cpp ../src/world/ImmeubleAvecFenetre.cpp ../src/world/ImmeublePlat.cpp ../src/world/Skybox.cpp ../src/world/WorldCreator.cpp ../src/Navigation.cpp ../src/Sons.cpp ../src/Environment.cpp ../src/main.cpp  
 OBJ = $(SRC:.cpp=.o)
 
 # Les options de compilation + r�pertoire des .h

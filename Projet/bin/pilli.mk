@@ -3,7 +3,7 @@ APP = Town
 
 # La liste des fichiers à compiler
 #SRC = main.cpp simpleApp.cpp
-SRC = ../src/util.cpp ../src/world/Sol.cpp ../src/world/ImmeubleAvecFenetre.cpp ../src/world/ImmeublePlat.cpp ../src/world/WorldCreator.cpp ../src/Navigation.cpp ../src/Environment.cpp ../src/main.cpp  
+SRC = ../src/util.cpp ../src/world/Sol.cpp ../src/world/ImmeubleAvecFenetre.cpp ../src/world/ImmeublePlat.cpp ../src/world/Skybox.cpp ../src/world/WorldCreator.cpp ../src/Navigation.cpp ../src/Environment.cpp ../src/Sons.cpp ../src/main.cpp  
 OBJ = $(SRC:.cpp=.o)
 
 # Les options de compilation + r«pertoire des .h
@@ -15,7 +15,7 @@ CXXFLAGS += -I${VJ_BASE_DIR}/include/jccl-1.4/
 CXXFLAGS += -I${VJ_BASE_DIR}/include/vpr-2.2/
 CXXFLAGS += -I/usr/include/cppdom-1.0.3/
 CXXFLAGS += -I${VJ_BASE_DIR}/include/gmtl-0.6.1/
-#CXXFLAGS += -I${FMODROOT}/inc
+CXXFLAGS += -I/usr/include/fmodex
 CXXFLAGS += -I../src
 CXXFLAGS += -I../src/world
 
@@ -28,13 +28,16 @@ LDFLAGS += -losg -losgDB -losgUtil -lOpenThreads
 LDFLAGS += -lGLU -lGL -lm
 # ( pour linker avec ${HOME}/plib/libplibssg.so et ${HOME}/plib/libplibnet.so
 #   on ajoutera "-L${HOME}/plib -lplibssg  -lplibnet" )
-
 $(APP) : $(OBJ)
 	$(CXX) $(LDFLAGS) -o $(APP) $(OBJ)
 
-clean:
-	-\rm ../src/*.o $(APP)
-
 include Dep.mk
+
+
+
+clean:
+	-\rm ../src/*.o ../src/world/*.o $(APP)
+
+
 dep:
 	 g++ -MM -MG $(SRC) >Dep.mk
