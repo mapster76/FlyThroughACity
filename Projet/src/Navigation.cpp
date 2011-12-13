@@ -284,7 +284,7 @@ void Navigation::update(float time_delta) {
 		osg::Vec3 x(1,0,0);
 		osg::Vec3 y(0,1,0);
 		osg::Vec3 z(0,0,1);
-		R.makeRotate(-mRotation.x()/200,x,-mRotation.y()/200,y,-mRotation.z()/200,z);
+		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
 		//Correction de l'angle de la caméra
 		osg::Matrix H;
 		H.makeIdentity();
@@ -294,10 +294,10 @@ void Navigation::update(float time_delta) {
 		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
 			R.makeIdentity();
 			if(rotationActuelle.y()>0.95) {
-				stabiliserCameraInverse(0.1,0.0005,rotationActuelle,H);
+				stabiliserCameraInverse(0.05,0.0005,rotationActuelle,H);
 			} else {
 				if(rotationActuelle.y()>0.8) {
-					stabiliserCameraInverse(0.05,0.0005,rotationActuelle,H);
+					stabiliserCameraInverse(0.05,0.005,rotationActuelle,H);
 				} else {
 					stabiliserCamera(0.005,0.001,rotationActuelle,H);
 				}
