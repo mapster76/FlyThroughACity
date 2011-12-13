@@ -1,6 +1,6 @@
 #include "Skybox.h"
 
-osg::ref_ptr<osg::Image> Skybox::image=osgDB::readImageFile("../Skybox/skybox1.jpg");
+osg::ref_ptr<osg::Image> Skybox::image=osgDB::readImageFile("../Skybox/skybox6.jpg");
 
 Skybox::Skybox(GLfloat tailleCote) {
 	//boxGeode=new osg::Geode();
