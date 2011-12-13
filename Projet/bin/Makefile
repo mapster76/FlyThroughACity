@@ -33,7 +33,7 @@ $(APP) : $(OBJ)
 	$(CXX) $(LDFLAGS) -o $(APP) $(OBJ)
 
 clean:
-	-\rm ../src/*.o $(APP)
+	-\rm ../src/*.o ../src/world/*.o $(APP)
 
 include Dep.mk
 dep:
