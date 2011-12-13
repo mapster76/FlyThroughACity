@@ -25,11 +25,13 @@
 //}
 
 varying vec3 normal, lightDir, eyeVec;
+uniform sampler2D colorMap;
 
 void main (void)
 {
+   //vec4 couleur = texture2D( colorMap, gl_TexCoord[0].st);
    vec4 couleur = ( ( gl_FrontLightModelProduct.sceneColor * gl_FrontMaterial.ambient ) +
-                    ( gl_LightSource[1].ambient  *  gl_FrontMaterial.ambient ) );
+             ( gl_LightSource[1].ambient  *  gl_FrontMaterial.ambient ) );
 
    // vecteur normal
    vec3 N = normalize( normal );
