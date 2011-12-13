@@ -125,8 +125,8 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	mEnsembleLow=rootNodeLow;
 
 	lodEnsemble = new LOD();
-	lodEnsemble->addChild( mEnsembleLow.get(), 50.0f, FLT_MAX);
-	lodEnsemble->addChild( mEnsemble.get(), 0.0f, 50.0f );
+	lodEnsemble->addChild( mEnsembleLow.get(), 100.0f, FLT_MAX);
+	lodEnsemble->addChild( mEnsemble.get(), 0.0f, 100.0f );
 }
 
 int ImmeubleAvecFenetre::getTaille() {
