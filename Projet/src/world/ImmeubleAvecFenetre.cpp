@@ -5,9 +5,13 @@ osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::etage = osgDB::readNodeFile(ETAGE);
 osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::toit = osgDB::readNodeFile(TOIT);
 osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::trotoir = osgDB::readNodeFile(TROTOIR);
 osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::route = osgDB::readNodeFile(ROUTE);
+osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::rezDeChausseLow = osgDB::readNodeFile(REZ_DE_CHAUSSE_LOW);
+osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::etageLow = osgDB::readNodeFile(ETAGE_LOW);
+osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::toitLow = osgDB::readNodeFile(TOIT_LOW);
 
 ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 		mImmeuble=new osg::Group();
+		mImmeubleLow=new osg::Group();
 		mRoute= new osg::Group();
 	   mNombreEtages=nombreEtages;
 	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
@@ -15,6 +19,9 @@ ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 	   osg::ref_ptr<osg::StateSet> toitStateSet (toit->getOrCreateStateSet());
 	   osg::ref_ptr<osg::StateSet> trotoirStateSet (trotoir->getOrCreateStateSet());
 	   osg::ref_ptr<osg::StateSet> routeStateSet (route->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> etageLowStateSet (etageLow->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> rdcLowStateSet (rezDeChausseLow->getOrCreateStateSet());
+	   osg::ref_ptr<osg::StateSet> toitLowStateSet (toitLow->getOrCreateStateSet());
 
 	   //Its shader objects
 	   	osg::ref_ptr<osg::Program> shader (new osg::Program);
@@ -40,6 +47,9 @@ ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 	   	rdcStateSet->setAttribute(shader);
 	   	toitStateSet->setAttribute(shader);
 	   	trotoirStateSet->setAttribute(shader);
+	   	etageLowStateSet->setAttribute(shader2);
+		rdcLowStateSet->setAttribute(shader2);
+		toitLowStateSet->setAttribute(shader2);
 	   	routeStateSet->setAttribute(shader2);
 
 }
@@ -95,6 +105,28 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	immeubleStateSet->setAttributeAndModes(cf, osg::StateAttribute::ON);
 	mEnsemble=rootNode;
 
+	osg::ref_ptr<osg::Group>  rootNodeLow;
+	osg::ref_ptr<osg::MatrixTransform> navTransLow;
+	rootNodeLow = new osg::Group();
+	navTransLow = new osg::MatrixTransform();
+
+	rootNodeLow->addChild(navTransLow);
+	navTransLow->addChild(mImmeubleLow);
+	navTransLow->addChild(mRoute);
+
+	placeNodeElement(rezDeChausseLow,setCoordonnes(0,0,0),mImmeubleLow);
+	for(int i=1;i<mNombreEtages;i++)
+		placeNodeElement(etageLow,setCoordonnes(0,i*4,0),mImmeubleLow);
+	placeNodeElement(toitLow,setCoordonnes(0,mNombreEtages*4,0),mImmeubleLow);
+	//Permet de rendre invisible l'interieur d'un batiment
+	osg::StateSet* immeubleStateSetLow=mImmeubleLow->getOrCreateStateSet();
+	immeubleStateSetLow->setAttributeAndModes(cf, osg::StateAttribute::ON);
+
+	mEnsembleLow=rootNodeLow;
+
+	lodEnsemble = new LOD();
+	lodEnsemble->addChild( mEnsembleLow.get(), 50.0f, FLT_MAX);
+	lodEnsemble->addChild( mEnsemble.get(), 0.0f, 50.0f );
 }
 
 int ImmeubleAvecFenetre::getTaille() {
@@ -111,6 +143,6 @@ osg::BoundingBox ImmeubleAvecFenetre::getBoundingBox() {
 	return bb;
 }
 
-osg::ref_ptr<osg::Group> ImmeubleAvecFenetre::getNode() {
-	return mEnsemble;
+osg::ref_ptr<osg::LOD> ImmeubleAvecFenetre::getNode() {
+	return lodEnsemble;
 }
