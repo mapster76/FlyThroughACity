@@ -20,7 +20,7 @@ public:
 	//osg::ref_ptr<osg::Texture2D> texture;
 	Skybox(GLfloat tailleCote);
 	virtual ~Skybox();
-	virtual void drawImplementation(osg::RenderInfo& renderInfo);
+	virtual void drawImplementation(osg::RenderInfo& renderInfo) const;
 	//void changerSkybox();
 };
 

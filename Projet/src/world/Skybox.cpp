@@ -19,7 +19,7 @@ void Skybox::changerSkybox()
 
 }*/
 
-void Skybox::drawImplementation(osg::RenderInfo& renderInfo) {
+void Skybox::drawImplementation(osg::RenderInfo& renderInfo) const{
 	int positionCote=mSize/2;
 
 	Vec3Array* boxVertices = new osg::Vec3Array;
