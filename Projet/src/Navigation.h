@@ -36,8 +36,8 @@ public:
 	void arretBrutal();
 	void droitDeTourner();
 	void collisions();
+	void jouerSonVaisseau();
 	void rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante);
-	void jouerSonImmeuble();
 	void detectionRotationExcessive(float*);
 	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
 	void update(float time_delta);

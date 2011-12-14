@@ -294,6 +294,30 @@ void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg
 	}
 }
 
+
+void Navigation::jouerSonVaisseau()
+{
+  if(!estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer)
+    mSons1.jouerSonVaisseau();
+  //if(estEnTrainDAccelerer || estEnTrainDeDecelerer)
+  //mSons1.pauseSon();
+
+  /*
+  if(estEnTrainDAvancer)
+    cout << "Avancer " << endl;
+  if(estEnTrainDeDecelerer)
+    cout << "  Deceleration  " << endl;
+  if(estEnTrainDAccelerer)
+    cout << "  Acceleration  " << endl;
+  */
+
+  //cout << "Avancer " << estEnTrainDAvancer << "  Decelerer  " << estEnTrainDeDecelerer << "  Accelerer  " << estEnTrainDAccelerer << endl;
+
+}
+
+
+
+/*
 void Navigation::jouerSonImmeuble()
 {
 
@@ -311,9 +335,8 @@ void Navigation::jouerSonImmeuble()
 
     mSons1.jouerEffetDoppler();
   }
-
-
 }
+*/
 
 static void normalisationPI(float &angle) {
 	if(angle<0.f) {
@@ -401,7 +424,7 @@ void Navigation::update(float time_delta) {
 		mCurrentMatrix = mCurrentMatrix  * H * R * T;
 		collisions();
 
-		jouerSonImmeuble();
+		jouerSonVaisseau();
 	//}
 
 
@@ -486,15 +509,17 @@ void Navigation::gestionGachette(long tempsCourant) {
 
    if ( mButton0->getData() == gadget::Digital::ON )
    {
+     //estEnTrainDAccelerer=true;
+	 //estEnTrainDeDecelerer=false;
 	 accelerer(tempsCourant);
    }
 
    if ( mButton0->getData() == gadget::Digital::OFF)
    {
-	 if(estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
+     if(estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
 		 estEnTrainDAccelerer=false;
 		 estEnTrainDeDecelerer=true;
-	 }
+      }
      ralentir(tempsCourant);
    }
 }

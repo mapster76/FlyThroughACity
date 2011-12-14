@@ -16,9 +16,12 @@ class Skybox : public CustomDrawable {
 public:
 	GLfloat mSize;
 	static osg::ref_ptr<osg::Image> image;
+	static osg::ref_ptr<osg::Image> image2;
+	//osg::ref_ptr<osg::Texture2D> texture;
 	Skybox(GLfloat tailleCote);
 	virtual ~Skybox();
-	virtual void drawImplementation(osg::RenderInfo& renderInfo) const;
+	virtual void drawImplementation(osg::RenderInfo& renderInfo);
+	//void changerSkybox();
 };
 
 #endif /* SKYBOX_H_ */

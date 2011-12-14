@@ -18,16 +18,10 @@ Sons::~Sons() {
 		ERRCHECK(result);
 	}
 
-	if(sonDemarrage!=NULL) {
-		result = sonDemarrage->release();
+	if(sonVaisseau!=NULL) {
+		result = sonVaisseau->release();
 		ERRCHECK(result);
 	}
-
-	if(effetDoppler!=NULL) {
-		result = effetDoppler->release();
-		ERRCHECK(result);
-	}
-
 
 	if(system!=NULL) {
 		result = system->close();
@@ -71,24 +65,26 @@ FMOD_RESULT Sons::Initialisation()
     ERRCHECK(result);
     result = ambiancePluie->setMode(FMOD_LOOP_NORMAL);
 
-    // DEMARRAGE
-   result = system->createSound("../fmod/Audio/fx2.MP3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDemarrage);
+    // VAISSEAU
+   result = system->createSound("../fmod/Audio/BruitVaisseauAlArret.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonVaisseau);
     ERRCHECK(result);
-    result = sonDemarrage->setMode(FMOD_LOOP_OFF);
+    result = sonVaisseau->setMode(FMOD_LOOP_NORMAL);
 
     // DECELERATION
    result = system->createSound("../fmod/Audio/fx12.MP3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
     ERRCHECK(result);
     result = sonDeceleration->setMode(FMOD_LOOP_OFF);
 
-   // EFFET DOPPLER
-   result = system->createSound("../fmod/Audio/fx18.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &effetDoppler);
-    ERRCHECK(result);
-    result = effetDoppler->setMode(FMOD_LOOP_OFF);
-
 
     return result;
 
+}
+
+void Sons::pauseSon()
+{
+  bool paused;
+  channel->getPaused(&paused);
+  channel->setPaused(!paused);
 }
 
 void Sons::jouerSonDeceleration()
@@ -105,12 +101,12 @@ void Sons::jouerSonDeceleration()
 	ERRCHECK(result);
 }
 
-void Sons::jouerEffetDoppler()
+void Sons::jouerSonVaisseau()
 {
 
   	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, effetDoppler, false, &channel);
+	result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channel);
 	ERRCHECK(result);
 
 	result = channel->set3DAttributes(&position, &velocity);
@@ -120,20 +116,6 @@ void Sons::jouerEffetDoppler()
 }
 
 
-void Sons::jouerSonDemarrage()
-{
-
-  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
-	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sonDemarrage, false, &channel);
-	ERRCHECK(result);
-
-	result = channel->set3DAttributes(&position, &velocity);
-	ERRCHECK(result);
-	result = channel->setPaused(false);
-	ERRCHECK(result);
-}
- 
 
 void Sons::jouerAmbiancePluie()
 {
