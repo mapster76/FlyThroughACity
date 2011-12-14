@@ -12,6 +12,7 @@ osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::toitLow = osgDB::readNodeFile(TOIT_
 ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
 		mImmeuble=new osg::Group();
 		mImmeubleLow=new osg::Group();
+		mEmptyNode=new osg::Group();
 		mRoute= new osg::Group();
 	   mNombreEtages=nombreEtages;
 	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
@@ -125,7 +126,8 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	mEnsembleLow=rootNodeLow;
 
 	lodEnsemble = new LOD();
-	lodEnsemble->addChild( mEnsembleLow.get(), 100.0f, FLT_MAX);
+	lodEnsemble->addChild( mEmptyNode.get(), 300.0f, FLT_MAX);
+	lodEnsemble->addChild( mEnsembleLow.get(), 100.0f, 300);
 	lodEnsemble->addChild( mEnsemble.get(), 0.0f, 100.0f );
 }
 

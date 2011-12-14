@@ -63,6 +63,7 @@ private:
    long tempsPourDecceleration;
    long estEnTrainDAccelerer;
    long estEnTrainDeDecelerer;
+   bool correctionEnCours;
    bool arretEnDouceur;
    bool inverserDirection;
    int mCompteurCollisions;

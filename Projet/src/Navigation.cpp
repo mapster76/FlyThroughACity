@@ -9,6 +9,7 @@ Navigation::Navigation() {
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
 	arretEnDouceur=false;
+	correctionEnCours=false;
 	inverserDirection=false;
 	mCompteurCollisions=0;
 	mCurrentMatrix.makeIdentity();
@@ -192,29 +193,78 @@ void Navigation::seDeplacer()
 
 }
 
+static float calculerWAvecY(float y) {
+	float angle=gmtl::Math::aSin(y);
+	float w=cos(angle);
+	cout <<"angle correction" <<  w << endl;
+	return w;
+}
+
+static void printQuaternion(osg::Quat quat) {
+	cout << quat.x() << ", " << quat.y() << ", " << quat.z() << ", " << quat.w() << endl;
+}
+
+
 void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
 	double qx=0,qz=0,qw=0;
 	osg::Quat adapte;
+	static osg::Quat horizon;
+	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
+		//printQuaternion(rotationActuelle);
+		if(!correctionEnCours) {
+			horizon.set(0,rotationActuelle.y(),0,calculerWAvecY(rotationActuelle.y()));
+			correctionEnCours=true;
+		}
+		//printQuaternion(horizon);
+		qw=rotationActuelle.w();
+		if(abs(rotationActuelle.z())>limiteHorizon) {
+			if(rotationActuelle.z()>limiteHorizon) {
+				qz=-increment;
+			}
+			if( rotationActuelle.z()<-limiteHorizon) {
+				qz=+increment;
+			}
+		}
+		if(abs(rotationActuelle.x())>limiteHorizon) {
+			if( rotationActuelle.x()>limiteHorizon) {
+				qx=-increment;
+			}
+			if( rotationActuelle.x()<-limiteHorizon) {
+				qx=+increment;
+			}
+		}
+		adapte.set(qx,0,qz,qw);
+		matriceCorrection.makeRotate(adapte);
+		/*adapte.slerp(0.000000001,rotationActuelle,horizon);
+		matriceCorrection.makeRotate(adapte);*/
+	} else {
+		//cout << "fin correction" << endl;
+		if(correctionEnCours) {
+			correctionEnCours=false;
+		}
+	}
+	/*if(rotationActuelle.w()>=0) {
+		qw=0.5;
+	} else {
+		qw=-0.5;
+	}*/
+	/*qw=rotationActuelle.w();
 	if(rotationActuelle.z()>limiteHorizon) {
 		qz=-increment;
-		qw=rotationActuelle.w();
 	}
 	if( rotationActuelle.z()<-limiteHorizon) {
 		qz=+increment;
-		qw=rotationActuelle.w();
 	}
 	if( rotationActuelle.x()>limiteHorizon) {
 		qx=-increment;
-		qw=rotationActuelle.w();
 	}
 	if( rotationActuelle.x()<-limiteHorizon) {
 		qx=+increment;
-		qw=rotationActuelle.w();
 	}
 	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
 		adapte.set(qx,0,qz,qw);
 		matriceCorrection.makeRotate(adapte);
-	}
+	}*/
 }
 
 
@@ -265,6 +315,42 @@ void Navigation::jouerSonImmeuble()
 
 }
 
+static void normalisationPI(float &angle) {
+	if(angle<0.f) {
+		angle+=osg::PI*2.f;
+	}
+	if(angle>osg::PI*2.f) {
+		angle-=osg::PI*2.f;
+	}
+}
+
+static void radToDeg(float &angle) {
+	angle=(angle*180)/(gmtl::Math::PI);
+}
+
+static void convertirQuat(osg::Quat quat) {
+	float angle = gmtl::Math::aCos(quat.w()) * 2.f;
+	normalisationPI(angle);
+	radToDeg(angle);
+	float x,y,z;
+	/* Normalisation de l'axe de rotation */
+	float norm = sqrt(quat.x() * quat.x() + quat.y() * quat.y() + quat.z() * quat.z());
+	if (norm > 0.0005)
+	{
+	    x = quat.x()/norm;
+	    y = quat.y()/norm;
+	    z = quat.z()/norm;
+	}
+	cout << x << ", "<< y << ", "<< z << ", " << angle <<endl;
+}
+
+
+static void printMatrice(osg::Matrix vw_M_w) {
+	cout << vw_M_w.ptr()[0] << " "<< vw_M_w.ptr()[1] << " "<<vw_M_w.ptr()[2] << " "<<vw_M_w.ptr()[3] << endl;
+	cout << vw_M_w.ptr()[4] << " "<<vw_M_w.ptr()[5] << " "<<vw_M_w.ptr()[6] <<" "<< vw_M_w.ptr()[7] << endl;
+	cout << vw_M_w.ptr()[8] << " "<<vw_M_w.ptr()[9] << " "<<vw_M_w.ptr()[10] << " "<<vw_M_w.ptr()[11] << endl;
+	cout << vw_M_w.ptr()[12] << " "<<vw_M_w.ptr()[13] << " "<<vw_M_w.ptr()[14] << " "<<vw_M_w.ptr()[15] << endl;
+}
 
 void Navigation::update(float time_delta) {
 	//if(estEnTrainDAvancer) {
@@ -289,22 +375,30 @@ void Navigation::update(float time_delta) {
 		osg::Matrix H;
 		H.makeIdentity();
 
-		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+		osg::Matrix K;
+		K.makeIdentity();
 
+		//printQuaternion(rotationActuelle);
+		//calculerW(rotationActuelle);
+		//convertirQuat(rotationActuelle);
+		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+
+		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+		//printQuaternion(rotationActuelle);
 		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
+
 			R.makeIdentity();
-			if(rotationActuelle.y()>0.95) {
-				stabiliserCameraInverse(0.05,0.0005,rotationActuelle,H);
+			if(rotationActuelle.y()>0.97) {
+				stabiliserCamera(0.08,+0.00005,rotationActuelle,H);
 			} else {
 				if(rotationActuelle.y()>0.8) {
-					stabiliserCameraInverse(0.05,0.005,rotationActuelle,H);
+					stabiliserCamera(0.05,0.0005,rotationActuelle,H);
 				} else {
 					stabiliserCamera(0.005,0.001,rotationActuelle,H);
 				}
 			}
 		}
-		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
-		mCurrentMatrix = mCurrentMatrix * H * R * T;
+		mCurrentMatrix = mCurrentMatrix  * H * R * T;
 		collisions();
 
 		jouerSonImmeuble();
@@ -312,13 +406,6 @@ void Navigation::update(float time_delta) {
 
 
 
-}
-
-void printMatrice(osg::Matrix vw_M_w) {
-	cout << vw_M_w.ptr()[0] << " "<< vw_M_w.ptr()[1] << " "<<vw_M_w.ptr()[2] << " "<<vw_M_w.ptr()[3] << endl;
-	cout << vw_M_w.ptr()[4] << " "<<vw_M_w.ptr()[5] << " "<<vw_M_w.ptr()[6] <<" "<< vw_M_w.ptr()[7] << endl;
-	cout << vw_M_w.ptr()[8] << " "<<vw_M_w.ptr()[9] << " "<<vw_M_w.ptr()[10] << " "<<vw_M_w.ptr()[11] << endl;
-	cout << vw_M_w.ptr()[12] << " "<<vw_M_w.ptr()[13] << " "<<vw_M_w.ptr()[14] << " "<<vw_M_w.ptr()[15] << endl;
 }
 
 void Navigation::rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante) {

@@ -3,36 +3,18 @@
 
 
 void WorldCreator::initialiseWorld() {
-	/*osg::MatrixTransform* mModelSol = new osg::MatrixTransform();
-	osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
-	GLfloat color[3]={0.2,0.2,0.2};
-	osg::ref_ptr<CustomDrawable> sol(new Sol(RAYON_MAX_VILLE*2,color));
-	noeudSol->addDrawable((osg::Drawable*)sol.get());*/
-
 	pRootNode->addChild(pNavTrans);
-	osg::ref_ptr<Skybox> box(new Skybox(RAYON_MAX_VILLE+200));
+	osg::ref_ptr<Skybox> box(new Skybox(RAYON_MAX_VILLE*5));
 	osg::ref_ptr<osg::Geode> noeudSkybox=new osg::Geode();
 	noeudSkybox->addDrawable(box);
 	pNavTrans->addChild(noeudSkybox);
-	//pNavTrans->addChild(box.getBox());
-	/*GLfloat color[3]={0.2,0.2,0.2};
-	osg::ref_ptr<Sol> sol=new Sol(RAYON_MAX_VILLE*2,color);
-	osg::ref_ptr<osg::Geode> noeudSol=new osg::Geode();
-	noeudSol->addDrawable(sol);
-	pNavTrans->addChild(noeudSol);*/
-	//pNavTrans->addChild(mModelSol);
-	//mModelSol->addChild(noeudSol.get());
 }
 
 
 void WorldCreator::drawWorld(osg::ref_ptr<osg::Group> &rootNode,osg::ref_ptr<osg::MatrixTransform> &navTrans) {
-	initialiseWorld();
-
-	illuminateScene();
+	initialiseWorld();illuminateScene();
 	createMap();
 	generateSceneGraph();
-
-
 	rootNode=pRootNode;
 	navTrans=pNavTrans;
 }
@@ -68,22 +50,24 @@ bool WorldCreator::estUnEmplacementVide(vector<GLfloat> coordonnes) {
 }
 
 void WorldCreator::updateBoundingBox() {
-	//float coteImmeuble=11;
-	cout << "update" << endl;
 	for (map< vector<GLfloat> , ImmeubleAvecFenetre >::iterator unImmeuble = laCarte.begin(); unImmeuble != laCarte.end(); ++unImmeuble) {
 		osg::BoundingBox bbox;
 		ImmeubleAvecFenetre lImmeuble=unImmeuble->second;
 		vector<GLfloat> coordonnes=unImmeuble->first;
 		osg::Vec3f position(coordonnes[0],0,coordonnes[2]);
 		bbox=lImmeuble.getBoundingBox();
-		/*cout << coordonnes[0] << "," << coordonnes[2] <<endl;
-		cout << "min avant Trans"<< bbox.xMin() << ", " << bbox.yMin() << ", " << bbox.zMin() << endl;
-		cout << "max avant Trans"<< bbox.xMax() << ", " << bbox.yMax() << ", " << bbox.zMax() << endl;*/
 		osg::BoundingBox nouvelBox(bbox._min+position,bbox._max+position);
-		/*cout << "min avant Trans "<< nouvelBox.xMin() << ", " << nouvelBox.yMin() << ", " << nouvelBox.zMin() << endl;
-		cout << "max avant Trans "<< nouvelBox.xMax() << ", " << nouvelBox.yMax() << ", " << nouvelBox.zMax() << endl;*/
 		lesBoundingBoxes[coordonnes]=nouvelBox;
 	}
+	Vec3f limiteMinSol(-RAYON_MAX_VILLE*5.f,-1,-RAYON_MAX_VILLE*5.f);
+	Vec3f limiteMaxSol(RAYON_MAX_VILLE*5.f,1,RAYON_MAX_VILLE*5.f);
+	osg::BoundingBox sol(limiteMinSol,limiteMaxSol);
+	vector<GLfloat> centre;
+	centre.push_back(0);
+	centre.push_back(0);
+	centre.push_back(0);
+	lesBoundingBoxes[centre]=sol;
+
 }
 
 void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
@@ -181,7 +165,7 @@ void WorldCreator::illuminateScene() {
 	osg::ref_ptr<osg::StateSet> lightSS (pNavTrans->getOrCreateStateSet());
 
 	osg::ref_ptr<osg::LightSource> lightSource1 = new osg::LightSource;
-	osg::Vec4f lightPosition(osg::Vec4f(0.0,200.0,200.0,1.0));
+	osg::Vec4f lightPosition(osg::Vec4f(0.0,RAYON_MAX_VILLE*5,RAYON_MAX_VILLE*5,1.0));
 	osg::Vec3f lightDirection(osg::Vec3f(0.0,0.0,1.0));
 	osg::ref_ptr<osg::Light> myLight = new osg::Light;
 	myLight->setLightNum(1);

@@ -41,7 +41,7 @@ public:
 	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route,rezDeChausseLow,etageLow,toitLow;
 	osg::ref_ptr<osg::Group> mImmeuble,mImmeubleLow;
 	osg::ref_ptr<osg::Group> mRoute;
-	osg::ref_ptr<osg::Group> mEnsemble,mEnsembleLow;
+	osg::ref_ptr<osg::Group> mEnsemble,mEnsembleLow,mEmptyNode;
 	ref_ptr<LOD> lodEnsemble;
 	ImmeubleAvecFenetre() {}
 
