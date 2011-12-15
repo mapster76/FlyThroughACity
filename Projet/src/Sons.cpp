@@ -176,6 +176,8 @@ FMOD_RESULT Sons::Initialisation()
     result = sonCollision->setMode(FMOD_LOOP_OFF);
 
     //Initialisation de l'iterateur
+    vAmbianceSonore.push_back("20");
+    vAmbianceSonore.push_back("21");
     itAmbianceSonore = vAmbianceSonore.begin();
 
     return result;
@@ -305,7 +307,6 @@ void Sons::pauseSonCollision()
 
 void Sons::jouerAmbiancePluie()
 {
-	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, ambiancePluie, false, &channelAmbiance);
@@ -320,7 +321,6 @@ void Sons::jouerAmbiancePluie()
 
 void Sons::jouerAmbianceOrage()
 {
-	cout << "son ambiance Orage" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, ambianceOrage, false, &channelAmbiance);
@@ -334,7 +334,6 @@ void Sons::jouerAmbianceOrage()
 
 void Sons::jouerAmbianceFoule()
 {
-	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, ambianceFoule, false, &channelAmbiance);
@@ -349,7 +348,6 @@ void Sons::jouerAmbianceFoule()
 
 void Sons::jouerAmbianceNature()
 {
-	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, ambianceNature, false, &channelAmbiance);
@@ -363,7 +361,6 @@ void Sons::jouerAmbianceNature()
 
 void Sons::jouerMusique1()
 {
-	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, musique1, false, &channelAmbiance);
@@ -377,7 +374,6 @@ void Sons::jouerMusique1()
 
 void Sons::jouerMusique2()
 {
-	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
 	result = system->playSound(FMOD_CHANNEL_FREE, musique2, false, &channelAmbiance);
@@ -391,19 +387,23 @@ void Sons::jouerMusique2()
 
 void Sons::changerAmbianceSonore(string itAmbianceSonore)
 {
-  //std::cout << "itAmbianceSonore   " << itAmbianceSonore << std::endl;
+  std::cout << "itAmbianceSonore   " << itAmbianceSonore << std::endl;
+  if(itAmbianceSonore == "20")
+    jouerAmbianceNature();
+  else
+    jouerMusique2();
 
 }
 
 
 
 void Sons::gestionBouton1(gadget::DigitalInterface mButton) {
-  	if(mButton->getData() == gadget::Digital::TOGGLE_ON) {
+
+	if(mButton->getData() == gadget::Digital::TOGGLE_ON) {
 		itAmbianceSonore++;
 		if(itAmbianceSonore == vAmbianceSonore.end()) {
 			itAmbianceSonore=vAmbianceSonore.begin();
 		}
-
 		changerAmbianceSonore(*itAmbianceSonore);
 
 

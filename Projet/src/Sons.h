@@ -49,7 +49,7 @@ public:
  private:
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
-    FMOD::Sound      *ambiancePluie, *ambianceOrage, *ambianceNature, *ambianceFoule, *musique1, *musique2, *sonVaisseau, *sonDeceleration, *sonCollision, *sonAcceleration;
+    FMOD::Sound      *ambianceGenerale, *ambiancePluie, *ambianceOrage, *ambianceNature, *ambianceFoule, *musique1, *musique2, *sonVaisseau, *sonDeceleration, *sonCollision, *sonAcceleration;
     FMOD::Channel    *channelDeceleration,*channelAmbiance,*channelCollision,*channelVaisseau,*channelAcceleration;
     FMOD_RESULT       result;
     int               key;
