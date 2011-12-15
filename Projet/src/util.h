@@ -43,14 +43,15 @@ class RandomGenerator {
   RandomGenerator() {
     vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
     mRandom.init(new_guid);
+    mRandom->setNombreAleatoire(time(NULL));
   }
 
   ~RandomGenerator() {}
 
-  void randomParPas(int a, int b,int pas){
+  int randomParPas(int a, int b,int pas){
     static bool seedInitialiser=false;
     if(!seedInitialiser) {
-      srand(time(NULL));
+      srand(mRandom->getNombreAleatoire());
       seedInitialiser=true;
     }
     int nombreAleatoire=rand()%(b-a) +a;
@@ -59,11 +60,7 @@ class RandomGenerator {
     int reste=nombreAleatoire%pas;
     if(reste > pas/2)
       resultat+=pas;
-    mRandom->setNombreAleatoire(resultat);
-  }
-  
-  unsigned int getRandom(){
-    return mRandom->getNombreAleatoire();
+    return resultat;
   }
 };
 

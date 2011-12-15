@@ -97,8 +97,7 @@ void WorldCreator::updateBoundingBox() {
 
 void WorldCreator::ajouterImmeubleALaCarte(vector<GLfloat> coordonnes) {
 	//Generation d'un nombre d'étage entre 1 et 10 pseudo-aleatoirement
-	random.randomParPas(3,20,1);
-	GLfloat nombreEtage=random.getRandom();
+	GLfloat nombreEtage=random.randomParPas(3,20,1);
 	if(!noeudImmeubleExiste(nombreEtage)) {
 		createImmeubleAvecFenetreNode(nombreEtage);
 
