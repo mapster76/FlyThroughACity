@@ -101,7 +101,7 @@ void Environment::myInit()
 
 	mNavigation.init(*mWorld,mWand,mHead,mButton0,mButton1,mButton2);
 
-	mSons.jouerAmbiancePluie();
+	mSons.changerAmbianceSonore("musique1");
 
 }
 
