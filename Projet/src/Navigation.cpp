@@ -270,12 +270,12 @@ void Navigation::jouerSonVaisseau()
       mSons1.pauseSonDeceleration();
     }
     if(!estEnTrainDAccelerer) {
-      cout << "deceleration" << endl;
+      //cout << "deceleration" << endl;
       mSons1.pauseSonGrandeVitesse();
       mSons1.pauseSonAcceleration();
       mSons1.jouerSonVaisseau();
     } else {
-      cout << "acceleration" << endl;
+      //cout << "acceleration" << endl;
       mSons1.jouerSonAcceleration();
       mSons1.jouerSonGrandeVitesse();
     }

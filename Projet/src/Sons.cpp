@@ -298,7 +298,6 @@ void Sons::jouerSonGrandeVitesse() {
   channelGrandeVitesse->isPlaying(&currentlyPlaying);
   channelAcceleration->getPaused(&accelerationPaused);
   if(!currentlyPlaying && !accelerationPlaying && accelerationAlreadyPlayed) {
-    cout << "son grande vitesse" << endl;
     result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
     ERRCHECK(result);
     result = channelGrandeVitesse->setPaused(false);
