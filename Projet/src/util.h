@@ -13,48 +13,48 @@
 
 using namespace std;
 
-class Random : public vpr::SerializableObject {
+class SharedNumber : public vpr::SerializableObject {
 public :
-  int mNombreAleatoire;
+  int mNombrePartage;
 
   virtual void readObject(vpr::ObjectReader* reader) {
-    int nombreAleatoire;
-    nombreAleatoire = reader->readUint32();
-    mNombreAleatoire=nombreAleatoire;
+    int nombrePartage;
+    nombrePartage = reader->readUint32();
+    mNombrePartage=nombrePartage;
   }
 
   virtual void writeObject(vpr::ObjectWriter* writer) {
-    const int nombreAleatoire = mNombreAleatoire;
-    writer->writeUint32(nombreAleatoire);
+    const int nombrePartage = mNombrePartage;
+    writer->writeUint32(nombrePartage);
   }
 
-  int getNombreAleatoire() {
-    return mNombreAleatoire;
+  int getNombrePartage() {
+    return mNombrePartage;
   }
 
-  void setNombreAleatoire(int nombreAleatoire) {
-    mNombreAleatoire=nombreAleatoire;
+  void setNombrePartage(int nombrePartage) {
+    mNombrePartage=nombrePartage;
   }
 };
 
 class RandomGenerator {
  public:
-  cluster::UserData< Random >  mRandom;
+  cluster::UserData< SharedNumber >  mRandom;
   RandomGenerator() {
     vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
     mRandom.init(new_guid);
-    if(mRandom->getNombreAleatoire()==0)
-      mRandom->setNombreAleatoire(time(NULL));
+    if(mRandom->getNombrePartage()==0)
+      mRandom->setNombrePartage(time(NULL));
   }
 
   ~RandomGenerator() {}
 
   int randomParPas(int a, int b,int pas){
-    static bool seedInitialiser=false;
-    if(!seedInitialiser) {
-      srand(mRandom->getNombreAleatoire());
-      seedInitialiser=true;
-    }
+    /* static bool seedInitialiser=false;
+       if(!seedInitialiser) {*/
+      srand(mRandom->getNombrePartage());
+      /* seedInitialiser=true;
+	 }*/
     int nombreAleatoire=rand()%(b-a) +a;
     int quotient=nombreAleatoire/pas;
     int resultat=pas*quotient;
