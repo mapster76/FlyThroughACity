@@ -467,6 +467,7 @@ void Navigation::collisions() {
 				cout << "max "<< boundingBox->second.xMax() << ", " << boundingBox->second.yMax() << ", " << boundingBox->second.zMax() << endl;
 				cout << "collisions" << endl;*/
 				arretBrutal();
+				mSons1.jouerSonCollision();
 			}
 		}
 }
@@ -499,7 +500,7 @@ void Navigation::gestionBouton2(long tempsCourant)
 {
 
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
-	  avancerOuArreter();
+    avancerOuArreter();
   }
   seDeplacer();
   ralentirPuisSAreter(tempsCourant);
@@ -509,8 +510,6 @@ void Navigation::gestionGachette(long tempsCourant) {
 
    if ( mButton0->getData() == gadget::Digital::ON )
    {
-     //estEnTrainDAccelerer=true;
-	 //estEnTrainDeDecelerer=false;
 	 accelerer(tempsCourant);
    }
 

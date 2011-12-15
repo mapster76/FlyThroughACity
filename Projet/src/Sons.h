@@ -21,6 +21,7 @@ public:
   void jouerAmbiancePluie();
   void jouerSonVaisseau();
   void jouerSonDeceleration();
+  void jouerSonCollision();
   void pauseSon();
 
   void ERRCHECK(FMOD_RESULT);
@@ -28,7 +29,7 @@ public:
  private:
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
-    FMOD::Sound      *ambiancePluie, *sonVaisseau, *sonDeceleration; 
+    FMOD::Sound      *ambiancePluie, *sonVaisseau, *sonDeceleration, *sonCollision; 
     FMOD::Channel    *channel;
     FMOD_RESULT       result;
     int               key;

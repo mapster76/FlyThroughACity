@@ -7,7 +7,7 @@ Sons::Sons() {
 
 
 Sons::~Sons() {
-	printf("destroy");
+  //printf("destroy");
 	if(ambiancePluie!=NULL) {
 		result = ambiancePluie->release();
 		ERRCHECK(result);
@@ -19,6 +19,11 @@ Sons::~Sons() {
 	}
 
 	if(sonVaisseau!=NULL) {
+		result = sonVaisseau->release();
+		ERRCHECK(result);
+	}
+
+	if(sonCollision!=NULL) {
 		result = sonVaisseau->release();
 		ERRCHECK(result);
 	}
@@ -43,7 +48,7 @@ FMOD_RESULT Sons::Initialisation()
 {
     result = FMOD::System_Create(&system);
     ERRCHECK(result);
-    channel=0;
+    channel = 0;
 
     result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
     ERRCHECK(result);
@@ -71,10 +76,14 @@ FMOD_RESULT Sons::Initialisation()
     result = sonVaisseau->setMode(FMOD_LOOP_NORMAL);
 
     // DECELERATION
-   result = system->createSound("../fmod/Audio/fx12.MP3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
+   result = system->createSound("../fmod/Audio/BruitArretVaisseau.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
     ERRCHECK(result);
     result = sonDeceleration->setMode(FMOD_LOOP_OFF);
 
+    // COLLISION
+   result = system->createSound("../fmod/Audio/Collision3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonCollision);
+    ERRCHECK(result);
+    result = sonCollision->setMode(FMOD_LOOP_OFF);
 
     return result;
 
@@ -85,6 +94,7 @@ void Sons::pauseSon()
   bool paused;
   channel->getPaused(&paused);
   channel->setPaused(!paused);
+ 
 }
 
 void Sons::jouerSonDeceleration()
@@ -100,6 +110,23 @@ void Sons::jouerSonDeceleration()
 	result = channel->setPaused(false);
 	ERRCHECK(result);
 }
+
+void Sons::jouerSonCollision()
+{
+
+  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, sonCollision, false, &channel);
+	ERRCHECK(result);
+
+	result = channel->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channel->setPaused(false);
+	ERRCHECK(result);
+}
+
+
+
 
 void Sons::jouerSonVaisseau()
 {
