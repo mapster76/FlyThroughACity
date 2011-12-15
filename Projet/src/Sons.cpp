@@ -251,34 +251,58 @@ void Sons::pauseSonDeceleration()
 
 void Sons::jouerSonAcceleration()
 {
-	bool currentlyPlaying=false,paused=false;
-	channelAcceleration->isPlaying(&currentlyPlaying);
-	if(!currentlyPlaying && !accelerationAlreadyPlayed) {
-		accelerationAlreadyPlayed=true;
-		result = system->playSound(FMOD_CHANNEL_FREE, sonAcceleration, false, &channelAcceleration);
-		ERRCHECK(result);
-		result = channelAcceleration->setPaused(false);
-		ERRCHECK(result);
-	}
-	channelAcceleration->getPaused(&paused);
-	if(paused && !accelerationAlreadyPlayed) {
-		accelerationAlreadyPlayed=true;
-		result = channelAcceleration->setPaused(false);
-	}
+  bool currentlyPlaying=false,paused=false;
+  channelAcceleration->isPlaying(&currentlyPlaying);
+  if(!currentlyPlaying && !accelerationAlreadyPlayed) {
+    accelerationAlreadyPlayed=true;
+    result = system->playSound(FMOD_CHANNEL_FREE, sonAcceleration, false, &channelAcceleration);
+    ERRCHECK(result);
+    result = channelAcceleration->setPaused(false);
+    ERRCHECK(result);
+  }
+  channelAcceleration->getPaused(&paused);
+  if(paused && !accelerationAlreadyPlayed) {
+    accelerationAlreadyPlayed=true;
+    result = channelAcceleration->setPaused(false);
+  }
 }
 
 void Sons::pauseSonAcceleration()
 {
-	bool playing,pause;
-	channelAcceleration->getPaused(&pause);
-	accelerationAlreadyPlayed=false;
-	channelAcceleration->isPlaying(&playing);
-	if(playing && !pause) {
-		channelAcceleration->setPosition(0,FMOD_TIMEUNIT_MS);
-		channelAcceleration->setPaused(true);
-	}
+  bool playing,pause;
+  channelAcceleration->getPaused(&pause);
+  accelerationAlreadyPlayed=false;
+  channelAcceleration->isPlaying(&playing);
+  if(playing && !pause) {
+    channelAcceleration->setPosition(0,FMOD_TIMEUNIT_MS);
+    channelAcceleration->setPaused(true);
+  }
 }
 
+void Sons::jouerSonGrandeVitesse() {
+  bool accelerationPlaying=false,paused=false,accelerationPaused=false;
+  channelAcceleration->isPlaying(&currentlyPlaying);
+  channelAcceleration->getPaused(&accelerationPaused);
+  if(!currentlyPlaying && !accelerationAlreadyPlayed && accelerationPaused) {
+    result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
+    ERRCHECK(result);
+    result = channelAcceleration->setPaused(false);
+    ERRCHECK(result);
+  }
+  channelAcceleration->getPaused(&paused);
+  if(paused) {
+    result = channelAcceleration->setPaused(false);
+  }
+}
+
+void Sons::pauseSonGrandeVitesse() {
+  bool playing,pause;
+  channelGrandeVitesse->getPaused(&pause);
+  if(!pause) {
+    channelGrandeVitesse->setPosition(0,FMOD_TIMEUNIT_MS);
+    channelGrandeVitesse->setPaused(true);
+  }
+}
 void Sons::jouerSonCollision()
 {
 	bool currentlyPlaying=false,paused=false;
