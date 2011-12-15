@@ -8,10 +8,8 @@ Navigation::Navigation() {
 	peutTourner = false;
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
+	estEnTrainDeSArreter=false;
 	arretEnDouceur=false;
-	correctionEnCours=false;
-	inverserDirection=false;
-	mCompteurCollisions=0;
 	mCurrentMatrix.makeIdentity();
 
 }
@@ -135,20 +133,24 @@ void Navigation::ralentirPuisSAreter(long tempsCourant)
 	if(!estEnTrainDAvancer && arretEnDouceur) {
 		if(tempsPourArret==0)
 			tempsPourArret=tempsCourant;
-			gmtl::Vec3f direction;
-			gmtl::Vec3f Zdir = mNavigator->getVelocity();
-			float* vitesse=Zdir.getData();
-			if(tempsCourant-tempsPourArret>40000) {
+		gmtl::Vec3f direction;
+		gmtl::Vec3f Zdir = mNavigator->getVelocity();
+		float* vitesse=Zdir.getData();
+		if(tempsCourant-tempsPourArret>40000) {
 			facteurRalentissement(vitesse[0]);
 			facteurRalentissement(vitesse[1]);
 			facteurRalentissement(vitesse[2]);
 			Zdir.set(vitesse);
 			mNavigator->setVelocity(Zdir);
 			tempsPourArret=tempsCourant;
+			estEnTrainDeSArreter=true;
+		} else {
+			estEnTrainDeSArreter=false;
 		}
 		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
 			tempsPourArret=0;
 		}
+
 	}
 	if(!estEnTrainDAvancer && !arretEnDouceur) {
 		gmtl::Vec3f Zdir = mNavigator->getVelocity();
@@ -210,10 +212,10 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 	static osg::Quat horizon;
 	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
 		//printQuaternion(rotationActuelle);
-		if(!correctionEnCours) {
+		/*if(!correctionEnCours) {
 			horizon.set(0,rotationActuelle.y(),0,calculerWAvecY(rotationActuelle.y()));
 			correctionEnCours=true;
-		}
+		}*/
 		//printQuaternion(horizon);
 		qw=rotationActuelle.w();
 		if(abs(rotationActuelle.z())>limiteHorizon) {
@@ -236,12 +238,12 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 		matriceCorrection.makeRotate(adapte);
 		/*adapte.slerp(0.000000001,rotationActuelle,horizon);
 		matriceCorrection.makeRotate(adapte);*/
-	} else {
+	} /*else {
 		//cout << "fin correction" << endl;
 		if(correctionEnCours) {
 			correctionEnCours=false;
 		}
-	}
+	}*/
 	/*if(rotationActuelle.w()>=0) {
 		qw=0.5;
 	} else {
@@ -296,29 +298,23 @@ void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg
 
 void Navigation::jouerSonVaisseau()
 {
-  if(!estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
-	mSons1.pauseSonDeceleration();
-    mSons1.jouerSonVaisseau();
-  }
-  //if(estEnTrainDAccelerer || estEnTrainDeDecelerer)
-  //mSons1.pauseSon();
-
   if(estEnTrainDAvancer) {
-	  mSons1.pauseSonVaisseau();
-  }
-
-  if(estEnTrainDeDecelerer) {
-	  mSons1.jouerSonDeceleration();
-  }
-    //cout << "  Deceleration  " << endl;
-  if(estEnTrainDAccelerer) {
+	  mSons1.pauseSonCollision();
 	  mSons1.pauseSonVaisseau();
 	  mSons1.pauseSonDeceleration();
-	 // mSons1.jouerSonAcceleration();
+	  if(!estEnTrainDAccelerer) {
+	    mSons1.pauseSonAcceleration();
+	  } else {
+		  mSons1.jouerSonAcceleration();
+	  }
+
+  } else {
+	  if(estEnTrainDeSArreter) {
+		  mSons1.jouerSonDeceleration();
+	  } else {
+		  mSons1.jouerSonVaisseau();
+	  }
   }
-
-  //cout << "Avancer " << estEnTrainDAvancer << "  Decelerer  " << estEnTrainDeDecelerer << "  Accelerer  " << estEnTrainDAccelerer << endl;
-
 }
 
 
@@ -418,7 +414,7 @@ void Navigation::update(float time_delta) {
 
 			R.makeIdentity();
 			if(rotationActuelle.y()>0.97) {
-				stabiliserCamera(0.08,+0.00005,rotationActuelle,H);
+				stabiliserCamera(0.15,+0.00005,rotationActuelle,H);
 			} else {
 				if(rotationActuelle.y()>0.8) {
 					stabiliserCamera(0.05,0.0005,rotationActuelle,H);
@@ -468,12 +464,9 @@ void Navigation::collisions() {
 		wandBbox.set(wandPoint[0]-0.2,wandPoint[1]-0.2,wandPoint[2]-0.2,wandPoint[0]+0.2,wandPoint[1]+0.2,wandPoint[2]+0.2);
 		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
 			if(boundingBox->second.intersects(wandBbox)) {
-				/*cout << wandPoint.x() <<", " << wandPoint.y() <<", " << wandPoint.z() << endl;
-				cout << "min "<< boundingBox->second.xMin() << ", " << boundingBox->second.yMin() << ", " << boundingBox->second.zMin() << endl;
-				cout << "max "<< boundingBox->second.xMax() << ", " << boundingBox->second.yMax() << ", " << boundingBox->second.zMax() << endl;
-				cout << "collisions" << endl;*/
 				arretBrutal();
 				mSons1.jouerSonCollision();
+				break;
 			}
 		}
 }
