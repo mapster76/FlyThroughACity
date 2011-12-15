@@ -195,8 +195,8 @@ void Sons::jouerSonVaisseau()
 	bool currentlyPlaying=false,paused=false;
 	bool decellerationPlaying=false;
 	channelVaisseau->isPlaying(&currentlyPlaying);
-	channelDeceleration->isPlaying(&decellerationPlaying);
-	if(!currentlyPlaying && !decellerationPlaying) {
+	//channelDeceleration->isPlaying(&decellerationPlaying);
+	if(!currentlyPlaying) {
 		result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channelVaisseau);
 		ERRCHECK(result);
 		result = channelVaisseau->setPaused(false);
