@@ -150,6 +150,7 @@ void Navigation::ralentirPuisSAreter(long tempsCourant)
     }
     if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
       tempsPourArret=0;
+      // estEnTrainDeSArreter=false;
     }
 
   }
@@ -172,7 +173,6 @@ void Navigation::droitDeTourner() {
 void Navigation::seDeplacer()
 {
   if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
-    estEnTrainDeSArreter=false;
     gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
     gmtl::Vec3f direction; // Choix de la vitesse
     gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
@@ -208,92 +208,57 @@ static void printQuaternion(osg::Quat quat) {
 
 
 void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
-	double qx=0,qz=0,qw=0;
-	osg::Quat adapte;
-	static osg::Quat horizon;
-	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
-		//printQuaternion(rotationActuelle);
-		/*if(!correctionEnCours) {
-			horizon.set(0,rotationActuelle.y(),0,calculerWAvecY(rotationActuelle.y()));
-			correctionEnCours=true;
-		}*/
-		//printQuaternion(horizon);
-		qw=rotationActuelle.w();
-		if(abs(rotationActuelle.z())>limiteHorizon) {
-			if(rotationActuelle.z()>limiteHorizon) {
-				qz=-increment;
-			}
-			if( rotationActuelle.z()<-limiteHorizon) {
-				qz=+increment;
-			}
-		}
-		if(abs(rotationActuelle.x())>limiteHorizon) {
-			if( rotationActuelle.x()>limiteHorizon) {
-				qx=-increment;
-			}
-			if( rotationActuelle.x()<-limiteHorizon) {
-				qx=+increment;
-			}
-		}
-		adapte.set(qx,0,qz,qw);
-		matriceCorrection.makeRotate(adapte);
-		/*adapte.slerp(0.000000001,rotationActuelle,horizon);
-		matriceCorrection.makeRotate(adapte);*/
-	} /*else {
-		//cout << "fin correction" << endl;
-		if(correctionEnCours) {
-			correctionEnCours=false;
-		}
-	}*/
-	/*if(rotationActuelle.w()>=0) {
-		qw=0.5;
-	} else {
-		qw=-0.5;
-	}*/
-	/*qw=rotationActuelle.w();
-	if(rotationActuelle.z()>limiteHorizon) {
-		qz=-increment;
-	}
-	if( rotationActuelle.z()<-limiteHorizon) {
-		qz=+increment;
-	}
-	if( rotationActuelle.x()>limiteHorizon) {
-		qx=-increment;
-	}
-	if( rotationActuelle.x()<-limiteHorizon) {
-		qx=+increment;
-	}
-	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
-		adapte.set(qx,0,qz,qw);
-		matriceCorrection.makeRotate(adapte);
-	}*/
+  double qx=0,qz=0,qw=0;
+  osg::Quat adapte;
+  static osg::Quat horizon;
+  if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
+    qw=rotationActuelle.w();
+    if(abs(rotationActuelle.z())>limiteHorizon) {
+      if(rotationActuelle.z()>limiteHorizon) {
+	qz=-increment;
+      }
+      if( rotationActuelle.z()<-limiteHorizon) {
+	qz=+increment;
+      }
+    }
+    if(abs(rotationActuelle.x())>limiteHorizon) {
+      if( rotationActuelle.x()>limiteHorizon) {
+	qx=-increment;
+      }
+      if( rotationActuelle.x()<-limiteHorizon) {
+	qx=+increment;
+      }
+    }
+    adapte.set(qx,0,qz,qw);
+    matriceCorrection.makeRotate(adapte);
+  } 
 }
 
 
 void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
-	double qx=0,qz=0,qw=0;
-	osg::Quat adapte;
+  double qx=0,qz=0,qw=0;
+  osg::Quat adapte;
 
-	if( rotationActuelle.x()>limiteHorizon) {
-		qx=-increment;
-		qw=rotationActuelle.w();
-	}
-	if( rotationActuelle.x()<-limiteHorizon) {
-		qx=+increment;
-		qw=rotationActuelle.w();
-	}
-	if(rotationActuelle.z()>limiteHorizon) {
-		qz=-increment;
-		qw=rotationActuelle.w();
-	}
-	if( rotationActuelle.z()<-limiteHorizon) {
-		qz=+increment;
-		qw=rotationActuelle.w();
-	}
-	if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
-		adapte.set(qx,0,qz,qw);
-		matriceCorrection.makeRotate(adapte);
-	}
+  if( rotationActuelle.x()>limiteHorizon) {
+    qx=-increment;
+    qw=rotationActuelle.w();
+  }
+  if( rotationActuelle.x()<-limiteHorizon) {
+    qx=+increment;
+    qw=rotationActuelle.w();
+  }
+  if(rotationActuelle.z()>limiteHorizon) {
+    qz=-increment;
+    qw=rotationActuelle.w();
+  }
+  if( rotationActuelle.z()<-limiteHorizon) {
+    qz=+increment;
+    qw=rotationActuelle.w();
+  }
+  if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
+    adapte.set(qx,0,qz,qw);
+    matriceCorrection.makeRotate(adapte);
+  }
 }
 
 
@@ -304,7 +269,9 @@ void Navigation::jouerSonVaisseau()
     //if(estEnTrainDeSArreter) {
       mSons1.pauseSonVaisseau();
       // }
-    mSons1.pauseSonDeceleration();
+    if(!estEnTrainDeSArreter) { 
+      mSons1.pauseSonDeceleration();
+    }
     if(!estEnTrainDAccelerer) {
       mSons1.pauseSonAcceleration();
       mSons1.jouerSonVaisseau();
