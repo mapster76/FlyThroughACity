@@ -193,9 +193,7 @@ void Navigation::seDeplacer()
       rotationWandAxeZ+=0.2;
     mNavigator->setRotation(rotationXYZ);
   }
-}
-
-static float calculerWAvecY(float y) {
+}static float calculerWAvecY(float y) {
 	float angle=gmtl::Math::aSin(y);
 	float w=cos(angle);
 	cout <<"angle correction" <<  w << endl;
@@ -205,7 +203,6 @@ static float calculerWAvecY(float y) {
 static void printQuaternion(osg::Quat quat) {
 	cout << quat.x() << ", " << quat.y() << ", " << quat.z() << ", " << quat.w() << endl;
 }
-
 
 void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
   double qx=0,qz=0,qw=0;

@@ -233,33 +233,33 @@ void Sons::pauseSonVaisseau()
 
 void Sons::jouerSonDeceleration()
 {
-	bool currentlyPlaying=false,paused=false;
-	channelDeceleration->isPlaying(&currentlyPlaying);
-	if(!currentlyPlaying && !decelerationAlreadyPlayed) {
+  bool currentlyPlaying=false,paused=false;
+  channelDeceleration->isPlaying(&currentlyPlaying);
+  if(!currentlyPlaying && !decelerationAlreadyPlayed) {
 
-		decelerationAlreadyPlayed=true;
-		result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channelDeceleration);
-		ERRCHECK(result);
-		result = channelDeceleration->setPaused(false);
-		ERRCHECK(result);
-	}
-	channelDeceleration->getPaused(&paused);
-	if(paused  && !decelerationAlreadyPlayed) {
-		decelerationAlreadyPlayed=true;
-		result = channelDeceleration->setPaused(false);
-	}
+    decelerationAlreadyPlayed=true;
+    result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channelDeceleration);
+    ERRCHECK(result);
+    result = channelDeceleration->setPaused(false);
+    ERRCHECK(result);
+  }
+  channelDeceleration->getPaused(&paused);
+  if(paused  && !decelerationAlreadyPlayed) {
+    decelerationAlreadyPlayed=true;
+    result = channelDeceleration->setPaused(false);
+  }
 }
 
 void Sons::pauseSonDeceleration()
 {
-	bool playing,pause;
-	decelerationAlreadyPlayed=false;
-	channelDeceleration->getPaused(&pause);
-	channelDeceleration->isPlaying(&playing);
-	if(playing && !pause) {
-		channelDeceleration->setPosition(0,FMOD_TIMEUNIT_MS);
-		channelDeceleration->setPaused(true);
-	}
+  bool playing,pause;
+  decelerationAlreadyPlayed=false;
+  channelDeceleration->getPaused(&pause);
+  channelDeceleration->isPlaying(&playing);
+  if(playing && !pause) {
+    channelDeceleration->setPosition(0,FMOD_TIMEUNIT_MS);
+    channelDeceleration->setPaused(true);
+  }
 }
 
 void Sons::jouerSonAcceleration()
@@ -296,14 +296,14 @@ void Sons::jouerSonGrandeVitesse() {
   bool accelerationPlaying=false,paused=false,accelerationPaused=false;
   channelAcceleration->isPlaying(&accelerationPlaying);
   channelAcceleration->getPaused(&accelerationPaused);
-  if(!accelerationPlaying && accelerationAlreadyPlayed && accelerationPaused) {
+  if(!accelerationPlaying && accelerationAlreadyPlayed) {
     result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
     ERRCHECK(result);
     result = channelGrandeVitesse->setPaused(false);
     ERRCHECK(result);
   }
   channelGrandeVitesse->getPaused(&paused);
-  if(paused && accelerationAlreadyPlayed && accelerationPaused) {
+  if(paused && accelerationAlreadyPlayed) {
     result = channelGrandeVitesse->setPaused(false);
   }
 }
