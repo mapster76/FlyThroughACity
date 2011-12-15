@@ -283,15 +283,15 @@ void Sons::jouerSonGrandeVitesse() {
   bool accelerationPlaying=false,paused=false,accelerationPaused=false;
   channelAcceleration->isPlaying(&currentlyPlaying);
   channelAcceleration->getPaused(&accelerationPaused);
-  if(!currentlyPlaying && !accelerationAlreadyPlayed && accelerationPaused) {
+  if(!currentlyPlaying && accelerationAlreadyPlayed && accelerationPaused) {
     result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
     ERRCHECK(result);
-    result = channelAcceleration->setPaused(false);
+    result = channelGrandeVitesse->setPaused(false);
     ERRCHECK(result);
   }
-  channelAcceleration->getPaused(&paused);
-  if(paused) {
-    result = channelAcceleration->setPaused(false);
+  channelGrandeVitesse->getPaused(&paused);
+  if(paused && accelerationAlreadyPlayed && accelerationPaused) {
+    result = channelGrandeVitesse->setPaused(false);
   }
 }
 
