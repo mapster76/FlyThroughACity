@@ -316,7 +316,8 @@ void Navigation::jouerSonVaisseau()
     if(estEnTrainDeSArreter) {
       mSons1.jouerSonDeceleration();
       mSons1.pauseSonVaisseau();
-      /*  } else {
+    }
+    /* else {
       //mSons1.jouerSonVaisseau();
       }*/
   }
@@ -472,8 +473,7 @@ void Navigation::avancerOuArreter() {
 }
 
 
-void Navigation::gestionBouton2(long tempsCourant)
-{
+void Navigation::gestionBouton2(long tempsCourant) {
 
   if (mButton2->getData() == gadget::Digital::TOGGLE_ON){
     avancerOuArreter();
