@@ -50,11 +50,11 @@ class RandomGenerator {
   ~RandomGenerator() {}
 
   int randomParPas(int a, int b,int pas){
-    /* static bool seedInitialiser=false;
-       if(!seedInitialiser) {*/
-      srand(mRandom->getNombrePartage());
-      /* seedInitialiser=true;
-	 }*/
+    static bool seedInitialiser=false;
+    if(!seedInitialiser) {
+       srand(mRandom->getNombrePartage());
+       seedInitialiser=true;
+    }
     int nombreAleatoire=rand()%(b-a) +a;
     int quotient=nombreAleatoire/pas;
     int resultat=pas*quotient;
