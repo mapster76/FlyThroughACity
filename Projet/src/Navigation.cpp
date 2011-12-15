@@ -300,23 +300,25 @@ void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg
 void Navigation::jouerSonVaisseau()
 {
   if(estEnTrainDAvancer) {
-	  mSons1.pauseSonCollision();
-	  mSons1.pauseSonVaisseau();
-	  mSons1.pauseSonDeceleration();
-	  if(!estEnTrainDAccelerer) {
-	    mSons1.pauseSonAcceleration();
-	    mSons1.jouerSonVaisseau();
-	  } else {
-		  mSons1.jouerSonAcceleration();
-	  }
+    mSons1.pauseSonCollision();
+    if(estEnTrainDeSArreter) {
+      mSons1.pauseSonVaisseau();
+    }
+    mSons1.pauseSonDeceleration();
+    if(!estEnTrainDAccelerer) {
+      mSons1.pauseSonAcceleration();
+      mSons1.jouerSonVaisseau();
+    } else {
+      mSons1.jouerSonAcceleration();
+    }
 
   } else {
-	  if(estEnTrainDeSArreter) {
-		  mSons1.jouerSonDeceleration();
-		  mSons1.pauseSonVaisseau();
-	  } else {
-	    //mSons1.jouerSonVaisseau();
-	  }
+    if(estEnTrainDeSArreter) {
+      mSons1.jouerSonDeceleration();
+      mSons1.pauseSonVaisseau();
+      /*  } else {
+      //mSons1.jouerSonVaisseau();
+      }*/
   }
 }
 
@@ -359,59 +361,49 @@ static void printMatrice(osg::Matrix vw_M_w) {
 }
 
 void Navigation::update(float time_delta) {
-	//if(estEnTrainDAvancer) {
-		osg::Matrix T;
-		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
-		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
-		gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
-		mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
+  osg::Matrix T;
+  float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
+  float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
+  gmtl::Vec3f translation =  mNavigator->getVelocity() * time_delta;
+  mTranslation.set(translation.mData[0],translation.mData[1],translation.mData[2]);
 
-		gmtl::Vec3f rotation =mNavigator->getRotation();
-		mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
-		//Translation
-		T.makeTranslate(-mTranslation);
-		//Rotation
-		osg::Matrix R;
-		R.makeIdentity();
-		osg::Vec3 x(1,0,0);
-		osg::Vec3 y(0,1,0);
-		osg::Vec3 z(0,0,1);
-		R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
-		//Correction de l'angle de la caméra
-		osg::Matrix H;
-		H.makeIdentity();
+  gmtl::Vec3f rotation =mNavigator->getRotation();
+  mRotation.set(rotation.mData[0],rotation.mData[1],rotation.mData[2]);
+  //Translation
+  T.makeTranslate(-mTranslation);
+  //Rotation
+  osg::Matrix R;
+  R.makeIdentity();
+  osg::Vec3 x(1,0,0);
+  osg::Vec3 y(0,1,0);
+  osg::Vec3 z(0,0,1);
+  R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+  //Correction de l'angle de la caméra
+  osg::Matrix H;
+  H.makeIdentity();
 
-		osg::Matrix K;
-		K.makeIdentity();
+  osg::Matrix K;
+  K.makeIdentity();
+  
+  osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
+  if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
 
-		//printQuaternion(rotationActuelle);
-		//calculerW(rotationActuelle);
-		//convertirQuat(rotationActuelle);
-		//l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+    R.makeIdentity();
+    if(rotationActuelle.y()>0.97) {
+      stabiliserCamera(0.15,+0.00005,rotationActuelle,H);
+    } else {
+      if(rotationActuelle.y()>0.8) {
+	stabiliserCamera(0.05,0.0005,rotationActuelle,H);
+      } else {
+	stabiliserCamera(0.005,0.001,rotationActuelle,H);
+      }
+    }
+  }
+  //l'application des multiplications de matrices se fait à l'envers dans openscenegraph ...
+  mCurrentMatrix = mCurrentMatrix  * H * R * T;
+  collisions();
 
-		osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
-		//printQuaternion(rotationActuelle);
-		if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
-
-			R.makeIdentity();
-			if(rotationActuelle.y()>0.97) {
-				stabiliserCamera(0.15,+0.00005,rotationActuelle,H);
-			} else {
-				if(rotationActuelle.y()>0.8) {
-					stabiliserCamera(0.05,0.0005,rotationActuelle,H);
-				} else {
-					stabiliserCamera(0.005,0.001,rotationActuelle,H);
-				}
-			}
-		}
-		mCurrentMatrix = mCurrentMatrix  * H * R * T;
-		collisions();
-
-		jouerSonVaisseau();
-	//}
-
-
-
+  jouerSonVaisseau();
 }
 
 void Navigation::rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante) {
@@ -424,35 +416,35 @@ void Navigation::rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante) {
 }
 
 void Navigation::collisions() {
-		gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
-		const osg::Matrix& matNav(mCurrentMatrix);
-		osg::Matrix matNavInverse;
-		matNavInverse=matNavInverse.inverse(matNav);
+  gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
+  const osg::Matrix& matNav(mCurrentMatrix);
+  osg::Matrix matNavInverse;
+  matNavInverse=matNavInverse.inverse(matNav);
 
-		osg::Matrix wandMatrix=matNavInverse;
-		float decalageWandX,decalageWandY,decalageWandZ;
-		float positionX,positionY,positionZ;
-		decalageWandX=0;
-		decalageWandY=wand_matrix[1][3];
-		decalageWandZ=0;
-		positionX=matNavInverse.ptr()[12];
-		positionY=matNavInverse.ptr()[13];
-		positionZ=matNavInverse.ptr()[14];
+  osg::Matrix wandMatrix=matNavInverse;
+  float decalageWandX,decalageWandY,decalageWandZ;
+  float positionX,positionY,positionZ;
+  decalageWandX=0;
+  decalageWandY=wand_matrix[1][3];
+  decalageWandZ=0;
+  positionX=matNavInverse.ptr()[12];
+  positionY=matNavInverse.ptr()[13];
+  positionZ=matNavInverse.ptr()[14];
 
-		wandMatrix.makeTranslate(positionX+decalageWandX,positionY+decalageWandY,positionZ+decalageWandZ);
-		osg::Vec3f wandPoint(wandMatrix.getTrans());
-		osg::BoundingBox wandBbox;
-		wandBbox.set(wandPoint[0]-0.2,wandPoint[1]-0.2,wandPoint[2]-0.2,wandPoint[0]+0.2,wandPoint[1]+0.2,wandPoint[2]+0.2);
-		for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
-			if(boundingBox->second.intersects(wandBbox)) {
-				arretBrutal();
-				mSons1.jouerSonCollision();
-				mSons1.jouerSonDeceleration();
-				mSons1.pauseSonAcceleration();
-				mSons1.pauseSonVaisseau();
-				break;
-			}
-		}
+  wandMatrix.makeTranslate(positionX+decalageWandX,positionY+decalageWandY,positionZ+decalageWandZ);
+  osg::Vec3f wandPoint(wandMatrix.getTrans());
+  osg::BoundingBox wandBbox;
+  wandBbox.set(wandPoint[0]-0.2,wandPoint[1]-0.2,wandPoint[2]-0.2,wandPoint[0]+0.2,wandPoint[1]+0.2,wandPoint[2]+0.2);
+  for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
+    if(boundingBox->second.intersects(wandBbox)) {
+      arretBrutal();
+      mSons1.jouerSonCollision();
+      mSons1.jouerSonDeceleration();
+      mSons1.pauseSonAcceleration();
+      mSons1.pauseSonVaisseau();
+      break;
+    }
+  }
 }
 
 osg::Vec3 Navigation::getTranslation() {
