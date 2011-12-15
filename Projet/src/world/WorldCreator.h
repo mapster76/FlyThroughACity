@@ -43,6 +43,7 @@ public:
 	vector<string> vEmplacementImage;
 	vector<string>::iterator itEmplacementImage;
 	osg::ref_ptr<osg::Geode> noeudSkybox;
+	RandomGenerator random;
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
 	 */
