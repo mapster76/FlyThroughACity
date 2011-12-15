@@ -41,12 +41,13 @@ public:
   void pauseSonCollision();
 
   void gestionBouton1(gadget::DigitalInterface mButton);
-  vector<string>::iterator itAmbianceSonore;
-  vector<string> vAmbianceSonore;
+  
 
   void ERRCHECK(FMOD_RESULT);
 
  private:
+  vector<string>::iterator itAmbianceSonore;
+  vector<string> vAmbianceSonore;
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
     FMOD::Sound      *ambianceGenerale, *ambiancePluie, *ambianceOrage, *ambianceNature, *ambianceFoule, *musique1, *musique2, *sonVaisseau, *sonDeceleration, *sonCollision, *sonAcceleration;

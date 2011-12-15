@@ -176,8 +176,12 @@ FMOD_RESULT Sons::Initialisation()
     result = sonCollision->setMode(FMOD_LOOP_OFF);
 
     //Initialisation de l'iterateur
-    vAmbianceSonore.push_back("20");
-    vAmbianceSonore.push_back("21");
+    vAmbianceSonore.push_back("nature");
+    vAmbianceSonore.push_back("orage");
+    vAmbianceSonore.push_back("foule");
+    vAmbianceSonore.push_back("pluie");
+    vAmbianceSonore.push_back("musique1");
+    vAmbianceSonore.push_back("musique2");
     itAmbianceSonore = vAmbianceSonore.begin();
 
     return result;
@@ -385,14 +389,39 @@ void Sons::jouerMusique2()
 	ERRCHECK(result);
 }
 
-void Sons::changerAmbianceSonore(string itAmbianceSonore)
+void Sons::changerAmbianceSonore(string idAmbianceSonore)
 {
-  std::cout << "itAmbianceSonore   " << itAmbianceSonore << std::endl;
-  if(itAmbianceSonore == "20")
+  std::cout << "itAmbianceSonore   " << idAmbianceSonore << std::endl;
+  if(itAmbianceSonore == "nature") {
     jouerAmbianceNature();
-  else
-    jouerMusique2();
-
+  } else {
+    pauseAmbianceNature();
+  }
+  if(itAmbianceSonore == "orage") {
+    jouerAmbianceOrage();
+  } else {
+    pauseAmbianceOrage();
+  }
+  if(itAmbianceSonore == "foule") {
+    jouerAmbianceFoule();
+  } else {
+    pauseAmbianceFoule();
+  }
+  if(itAmbianceSonore == "pluie") {
+    jouerAmbiancePluie();
+  } else {
+    pauseAmbiancePluie();
+  }
+  if(itAmbianceSonore == "musique1") {
+    jouerAmbianceMusique1();
+  } else {
+    pauseAmbianceMusique1();
+  }
+  if(itAmbianceSonore == "musique2") {
+    jouerAmbianceMusique2();
+  } else {
+    pauseAmbianceMusique2();
+  }
 }
 
 
@@ -418,32 +447,3 @@ void Sons::gestionBouton1(gadget::DigitalInterface mButton) {
 
 	 }
 }
-
-/*void Sons::updateFmod(float* positionEspace, float* upCamera, float *eye, float *center. float updateTime)
-{
-    // ==========================================================================================
-    // UPDATE THE LISTENER
-    // ==========================================================================================
-
-
-    // ********* NOTE ******* READ NEXT COMMENT!!!!!
-    // velocity = how far we moved last FRAME (m/f), then time compensate it to SECONDS (m/s).
-    velocity.x( (positionEspace[0]-lastPos.x()) / updateTime);
-    velocity.y( (positionEspace[1]-lastPos.y()) / updateTime);
-    velocity.z( (positionEspace[2]-lastPos.z()) / updateTime);
-
-    FMOD_VECTOR forward = camera.getForward();
-    FMOD_VECTOR up;
-    up.x(upCamera[0],upCamera[1],upCamera[2]);
-
-    //Update listener attributes
-    result = system.set3DListenerAttributes(0, listenerPos, velocity, forward, up);
-    ERRCHECK(result);
-
-    //Update FMOD Ex system
-    system->update();
-
-    //Store pos for next time
-    lastPos.release();
-    lastPos = listenerPos;
-}*/
