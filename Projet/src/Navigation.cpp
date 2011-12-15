@@ -273,10 +273,12 @@ void Navigation::jouerSonVaisseau()
       mSons1.pauseSonDeceleration();
     }
     if(!estEnTrainDAccelerer) {
+      mSons1.pauseSonGrandeVitesse();
       mSons1.pauseSonAcceleration();
       mSons1.jouerSonVaisseau();
     } else {
       mSons1.jouerSonAcceleration();
+      mSons1.jouerSonGrandeVitesse();
     }
 
   } else {
@@ -288,44 +290,6 @@ void Navigation::jouerSonVaisseau()
       //mSons1.jouerSonVaisseau();
       }*/
   }
-}
-
-
-static void normalisationPI(float &angle) {
-	if(angle<0.f) {
-		angle+=osg::PI*2.f;
-	}
-	if(angle>osg::PI*2.f) {
-		angle-=osg::PI*2.f;
-	}
-}
-
-static void radToDeg(float &angle) {
-	angle=(angle*180)/(gmtl::Math::PI);
-}
-
-static void convertirQuat(osg::Quat quat) {
-	float angle = gmtl::Math::aCos(quat.w()) * 2.f;
-	normalisationPI(angle);
-	radToDeg(angle);
-	float x,y,z;
-	/* Normalisation de l'axe de rotation */
-	float norm = sqrt(quat.x() * quat.x() + quat.y() * quat.y() + quat.z() * quat.z());
-	if (norm > 0.0005)
-	{
-	    x = quat.x()/norm;
-	    y = quat.y()/norm;
-	    z = quat.z()/norm;
-	}
-	cout << x << ", "<< y << ", "<< z << ", " << angle <<endl;
-}
-
-
-static void printMatrice(osg::Matrix vw_M_w) {
-	cout << vw_M_w.ptr()[0] << " "<< vw_M_w.ptr()[1] << " "<<vw_M_w.ptr()[2] << " "<<vw_M_w.ptr()[3] << endl;
-	cout << vw_M_w.ptr()[4] << " "<<vw_M_w.ptr()[5] << " "<<vw_M_w.ptr()[6] <<" "<< vw_M_w.ptr()[7] << endl;
-	cout << vw_M_w.ptr()[8] << " "<<vw_M_w.ptr()[9] << " "<<vw_M_w.ptr()[10] << " "<<vw_M_w.ptr()[11] << endl;
-	cout << vw_M_w.ptr()[12] << " "<<vw_M_w.ptr()[13] << " "<<vw_M_w.ptr()[14] << " "<<vw_M_w.ptr()[15] << endl;
 }
 
 void Navigation::update(float time_delta) {
