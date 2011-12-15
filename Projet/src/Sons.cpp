@@ -203,7 +203,7 @@ void Sons::jouerSonVaisseau()
 		ERRCHECK(result);
 	}
 	channelVaisseau->getPaused(&paused);
-	if(paused && !decellerationPlaying) {
+	if(paused) {
 		result = channelVaisseau->setPaused(false);
 	}
 }
