@@ -22,27 +22,81 @@ class Navigation {
 public:
 	Navigation();
 	virtual ~Navigation();
-	void updateNavigation();
-	void init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,
-			gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2);
+	/**
+	 * Méthode permettant l'initialisation de toutes les variables nécéssaire au fonctionnement de la navigation
+	 */
+	void init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2);
+
+	/**
+	 * Méthode appelée lorsque l'on à appuyer sur le bouton 2 pour s'arreter
+	 */
 	void ralentirPuisSAreter(long tempsCourant);
+
+	/**
+	 * Méthode appelée lorsque que l'on appui sur la gachette pour accelerer
+	 */
 	void accelerer(long tempsCourant);
+
+	/**
+	 * Méthode appelé a chaque affichage qui va permettre de se déplacer
+	 * et de tourner dans le monde lorsque l'on souhaite en fonction des appui bouton.
+	 */
 	void seDeplacer();
+
+	/**
+	 * Méthode qui appele acceleration lorsque la gachette est appuyé et decceleration si elle
+	 * est relachée
+	 */ 
 	void gestionGachette(long tempsCourant);
+	
+	/**
+	 * Permet de deplacer ou arreter l'utilisateur dans le monde appele les méthode se déplacer et avancer
+	 */
 	void gestionBouton2(long tempsCourant);
+	
+	/**
+	 * permet de mettre des variables booléennes d'état à vrai ou faux
+	 */ 
 	void avancerOuArreter();
-	void stabiliserCameraInverse(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
+	
+	/**
+	 * Méthode appelée pour ralentir après une accéleration 
+	 */
 	void ralentir(long tempsCourant);
+	
+	/**
+	 * Méthode appelée pour s'arreter lorsque qu'il y a une collision
+	 */
 	void arretBrutal();
+	
+	/**
+	 * Méthode qui donne le droit de tourner (utilisée au premier déplacement)
+	 */
 	void droitDeTourner();
+
+	/**
+	 * Méthode permettant de détecter des collisions avec les murs
+	 */
 	void collisions();
+
+	/**
+	 * Méthode permettant de jouer les effets sonores de vaisseau en fonction de l'état dans lequel on se trouve 
+	 */
 	void jouerSonVaisseau();
-	void rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante);
-	void detectionRotationExcessive(float*);
+
+	/**
+	 * Méthode permettant de stabiliser la caméra après avoir effectuer une rotation
+	 */
 	void stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection);
+
+	/**
+	 * Méthode appelée à chaque frame qui met à jour la Navigation
+	 */
 	void update(float time_delta);
-	osg::Vec3 getTranslation();
-	osg::Vec3 getRotation();
+
+	/**
+	 * Méthode qui permet de retourner la matrice de navigation courante pour l'appliquée à l'environnement
+	 */
 	osg::Matrix getCurrentMatrix();
 
 	/**
@@ -52,7 +106,7 @@ public:
 	virtual float getDrawScaleFactor()
 	{
 	 return gadget::PositionUnitConversion::ConvertToFeet;
-	}
+	 }
 
 private:
 
@@ -70,8 +124,7 @@ private:
    osg::Matrix mCurrentMatrix;
    WorldCreator mWorld;
    cluster::UserData< NavData >  mNavigator;
-
-   Sons mSons1;
+   Sons mSons;
 
 public:
    gadget::PositionInterface  mWand;     // the Wand

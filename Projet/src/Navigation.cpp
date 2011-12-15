@@ -1,60 +1,35 @@
 #include "Navigation.h"
 
 Navigation::Navigation() {
-	estEnTrainDAvancer = false;
-	tempsPourArret = 0;
-	tempsPourAcceleration=0;
-	tempsPourDecceleration=0;
-	peutTourner = false;
-	estEnTrainDAccelerer=false;
-	estEnTrainDeDecelerer=false;
-	estEnTrainDeSArreter=false;
-	arretEnDouceur=false;
-	mCurrentMatrix.makeIdentity();
-
+  estEnTrainDAvancer = false;
+  tempsPourArret = 0;
+  tempsPourAcceleration=0;
+  tempsPourDecceleration=0;
+  peutTourner = false;
+  estEnTrainDAccelerer=false;
+  estEnTrainDeDecelerer=false;
+  estEnTrainDeSArreter=false;
+  arretEnDouceur=false;
+  mCurrentMatrix.makeIdentity();
 }
 
 Navigation::~Navigation() {
 }
 
-void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,
-				gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2) {
-	vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
-	mNavigator.init(new_guid);
-	mWand=wand;
-	mHead=head;
-	mButton0=button0;
-	mButton1=button1;
-	mButton2=button2;
-	mWorld=world;
-	mWorld.updateBoundingBox();
+void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget::PositionInterface &head,gadget::DigitalInterface &button0,gadget::DigitalInterface &button1,gadget::DigitalInterface &button2) {
+  vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
+  mNavigator.init(new_guid);
+  mWand=wand;
+  mHead=head;
+  mButton0=button0;
+  mButton1=button1;
+  mButton2=button2;
+  mWorld=world;
+  mWorld.updateBoundingBox();
 }
-
-
-void Navigation::detectionRotationExcessive(float* vitesseRotation) {
-
-  float angleX = gmtl::Math::PI/2;
-  float angleY = gmtl::Math::PI/2;
-
-  if(abs(vitesseRotation[0]) > angleX){
-    vitesseRotation[0] = 0;
-    vitesseRotation[1] = 0;
-    vitesseRotation[2] = 0;
-  }
-
-  if(abs(vitesseRotation[1]) > angleY){
-    vitesseRotation[0] = 0;
-    vitesseRotation[1] = 0;
-    vitesseRotation[2] = 0;
-  }
-
-}
-
-
 
 void augmenterVitesse(float &vitesseAAccelerer) {
-
-	vitesseAAccelerer*=1.05;
+  vitesseAAccelerer*=1.05;
 }
 
 void Navigation::accelerer(long tempsCourant) {
@@ -64,12 +39,10 @@ void Navigation::accelerer(long tempsCourant) {
       estEnTrainDAccelerer=true;
       estEnTrainDeDecelerer=false;
     }
-    if(tempsPourAcceleration==0)
+    if(tempsPourAcceleration==0) {
       tempsPourAcceleration=tempsCourant;
-
+    }
     gmtl::Vec3f direction; // Choix de la vitesse
-
-
     gmtl::Vec3f Zdir = mNavigator->getVelocity();
     float* vitesse=Zdir.getData();
     if(tempsCourant-tempsPourAcceleration>20000) {
@@ -84,49 +57,44 @@ void Navigation::accelerer(long tempsCourant) {
       }
       tempsPourAcceleration=0;
     }
-
   }
-
 }
 
 
 
 void facteurRalentissement(float &vitesseARalentir) {
-	vitesseARalentir*=0.95;
+  vitesseARalentir*=0.95;
 }
 
 void Navigation::ralentir(long tempsCourant) {
   int seuilMinimal = 10;
   if(estEnTrainDAvancer && estEnTrainDeDecelerer) {
-    if(tempsPourDecceleration==0)
+    if(tempsPourDecceleration==0) {
       tempsPourDecceleration=tempsCourant;
-
+    }
     gmtl::Vec3f Zdir = mNavigator->getVelocity();
     float* vitesse=Zdir.getData();
     if(tempsCourant-tempsPourDecceleration>40000) {
-
       if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>seuilMinimal) {
 	facteurRalentissement(vitesse[0]);
 	facteurRalentissement(vitesse[1]);
 	facteurRalentissement(vitesse[2]);
 	Zdir.set(vitesse);
 	mNavigator->setVelocity(Zdir);
-
       } else {
 	estEnTrainDeDecelerer=false;
       }
       tempsPourDecceleration=0;
     }
-
   }
 }
 
 void Navigation::arretBrutal() {
-	estEnTrainDAvancer=false;
-	arretEnDouceur=false;
-	estEnTrainDeSArreter=false;
-	estEnTrainDAccelerer=false;
-	estEnTrainDeDecelerer=false;
+  estEnTrainDAvancer=false;
+  arretEnDouceur=false;
+  estEnTrainDeSArreter=false;
+  estEnTrainDAccelerer=false;
+  estEnTrainDeDecelerer=false;
 }
 
 void Navigation::ralentirPuisSAreter(long tempsCourant)
@@ -150,7 +118,6 @@ void Navigation::ralentirPuisSAreter(long tempsCourant)
     }
     if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
       tempsPourArret=0;
-      // estEnTrainDeSArreter=false;
     }
 
   }
@@ -183,25 +150,16 @@ void Navigation::seDeplacer()
     float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
     float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
     gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
-    if(rotationWandAxeX>=0.2)
-      rotationWandAxeX-=0.2;
-    if(rotationWandAxeX<=-0.2)
-      rotationWandAxeX+=0.2;
-    if(rotationWandAxeZ>=0.2)
-      rotationWandAxeZ-=0.2;
-    if(rotationWandAxeZ<=-0.2)
-      rotationWandAxeZ+=0.2;
+    if(rotationWandAxeX>=0.3)
+      rotationWandAxeX-=0.3;
+    if(rotationWandAxeX<=-0.3)
+      rotationWandAxeX+=0.3;
+    if(rotationWandAxeZ>=0.3)
+      rotationWandAxeZ-=0.3;
+    if(rotationWandAxeZ<=-0.3)
+      rotationWandAxeZ+=0.3;
     mNavigator->setRotation(rotationXYZ);
   }
-}static float calculerWAvecY(float y) {
-	float angle=gmtl::Math::aSin(y);
-	float w=cos(angle);
-	cout <<"angle correction" <<  w << endl;
-	return w;
-}
-
-static void printQuaternion(osg::Quat quat) {
-	cout << quat.x() << ", " << quat.y() << ", " << quat.z() << ", " << quat.w() << endl;
 }
 
 void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
@@ -232,62 +190,28 @@ void Navigation::stabiliserCamera(float limiteHorizon,float increment,osg::Quat 
 }
 
 
-void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg::Quat rotationActuelle,osg::Matrix &matriceCorrection) {
-  double qx=0,qz=0,qw=0;
-  osg::Quat adapte;
-
-  if( rotationActuelle.x()>limiteHorizon) {
-    qx=-increment;
-    qw=rotationActuelle.w();
-  }
-  if( rotationActuelle.x()<-limiteHorizon) {
-    qx=+increment;
-    qw=rotationActuelle.w();
-  }
-  if(rotationActuelle.z()>limiteHorizon) {
-    qz=-increment;
-    qw=rotationActuelle.w();
-  }
-  if( rotationActuelle.z()<-limiteHorizon) {
-    qz=+increment;
-    qw=rotationActuelle.w();
-  }
-  if(rotationActuelle.z()>limiteHorizon || rotationActuelle.z()<-limiteHorizon || rotationActuelle.x()>limiteHorizon || rotationActuelle.x()<-limiteHorizon) {
-    adapte.set(qx,0,qz,qw);
-    matriceCorrection.makeRotate(adapte);
-  }
-}
-
-
 void Navigation::jouerSonVaisseau()
 {
   if(estEnTrainDAvancer) {
-    mSons1.pauseSonCollision();
-    //if(estEnTrainDeSArreter) {
-      mSons1.pauseSonVaisseau();
-      // }
+    mSons.pauseSonCollision();
+    mSons.pauseSonVaisseau();
     if(!estEnTrainDeSArreter) { 
-      mSons1.pauseSonDeceleration();
+      mSons.pauseSonDeceleration();
     }
     if(!estEnTrainDAccelerer) {
-      //cout << "deceleration" << endl;
-      mSons1.pauseSonGrandeVitesse();
-      mSons1.pauseSonAcceleration();
-      mSons1.jouerSonVaisseau();
+      mSons.pauseSonGrandeVitesse();
+      mSons.pauseSonAcceleration();
+      mSons.jouerSonVaisseau();
     } else {
-      //cout << "acceleration" << endl;
-      mSons1.jouerSonAcceleration();
-      mSons1.jouerSonGrandeVitesse();
+      mSons.jouerSonAcceleration();
+      mSons.jouerSonGrandeVitesse();
     }
 
   } else {
     if(estEnTrainDeSArreter) {
-      mSons1.jouerSonDeceleration();
-      mSons1.pauseSonVaisseau();
+      mSons.jouerSonDeceleration();
+      mSons.pauseSonVaisseau();
     }
-    /* else {
-      //mSons1.jouerSonVaisseau();
-      }*/
   }
 }
 
@@ -308,7 +232,7 @@ void Navigation::update(float time_delta) {
   osg::Vec3 x(1,0,0);
   osg::Vec3 y(0,1,0);
   osg::Vec3 z(0,0,1);
-  R.makeRotate(-mRotation.x()/100,x,-mRotation.y()/100,y,-mRotation.z()/100,z);
+  R.makeRotate(-mRotation.x()/50,x,-mRotation.y()/50,y,-mRotation.z()/50,z);
   //Correction de l'angle de la caméra
   osg::Matrix H;
   H.makeIdentity();
@@ -337,15 +261,6 @@ void Navigation::update(float time_delta) {
   jouerSonVaisseau();
 }
 
-void Navigation::rebond(osg::BoundingBox immeuble,osg::Vec3f positionCourante) {
-	for(int i=0;i<8;i++) {
-		if(positionCourante.z() <= immeuble.corner(i).z()+0.5 && positionCourante.z() >= immeuble.corner(i).z()-0.5) {
-
-		}
-	}
-
-}
-
 void Navigation::collisions() {
   gmtl::Matrix44f wand_matrix(mWand->getData(getDrawScaleFactor()));
   const osg::Matrix& matNav(mCurrentMatrix);
@@ -369,26 +284,19 @@ void Navigation::collisions() {
   for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
     if(boundingBox->second.intersects(wandBbox)) {
       arretBrutal();
-      mSons1.jouerSonCollision();
-      mSons1.jouerSonDeceleration();
-      mSons1.pauseSonAcceleration();
-      mSons1.pauseSonVaisseau();
+      mSons.jouerSonCollision();
+      mSons.jouerSonDeceleration();
+      mSons.pauseSonGrandeVitesse();
+      mSons.pauseSonAcceleration();
+      mSons.pauseSonVaisseau();
       break;
     }
   }
 }
 
-osg::Vec3 Navigation::getTranslation() {
-	return mTranslation;
-}
-
-osg::Vec3 Navigation::getRotation() {
-	return mRotation;
-}
-
 osg::Matrix Navigation::getCurrentMatrix() {
 	return mCurrentMatrix;
-}
+	}
 
 void Navigation::avancerOuArreter() {
   if(!estEnTrainDAvancer) {
