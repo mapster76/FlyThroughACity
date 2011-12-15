@@ -293,10 +293,11 @@ void Sons::pauseSonAcceleration()
 }
 
 void Sons::jouerSonGrandeVitesse() {
-  bool accelerationPlaying=false,paused=false,accelerationPaused=false;
+  bool accelerationPlaying=false,paused=false,accelerationPaused=false,currentlyPlaying=false;
   channelAcceleration->isPlaying(&accelerationPlaying);
+  channelGrandeVitesse->isPlaying(&currentlyPlaying);
   channelAcceleration->getPaused(&accelerationPaused);
-  if(!accelerationPlaying && accelerationAlreadyPlayed) {
+  if(!currentlyPlaying && !accelerationPlaying && accelerationAlreadyPlayed) {
     cout << "son grande vitesse" << endl;
     result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
     ERRCHECK(result);
