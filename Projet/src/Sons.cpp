@@ -1,6 +1,8 @@
 #include "Sons.h"
 #include <unistd.h>
 
+using namespace std;
+
 Sons::Sons() {
 	result = Initialisation();
 }
@@ -48,7 +50,7 @@ FMOD_RESULT Sons::Initialisation()
 {
     result = FMOD::System_Create(&system);
     ERRCHECK(result);
-    channel = 0;
+    //channel = 0;
 
     result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
     ERRCHECK(result);
@@ -56,7 +58,7 @@ FMOD_RESULT Sons::Initialisation()
     /**
      * Initialisation
      */
-    result = system->init(1, FMOD_INIT_NORMAL, 0);
+    result = system->init(10, FMOD_INIT_NORMAL, 0);
     ERRCHECK(result);
 
     /**
@@ -89,71 +91,86 @@ FMOD_RESULT Sons::Initialisation()
 
 }
 
-void Sons::pauseSon()
+
+void Sons::jouerSonVaisseau()
 {
-  bool paused;
-  channel->getPaused(&paused);
-  channel->setPaused(!paused);
- 
+	bool currentlyPlaying=false,paused=false;
+	channelVaisseau->isPlaying(&currentlyPlaying);
+	if(!currentlyPlaying) {
+		result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channelVaisseau);
+		ERRCHECK(result);
+		result = channelVaisseau->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelVaisseau->getPaused(&paused);
+	if(paused) {
+		result = channelVaisseau->setPaused(false);
+	}
+}
+
+void Sons::pauseSonVaisseau()
+{
+	bool playing,pause;
+	channelVaisseau->getPaused(&pause);
+	channelVaisseau->isPlaying(&playing);
+	if(playing && !pause) {
+		channelVaisseau->setPaused(true);
+	}
 }
 
 void Sons::jouerSonDeceleration()
 {
+	bool currentlyPlaying=false,paused=false;
+	channelDeceleration->isPlaying(&currentlyPlaying);
+	if(!currentlyPlaying) {
+		result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channelDeceleration);
+		ERRCHECK(result);
+		result = channelDeceleration->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelDeceleration->getPaused(&paused);
+	if(paused) {
+		result = channelDeceleration->setPaused(false);
+	}
+}
 
-  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
-	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channel);
-	ERRCHECK(result);
-
-	result = channel->set3DAttributes(&position, &velocity);
-	ERRCHECK(result);
-	result = channel->setPaused(false);
-	ERRCHECK(result);
+void Sons::pauseSonDeceleration()
+{
+	bool playing,pause;
+	channelDeceleration->getPaused(&pause);
+	channelDeceleration->isPlaying(&playing);
+	if(playing && !pause) {
+		channelDeceleration->setPaused(true);
+	}
 }
 
 void Sons::jouerSonCollision()
 {
-
-  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
-	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sonCollision, false, &channel);
-	ERRCHECK(result);
-
-	result = channel->set3DAttributes(&position, &velocity);
-	ERRCHECK(result);
-	result = channel->setPaused(false);
-	ERRCHECK(result);
+	bool currentlyPlaying=false,paused=false;
+	channelVaisseau->isPlaying(&currentlyPlaying);
+	if(!currentlyPlaying) {
+		result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channelVaisseau);
+		ERRCHECK(result);
+		result = channelVaisseau->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelVaisseau->getPaused(&paused);
+	if(paused) {
+		result = channelVaisseau->setPaused(false);
+	}
 }
-
-
-
-
-void Sons::jouerSonVaisseau()
-{
-
-  	FMOD_VECTOR position= {0.0f, 0.0f, 0.0f};
-	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channel);
-	ERRCHECK(result);
-
-	result = channel->set3DAttributes(&position, &velocity);
-	ERRCHECK(result);
-	result = channel->setPaused(false);
-	ERRCHECK(result);
-}
-
-
 
 void Sons::jouerAmbiancePluie()
 {
+	cout << "son ambiance Pluie" << endl;
 	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
 	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
-	result = system->playSound(FMOD_CHANNEL_FREE, ambiancePluie, false, &channel);
+	result = system->playSound(FMOD_CHANNEL_FREE, ambiancePluie, false, &channelAmbiance);
 	ERRCHECK(result);
 
-	result = channel->set3DAttributes(&position, &velocity);
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
 	ERRCHECK(result);
-	result = channel->setPaused(false);
+	result = channelAmbiance->setPaused(false);
 	ERRCHECK(result);
 }
 

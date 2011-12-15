@@ -6,6 +6,7 @@
 #include <fmod_errors.h>
 //#include <wincompat.h>
 #include <stdio.h>
+#include <iostream>
 
 
 class Sons
@@ -22,7 +23,9 @@ public:
   void jouerSonVaisseau();
   void jouerSonDeceleration();
   void jouerSonCollision();
-  void pauseSon();
+  void pauseSonVaisseau();
+  void pauseSonDeceleration();
+  void pauseSonCollision();
 
   void ERRCHECK(FMOD_RESULT);
 
@@ -30,7 +33,7 @@ public:
   	FMOD_RESULT Initialisation();
     FMOD::System     *system;
     FMOD::Sound      *ambiancePluie, *sonVaisseau, *sonDeceleration, *sonCollision; 
-    FMOD::Channel    *channel;
+    FMOD::Channel    *channelDeceleration,*channelAmbiance,*channelCollision,*channelVaisseau;
     FMOD_RESULT       result;
     int               key;
     unsigned int      version;

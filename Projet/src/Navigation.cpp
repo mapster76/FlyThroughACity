@@ -100,7 +100,6 @@ void facteurRalentissement(float &vitesseARalentir) {
 void Navigation::ralentir(long tempsCourant) {
 	int seuilMinimal = 10;
 	if(estEnTrainDAvancer && estEnTrainDeDecelerer) {
-
 		if(tempsPourDecceleration==0)
 			tempsPourDecceleration=tempsCourant;
 
@@ -298,18 +297,25 @@ void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg
 void Navigation::jouerSonVaisseau()
 {
   if(!estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
-	  cout << "salut" << endl;
+	mSons1.pauseSonDeceleration();
     mSons1.jouerSonVaisseau();
   }
   //if(estEnTrainDAccelerer || estEnTrainDeDecelerer)
   //mSons1.pauseSon();
 
-  if(estEnTrainDAvancer)
-    cout << "Avancer " << endl;
-  if(estEnTrainDeDecelerer)
-    cout << "  Deceleration  " << endl;
-  if(estEnTrainDAccelerer)
-    cout << "  Acceleration  " << endl;
+  if(estEnTrainDAvancer) {
+	  mSons1.pauseSonVaisseau();
+  }
+
+  if(estEnTrainDeDecelerer) {
+	  mSons1.jouerSonDeceleration();
+  }
+    //cout << "  Deceleration  " << endl;
+  if(estEnTrainDAccelerer) {
+	  mSons1.pauseSonVaisseau();
+	  mSons1.pauseSonDeceleration();
+	 // mSons1.jouerSonAcceleration();
+  }
 
   //cout << "Avancer " << estEnTrainDAvancer << "  Decelerer  " << estEnTrainDeDecelerer << "  Accelerer  " << estEnTrainDAccelerer << endl;
 
@@ -493,7 +499,6 @@ void Navigation::avancerOuArreter() {
       estEnTrainDAccelerer=false;
       estEnTrainDeDecelerer=false;
       arretEnDouceur=true;
-      mSons1.jouerSonDeceleration();
   }
 }
 

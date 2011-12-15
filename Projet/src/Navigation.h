@@ -1,7 +1,7 @@
 #ifndef NAVIGATION_H_
 #define NAVIGATION_H_
 
-#include "nav.h"
+#include "DonneesNavigation.h"
 #include <iostream>
 #include <iomanip>
 #include <math.h>

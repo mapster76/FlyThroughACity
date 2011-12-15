@@ -2,7 +2,7 @@
 #define _ENVIRONMENT
 
 #include <vrj/vrjConfig.h>
-#include "nav.h"
+#include "DonneesNavigation.h"
 #include "Navigation.h"
 #include <vrj/Draw/OGL/GlApp.h>
 #include <gadget/Type/Position/PositionUnitConversion.h>
