@@ -51,7 +51,8 @@ void Environment::preFrame()
 
    mNavigation.gestionBouton2(cur_time.getBaseVal());
 
-   mWorld->gestionBouton3(mButton1);
+   mWorld->gestionBouton1(mButton1);
+   //mSons.gestionBouton1(mButton1);
 
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));

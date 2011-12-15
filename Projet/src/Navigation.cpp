@@ -160,6 +160,7 @@ void Navigation::ralentirPuisSAreter(long tempsCourant)
 		vitesse[2]=0;
 		mNavigator->setVelocity(Zdir);
 	}
+
 }
 
 void Navigation::droitDeTourner() {
@@ -304,6 +305,7 @@ void Navigation::jouerSonVaisseau()
 	  mSons1.pauseSonDeceleration();
 	  if(!estEnTrainDAccelerer) {
 	    mSons1.pauseSonAcceleration();
+	    mSons1.jouerSonVaisseau();
 	  } else {
 		  mSons1.jouerSonAcceleration();
 	  }
@@ -311,34 +313,13 @@ void Navigation::jouerSonVaisseau()
   } else {
 	  if(estEnTrainDeSArreter) {
 		  mSons1.jouerSonDeceleration();
+		  mSons1.pauseSonVaisseau();
 	  } else {
-		  mSons1.jouerSonVaisseau();
+	    //mSons1.jouerSonVaisseau();
 	  }
   }
 }
 
-
-
-/*
-void Navigation::jouerSonImmeuble()
-{
-
-  const gmtl::Matrix44f wandMatrix(mWand->getData(getDrawScaleFactor()));
-  //On récupère la position du wand que l'on stocke dans wand_point
-  osg::Vec3f wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-  wand_point = wand_point * mWorld.pNavTrans.get()->getMatrix();
-  int vitesseMinimale = 50, altitudeMaximale = 20;
-
-  gmtl::Vec3f Zdir = mNavigator->getVelocity();
-  float* vitesse=Zdir.getData();
-  
-  //Si vitesse suffisamment grande ET altitude assez  basse
-  if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>vitesseMinimale && wand_point[2]<altitudeMaximale) {
-
-    mSons1.jouerEffetDoppler();
-  }
-}
-*/
 
 static void normalisationPI(float &angle) {
 	if(angle<0.f) {
@@ -466,6 +447,9 @@ void Navigation::collisions() {
 			if(boundingBox->second.intersects(wandBbox)) {
 				arretBrutal();
 				mSons1.jouerSonCollision();
+				mSons1.jouerSonDeceleration();
+				mSons1.pauseSonAcceleration();
+				mSons1.pauseSonVaisseau();
 				break;
 			}
 		}
@@ -504,6 +488,7 @@ void Navigation::gestionBouton2(long tempsCourant)
   }
   seDeplacer();
   ralentirPuisSAreter(tempsCourant);
+
 }
 
 void Navigation::gestionGachette(long tempsCourant) {

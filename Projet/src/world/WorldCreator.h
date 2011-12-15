@@ -110,7 +110,7 @@ public:
 		pNavTrans = new osg::MatrixTransform();
 	}
 
-	void gestionBouton3(gadget::DigitalInterface mButton);
+	void gestionBouton1(gadget::DigitalInterface mButton);
 
 	~WorldCreator()
 	{}

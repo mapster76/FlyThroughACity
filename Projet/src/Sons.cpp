@@ -5,6 +5,7 @@ using namespace std;
 
 Sons::Sons() {
 	result = Initialisation();
+
 }
 
 
@@ -16,6 +17,42 @@ Sons::~Sons() {
 		delete ambiancePluie;
 		delete channelAmbiance;
 	}
+
+	if(ambianceNature!=NULL) {
+		result = ambianceNature->release();
+		ERRCHECK(result);
+		delete ambianceNature;
+		delete channelAmbiance;
+	}
+
+	if(ambianceOrage!=NULL) {
+		result = ambianceOrage->release();
+		ERRCHECK(result);
+		delete ambianceOrage;
+		delete channelAmbiance;
+	}
+
+	if(ambianceFoule!=NULL) {
+		result = ambianceFoule->release();
+		ERRCHECK(result);
+		delete ambianceFoule;
+		delete channelAmbiance;
+	}
+
+	if(musique1!=NULL) {
+		result = musique1->release();
+		ERRCHECK(result);
+		delete musique1;
+		delete channelAmbiance;
+	}
+
+	if(musique2!=NULL) {
+		result = musique2->release();
+		ERRCHECK(result);
+		delete musique2;
+		delete channelAmbiance;
+	}
+
 
 	if(sonDeceleration!=NULL) {
 		result = sonDeceleration->release();
@@ -82,10 +119,41 @@ FMOD_RESULT Sons::Initialisation()
     result = system->set3DSettings(1.0f, 1.0f, 1.0f);
     ERRCHECK(result);
 
+
+
     //  AMBIANCE PLUIE
     result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiancePluie);
     ERRCHECK(result);
     result = ambiancePluie->setMode(FMOD_LOOP_NORMAL);
+
+    //  AMBIANCE ORAGE
+    result = system->createSound("../fmod/Audio/Ambiance2.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceOrage);
+    ERRCHECK(result);
+    result = ambianceOrage->setMode(FMOD_LOOP_NORMAL);
+
+    //  AMBIANCE FOULE
+    result = system->createSound("../fmod/Audio/Ambiance3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceFoule);
+    ERRCHECK(result);
+    result = ambianceFoule->setMode(FMOD_LOOP_NORMAL);
+
+
+    //  AMBIANCE NATURE
+    result = system->createSound("../fmod/Audio/Ambiance1.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceNature);
+    ERRCHECK(result);
+    result = ambianceNature->setMode(FMOD_LOOP_NORMAL);
+
+
+    //  MUSIQUE 1 
+    result = system->createSound("../fmod/Audio/Ambiance5.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique1);
+    ERRCHECK(result);
+    result = musique1->setMode(FMOD_LOOP_NORMAL);
+
+
+    //  MUSIQUE 2
+    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique2);
+    ERRCHECK(result);
+    result = musique2->setMode(FMOD_LOOP_NORMAL);
+
 
     // VAISSEAU
    result = system->createSound("../fmod/Audio/BruitVaisseauAlArret.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonVaisseau);
@@ -97,17 +165,21 @@ FMOD_RESULT Sons::Initialisation()
     ERRCHECK(result);
     result = sonDeceleration->setMode(FMOD_LOOP_OFF);
 
-    // DECELERATION
+    // ACCELERATION
    result = system->createSound("../fmod/Audio/Acceleration.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonAcceleration);
 	ERRCHECK(result);
-	result = sonDeceleration->setMode(FMOD_LOOP_OFF);
+	result = sonAcceleration->setMode(FMOD_LOOP_OFF);
 
     // COLLISION
    result = system->createSound("../fmod/Audio/Collision3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonCollision);
     ERRCHECK(result);
     result = sonCollision->setMode(FMOD_LOOP_OFF);
 
+    //Initialisation de l'iterateur
+    itAmbianceSonore = vAmbianceSonore.begin();
+
     return result;
+
 
 }
 
@@ -246,6 +318,106 @@ void Sons::jouerAmbiancePluie()
 }
 
 
+void Sons::jouerAmbianceOrage()
+{
+	cout << "son ambiance Orage" << endl;
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, ambianceOrage, false, &channelAmbiance);
+	ERRCHECK(result);
+
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channelAmbiance->setPaused(false);
+	ERRCHECK(result);
+}
+
+void Sons::jouerAmbianceFoule()
+{
+	cout << "son ambiance Pluie" << endl;
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, ambianceFoule, false, &channelAmbiance);
+	ERRCHECK(result);
+
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channelAmbiance->setPaused(false);
+	ERRCHECK(result);
+}
+
+
+void Sons::jouerAmbianceNature()
+{
+	cout << "son ambiance Pluie" << endl;
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, ambianceNature, false, &channelAmbiance);
+	ERRCHECK(result);
+
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channelAmbiance->setPaused(false);
+	ERRCHECK(result);
+}
+
+void Sons::jouerMusique1()
+{
+	cout << "son ambiance Pluie" << endl;
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, musique1, false, &channelAmbiance);
+	ERRCHECK(result);
+
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channelAmbiance->setPaused(false);
+	ERRCHECK(result);
+}
+
+void Sons::jouerMusique2()
+{
+	cout << "son ambiance Pluie" << endl;
+	FMOD_VECTOR position= {20.0f, 0.0f, 0.0f};
+	FMOD_VECTOR velocity= {0.0f, 0.0f, 0.0f};
+	result = system->playSound(FMOD_CHANNEL_FREE, musique2, false, &channelAmbiance);
+	ERRCHECK(result);
+
+	result = channelAmbiance->set3DAttributes(&position, &velocity);
+	ERRCHECK(result);
+	result = channelAmbiance->setPaused(false);
+	ERRCHECK(result);
+}
+
+void Sons::changerAmbianceSonore(string itAmbianceSonore)
+{
+  //std::cout << "itAmbianceSonore   " << itAmbianceSonore << std::endl;
+
+}
+
+
+
+void Sons::gestionBouton1(gadget::DigitalInterface mButton) {
+  	if(mButton->getData() == gadget::Digital::TOGGLE_ON) {
+		itAmbianceSonore++;
+		if(itAmbianceSonore == vAmbianceSonore.end()) {
+			itAmbianceSonore=vAmbianceSonore.begin();
+		}
+
+		changerAmbianceSonore(*itAmbianceSonore);
+
+
+		/*
+		pNavTrans->removeChild(noeudSkybox);
+		noeudSkybox->removeDrawable(skybox);
+		cout << *itEmplacementImage << endl;
+		skybox=new Skybox(RAYON_MAX_VILLE*5,*itEmplacementImage);
+		noeudSkybox->addDrawable(skybox);
+		pNavTrans->addChild(noeudSkybox);
+		*/
+
+	 }
+}
 
 /*void Sons::updateFmod(float* positionEspace, float* upCamera, float *eye, float *center. float updateTime)
 {

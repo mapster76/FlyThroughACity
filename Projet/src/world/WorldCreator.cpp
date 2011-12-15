@@ -17,12 +17,13 @@ void WorldCreator::initialiseWorld() {
 	pNavTrans->addChild(noeudSkybox);
 }
 
-void WorldCreator::gestionBouton3(gadget::DigitalInterface mButton) {
+void WorldCreator::gestionBouton1(gadget::DigitalInterface mButton) {
 	if(mButton->getData() == gadget::Digital::TOGGLE_ON) {
 		itEmplacementImage++;
 		if(itEmplacementImage== vEmplacementImage.end()) {
 			itEmplacementImage=vEmplacementImage.begin();
 		}
+
 		pNavTrans->removeChild(noeudSkybox);
 		noeudSkybox->removeDrawable(skybox);
 		cout << *itEmplacementImage << endl;
