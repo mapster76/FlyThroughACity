@@ -7,7 +7,7 @@ void WorldCreator::initialiseWorld() {
 	vEmplacementImage.push_back("../Skybox/skybox1.jpg");
 	vEmplacementImage.push_back("../Skybox/skybox2.jpg");
 	vEmplacementImage.push_back("../Skybox/skybox3.jpg");
-	vEmplacementImage.push_back("../Skybox/skybox5.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox4.jpg");
 	vEmplacementImage.push_back("../Skybox/skybox6.jpg");
 	vEmplacementImage.push_back("../Skybox/skybox11.jpg");
 	itEmplacementImage=vEmplacementImage.begin();
