@@ -43,7 +43,8 @@ class RandomGenerator {
   RandomGenerator() {
     vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
     mRandom.init(new_guid);
-    mRandom->setNombreAleatoire(time(NULL));
+    if(mRandom->getNombreAleatoire()==0)
+      mRandom->setNombreAleatoire(time(NULL));
   }
 
   ~RandomGenerator() {}
