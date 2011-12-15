@@ -25,6 +25,7 @@
 #define TOIT std::string("../model/toitSimple.osg")
 #define TROTOIR std::string("../model/trotoir.osg")
 #define ROUTE std::string("../model/route.obj")
+#define LAMPADAIRE std::string("../model/lampadaire.osg")
 #define REZ_DE_CHAUSSE_LOW std::string("../model/rdcSimpleL2.obj")
 #define ETAGE_LOW std::string("../model/etageSimpleL2.obj")
 #define TOIT_LOW std::string("../model/toitSimpleL2.obj")
@@ -38,10 +39,10 @@ private:
 
 	int mNombreEtages;
 public:
-	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route,rezDeChausseLow,etageLow,toitLow;
+	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route,lampadaire,rezDeChausseLow,etageLow,toitLow;
 	osg::ref_ptr<osg::Group> mImmeuble,mImmeubleLow;
 	osg::ref_ptr<osg::Group> mRoute;
-	osg::ref_ptr<osg::Group> mEnsemble,mEnsembleLow,mEmptyNode;
+	osg::ref_ptr<osg::Group> mEnsemble,mEnsembleLow,mEnsembleSansLamp,mEmptyNode;
 	ref_ptr<LOD> lodEnsemble;
 	ImmeubleAvecFenetre() {}
 
@@ -56,6 +57,8 @@ public:
 	void construireUnImmeuble();
 
 	int getNombreEtage();
+
+	void placeNodeLampadaire(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter,float rotationY);
 
 	osg::BoundingBox getBoundingBox();
 
