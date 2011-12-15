@@ -297,19 +297,19 @@ void Navigation::stabiliserCameraInverse(float limiteHorizon,float increment,osg
 
 void Navigation::jouerSonVaisseau()
 {
-  if(!estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer)
+  if(!estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
+	  cout << "salut" << endl;
     mSons1.jouerSonVaisseau();
+  }
   //if(estEnTrainDAccelerer || estEnTrainDeDecelerer)
   //mSons1.pauseSon();
 
-  /*
   if(estEnTrainDAvancer)
     cout << "Avancer " << endl;
   if(estEnTrainDeDecelerer)
     cout << "  Deceleration  " << endl;
   if(estEnTrainDAccelerer)
     cout << "  Acceleration  " << endl;
-  */
 
   //cout << "Avancer " << estEnTrainDAvancer << "  Decelerer  " << estEnTrainDeDecelerer << "  Accelerer  " << estEnTrainDAccelerer << endl;
 
@@ -490,6 +490,8 @@ void Navigation::avancerOuArreter() {
       estEnTrainDAvancer = true;
   } else {
       estEnTrainDAvancer = false;
+      estEnTrainDAccelerer=false;
+      estEnTrainDeDecelerer=false;
       arretEnDouceur=true;
       mSons1.jouerSonDeceleration();
   }

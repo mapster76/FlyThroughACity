@@ -111,14 +111,14 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 
 	creerLeSol(setCoordonnes(0,0,0),mRoute);
 	placeNodeElement(trotoir,setCoordonnes(0,0,0),mRoute);
-	placeNodeLampadaire(lampadaire,setCoordonnes(7,0,5),lampadaires,-90);
-	placeNodeLampadaire(lampadaire,setCoordonnes(7,0,-5),lampadaires,-90);
-	placeNodeLampadaire(lampadaire,setCoordonnes(-7,0,5),lampadaires,90);
-	placeNodeLampadaire(lampadaire,setCoordonnes(-7,0,-5),lampadaires,90);
-	placeNodeLampadaire(lampadaire,setCoordonnes(5,0,-7),lampadaires,0);
-	placeNodeLampadaire(lampadaire,setCoordonnes(-5,0,-7),lampadaires,0);
-	placeNodeLampadaire(lampadaire,setCoordonnes(5,0,7),lampadaires,180);
-	placeNodeLampadaire(lampadaire,setCoordonnes(-5,0,7),lampadaires,180);
+	placeNodeLampadaire(lampadaire,setCoordonnes(7,0,4),lampadaires,-90);
+	placeNodeLampadaire(lampadaire,setCoordonnes(7,0,-4),lampadaires,-90);
+	placeNodeLampadaire(lampadaire,setCoordonnes(-7,0,4),lampadaires,90);
+	placeNodeLampadaire(lampadaire,setCoordonnes(-7,0,-4),lampadaires,90);
+	placeNodeLampadaire(lampadaire,setCoordonnes(4,0,-7),lampadaires,0);
+	placeNodeLampadaire(lampadaire,setCoordonnes(-4,0,-7),lampadaires,0);
+	placeNodeLampadaire(lampadaire,setCoordonnes(4,0,7),lampadaires,180);
+	placeNodeLampadaire(lampadaire,setCoordonnes(-4,0,7),lampadaires,180);
 	placeNodeElement(rezDeChausse,setCoordonnes(0,0,0),mImmeuble);
 	for(int i=1;i<mNombreEtages;i++)
 		placeNodeElement(etage,setCoordonnes(0,i*4,0),mImmeuble);

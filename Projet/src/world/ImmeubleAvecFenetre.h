@@ -25,7 +25,7 @@
 #define TOIT std::string("../model/toitSimple.osg")
 #define TROTOIR std::string("../model/trotoir.osg")
 #define ROUTE std::string("../model/route.obj")
-#define LAMPADAIRE std::string("../model/lampadaire.osg")
+#define LAMPADAIRE std::string("../model/lampadaireCarre.osg")
 #define REZ_DE_CHAUSSE_LOW std::string("../model/rdcSimpleL2.obj")
 #define ETAGE_LOW std::string("../model/etageSimpleL2.obj")
 #define TOIT_LOW std::string("../model/toitSimpleL2.obj")
