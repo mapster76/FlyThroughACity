@@ -70,8 +70,6 @@ public:
 
    void bufferPreDraw();
 
-   void collisions(const gmtl::Matrix44f&);
-
    // ----- Drawing Loop Functions ------
    //
    //  The drawing loop will look similar to this:

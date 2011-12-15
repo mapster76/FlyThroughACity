@@ -9,19 +9,21 @@
 #include <osg/ShapeDrawable>
 #include <osg/StateSet>
 #include<CustomDrawable.h>
+#include <string>
 #include <vector>
 
 using namespace osg;
+using namespace std;
 class Skybox : public CustomDrawable {
-public:
+private:
 	GLfloat mSize;
-	static osg::ref_ptr<osg::Image> image;
-	static osg::ref_ptr<osg::Image> image2;
-	//osg::ref_ptr<osg::Texture2D> texture;
-	Skybox(GLfloat tailleCote);
+	osg::ref_ptr<osg::Image> image;
+	//vector< ref_ptr<osg::Image> > vImage;
+
+public:
+	Skybox(GLfloat tailleCote,string nomImage);
 	virtual ~Skybox();
 	virtual void drawImplementation(osg::RenderInfo& renderInfo) const;
-	//void changerSkybox();
 };
 
 #endif /* SKYBOX_H_ */

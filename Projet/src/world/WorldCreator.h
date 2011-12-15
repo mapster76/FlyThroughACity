@@ -10,11 +10,13 @@
 #include <osg/Material>
 #include <vector>
 #include "world/CustomDrawable.h"
+#include <gadget/Type/DigitalInterface.h>
 #include <osg/ShapeDrawable>
 #include "world/ImmeublePlat.h"
 #include "world/Sol.h"
 #include "util.h"
 #include <utility>
+#include <string>
 #include <map>
 #include "Skybox.h"
 #include<osg/Light>
@@ -37,6 +39,10 @@ public:
 	map < vector<GLfloat> , ImmeubleAvecFenetre > laCarte;
 	map < GLfloat ,  osg::Geode* > laCarteBox;
 	map < vector<GLfloat> , osg::BoundingBox > lesBoundingBoxes;
+	osg::ref_ptr<Skybox> skybox;
+	vector<string> vEmplacementImage;
+	vector<string>::iterator itEmplacementImage;
+	osg::ref_ptr<osg::Geode> noeudSkybox;
 	/**
 	 * Cette fonction initialise le graphe de scene et ajoute le sol.
 	 */
@@ -104,7 +110,7 @@ public:
 		pNavTrans = new osg::MatrixTransform();
 	}
 
-
+	void gestionBouton3(gadget::DigitalInterface mButton);
 
 	~WorldCreator()
 	{}

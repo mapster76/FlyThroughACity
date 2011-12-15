@@ -1,23 +1,9 @@
 #include "Skybox.h"
 
-osg::ref_ptr<osg::Image> Skybox::image=osgDB::readImageFile("../Skybox/skybox6.jpg");
-
-osg::ref_ptr<osg::Image> Skybox::image2=osgDB::readImageFile("../Skybox/skybox11.jpg");
-
-//osg::ref_ptr<osg::Texture2D> texture;
-
-Skybox::Skybox(GLfloat tailleCote) {
-	//boxGeode=new osg::Geode();
+Skybox::Skybox(GLfloat tailleCote,string nomImage) {
 	mSize =tailleCote;
+	image=osgDB::readImageFile(nomImage);
 }
-
-/*
-void Skybox::changerSkybox()
-{
-
-  texture = new osg::Texture2D(image.get());
-
-}*/
 
 void Skybox::drawImplementation(osg::RenderInfo& renderInfo) const{
 	int positionCote=mSize/2;
@@ -33,7 +19,7 @@ void Skybox::drawImplementation(osg::RenderInfo& renderInfo) const{
 	boxVertices->push_back(Vec3f(-positionCote,positionCote,positionCote)); //front up left 7
 
 	osg::ref_ptr<osg::Texture2D> texture (new osg::Texture2D(image.get()));
-	
+	//osg::ref_ptr<osg::Texture2D> texture (new osg::Texture2D(osgDB::readImageFile("../Skybox/skybox6.jpg")));
 	//changerSkybox();
 	
 	osg::ref_ptr<osg::StateSet> texSS (new osg::StateSet);

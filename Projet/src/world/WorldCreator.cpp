@@ -4,10 +4,34 @@
 
 void WorldCreator::initialiseWorld() {
 	pRootNode->addChild(pNavTrans);
-	osg::ref_ptr<Skybox> box(new Skybox(RAYON_MAX_VILLE*5));
-	osg::ref_ptr<osg::Geode> noeudSkybox=new osg::Geode();
-	noeudSkybox->addDrawable(box);
+	vEmplacementImage.push_back("../Skybox/skybox1.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox2.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox3.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox5.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox6.jpg");
+	vEmplacementImage.push_back("../Skybox/skybox11.jpg");
+	itEmplacementImage=vEmplacementImage.begin();
+	skybox=new Skybox(RAYON_MAX_VILLE*5,*itEmplacementImage);
+	noeudSkybox=new osg::Geode();
+	noeudSkybox->addDrawable(skybox);
 	pNavTrans->addChild(noeudSkybox);
+}
+
+void WorldCreator::gestionBouton3(gadget::DigitalInterface mButton) {
+	if(mButton->getData() == gadget::Digital::TOGGLE_ON) {
+		itEmplacementImage++;
+		if(itEmplacementImage== vEmplacementImage.end()) {
+			itEmplacementImage=vEmplacementImage.begin();
+		}
+		pNavTrans->removeChild(noeudSkybox);
+		noeudSkybox->removeDrawable(skybox);
+		cout << *itEmplacementImage << endl;
+		skybox=new Skybox(RAYON_MAX_VILLE*5,*itEmplacementImage);
+		noeudSkybox->addDrawable(skybox);
+		pNavTrans->addChild(noeudSkybox);
+
+		//skybox->changerSkybox();
+	}
 }
 
 

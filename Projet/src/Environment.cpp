@@ -51,6 +51,8 @@ void Environment::preFrame()
 
    mNavigation.gestionBouton2(cur_time.getBaseVal());
 
+   mWorld->gestionBouton3(mButton1);
+
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
    
@@ -60,34 +62,6 @@ void Environment::preFrame()
    mNavigation.update(time_delta);
 
 }
-
-
-void Environment::collisions(const gmtl::Matrix44f& wandMatrix)
-{
-   // The navigation matrix is w_M_vw, so invert it for use here.
-   const osg::Matrix& nav_mat(mNavTrans->getMatrix());
-   osg::Matrix vw_M_w;
-   nav_mat.inverse(vw_M_w);
-   
-   // Transform the wand matrix from real world coordinates into virtual world
-   // coordinates.
-   osg::Matrix osg_wandMatrix(
-            wandMatrix[0][0],wandMatrix[0][1],wandMatrix[0][2],wandMatrix[0][3],
-            wandMatrix[1][0],wandMatrix[1][1],wandMatrix[1][2],wandMatrix[1][3],
-            wandMatrix[2][0],wandMatrix[2][1],wandMatrix[2][2],wandMatrix[2][3],
-            wandMatrix[3][0],wandMatrix[3][1],wandMatrix[3][2],wandMatrix[3][3]);
-   const osg::Matrix wand_matrix = vw_M_w * osg_wandMatrix;
-   
-   //On récupère la position du wand que l'on stocke dans wand_point
-   const osg::Vec3 wand_point(wandMatrix[0][3],wandMatrix[1][3],wandMatrix[2][3]);
-   
-   const osg::Matrix wand_matrix_rowmajor(wandMatrix.mData);
-
-
-}
-
-
-
 
 void Environment::bufferPreDraw()
 {
