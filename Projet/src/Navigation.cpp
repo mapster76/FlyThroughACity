@@ -58,34 +58,34 @@ void augmenterVitesse(float &vitesseAAccelerer) {
 }
 
 void Navigation::accelerer(long tempsCourant) {
-	int seuilMaximal = 80;
-	if(estEnTrainDAvancer) {
-		if(!estEnTrainDAccelerer) {
-			estEnTrainDAccelerer=true;
-			estEnTrainDeDecelerer=false;
-		}
-		if(tempsPourAcceleration==0)
-			tempsPourAcceleration=tempsCourant;
+  int seuilMaximal = 80;
+  if(estEnTrainDAvancer) {
+    if(!estEnTrainDAccelerer) {
+      estEnTrainDAccelerer=true;
+      estEnTrainDeDecelerer=false;
+    }
+    if(tempsPourAcceleration==0)
+      tempsPourAcceleration=tempsCourant;
 
-		gmtl::Vec3f direction; // Choix de la vitesse
+    gmtl::Vec3f direction; // Choix de la vitesse
 
 
-		gmtl::Vec3f Zdir = mNavigator->getVelocity();
-		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourAcceleration>20000) {
+    gmtl::Vec3f Zdir = mNavigator->getVelocity();
+    float* vitesse=Zdir.getData();
+    if(tempsCourant-tempsPourAcceleration>20000) {
 
-			if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])<seuilMaximal) {
-			  augmenterVitesse(vitesse[0]);
-			  augmenterVitesse(vitesse[1]);
-			  augmenterVitesse(vitesse[2]);
-			  Zdir.set(vitesse);
-			  mNavigator->setVelocity(Zdir);
+      if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])<seuilMaximal) {
+	augmenterVitesse(vitesse[0]);
+	augmenterVitesse(vitesse[1]);
+	augmenterVitesse(vitesse[2]);
+	Zdir.set(vitesse);
+	mNavigator->setVelocity(Zdir);
 
-			}
-			tempsPourAcceleration=0;
-		}
+      }
+      tempsPourAcceleration=0;
+    }
 
-	}
+  }
 
 }
 
@@ -96,70 +96,71 @@ void facteurRalentissement(float &vitesseARalentir) {
 }
 
 void Navigation::ralentir(long tempsCourant) {
-	int seuilMinimal = 10;
-	if(estEnTrainDAvancer && estEnTrainDeDecelerer) {
-		if(tempsPourDecceleration==0)
-			tempsPourDecceleration=tempsCourant;
+  int seuilMinimal = 10;
+  if(estEnTrainDAvancer && estEnTrainDeDecelerer) {
+    if(tempsPourDecceleration==0)
+      tempsPourDecceleration=tempsCourant;
 
-		gmtl::Vec3f Zdir = mNavigator->getVelocity();
-		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourDecceleration>40000) {
+    gmtl::Vec3f Zdir = mNavigator->getVelocity();
+    float* vitesse=Zdir.getData();
+    if(tempsCourant-tempsPourDecceleration>40000) {
 
-			if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>seuilMinimal) {
-			  facteurRalentissement(vitesse[0]);
-			  facteurRalentissement(vitesse[1]);
-			  facteurRalentissement(vitesse[2]);
-			  Zdir.set(vitesse);
-			  mNavigator->setVelocity(Zdir);
+      if(sqrt(vitesse[0]*vitesse[0]+vitesse[1]*vitesse[1]+vitesse[2]*vitesse[2])>seuilMinimal) {
+	facteurRalentissement(vitesse[0]);
+	facteurRalentissement(vitesse[1]);
+	facteurRalentissement(vitesse[2]);
+	Zdir.set(vitesse);
+	mNavigator->setVelocity(Zdir);
 
-			} else {
-				estEnTrainDeDecelerer=false;
-			}
-			tempsPourDecceleration=0;
-		}
+      } else {
+	estEnTrainDeDecelerer=false;
+      }
+      tempsPourDecceleration=0;
+    }
 
-	}
+  }
 }
 
 void Navigation::arretBrutal() {
 	estEnTrainDAvancer=false;
 	arretEnDouceur=false;
+	estEnTrainDeSArreter=false;
 	estEnTrainDAccelerer=false;
 	estEnTrainDeDecelerer=false;
 }
 
 void Navigation::ralentirPuisSAreter(long tempsCourant)
 {
-	if(!estEnTrainDAvancer && arretEnDouceur) {
-		if(tempsPourArret==0)
-			tempsPourArret=tempsCourant;
-		gmtl::Vec3f direction;
-		gmtl::Vec3f Zdir = mNavigator->getVelocity();
-		float* vitesse=Zdir.getData();
-		if(tempsCourant-tempsPourArret>40000) {
-			facteurRalentissement(vitesse[0]);
-			facteurRalentissement(vitesse[1]);
-			facteurRalentissement(vitesse[2]);
-			Zdir.set(vitesse);
-			mNavigator->setVelocity(Zdir);
-			tempsPourArret=tempsCourant;
-			estEnTrainDeSArreter=true;
-		} else {
-			estEnTrainDeSArreter=false;
-		}
-		if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
-			tempsPourArret=0;
-		}
+  if(!estEnTrainDAvancer && arretEnDouceur) {
+    if(tempsPourArret==0)
+      tempsPourArret=tempsCourant;
+    gmtl::Vec3f direction;
+    gmtl::Vec3f Zdir = mNavigator->getVelocity();
+    float* vitesse=Zdir.getData();
+    if(tempsCourant-tempsPourArret>40000) {
+      facteurRalentissement(vitesse[0]);
+      facteurRalentissement(vitesse[1]);
+      facteurRalentissement(vitesse[2]);
+      Zdir.set(vitesse);
+      mNavigator->setVelocity(Zdir);
+      tempsPourArret=tempsCourant;
+      estEnTrainDeSArreter=true;
+    } else {
+      estEnTrainDeSArreter=false;
+    }
+    if(vitesse[0]==0 && vitesse[1]==0 && vitesse[2]==0) {
+      tempsPourArret=0;
+    }
 
-	}
-	if(!estEnTrainDAvancer && !arretEnDouceur) {
-		gmtl::Vec3f Zdir = mNavigator->getVelocity();
-		float* vitesse=Zdir.getData();
-		vitesse[0]=0;
-		vitesse[1]=0;
-		vitesse[2]=0;
-		mNavigator->setVelocity(Zdir);
-	}
+  }
+  if(!estEnTrainDAvancer && !arretEnDouceur) {
+    gmtl::Vec3f Zdir = mNavigator->getVelocity();
+    float* vitesse=Zdir.getData();
+    vitesse[0]=0;
+    vitesse[1]=0;
+    vitesse[2]=0;
+    mNavigator->setVelocity(Zdir);
+  }
 
 }
 
@@ -170,29 +171,28 @@ void Navigation::droitDeTourner() {
 
 void Navigation::seDeplacer()
 {
-
-	if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
-		gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
-		gmtl::Vec3f direction; // Choix de la vitesse
-		gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
-		gmtl::xform(direction, wandMatrix, Zdir);
-		mNavigator->setVelocity(direction);
-	}
-	if(peutTourner) {
-		float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
-		float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
-		gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
-		if(rotationWandAxeX>=0.2)
-			rotationWandAxeX-=0.2;
-		if(rotationWandAxeX<=-0.2)
-			rotationWandAxeX+=0.2;
-		if(rotationWandAxeZ>=0.2)
-			rotationWandAxeZ-=0.2;
-		if(rotationWandAxeZ<=-0.2)
-			rotationWandAxeZ+=0.2;
-		mNavigator->setRotation(rotationXYZ);
-	}
-
+  if(estEnTrainDAvancer && !estEnTrainDAccelerer && !estEnTrainDeDecelerer) {
+    estEnTrainDeSArreter=false;
+    gmtl::Matrix44f wandMatrix = mWand->getData(getDrawScaleFactor());
+    gmtl::Vec3f direction; // Choix de la vitesse
+    gmtl::Vec3f Zdir = gmtl::Vec3f(0.0f, 0.0f, -10.0f);
+    gmtl::xform(direction, wandMatrix, Zdir);
+    mNavigator->setVelocity(direction);
+  }
+  if(peutTourner) {
+    float rotationWandAxeX=gmtl::makeXRot(mWand->getData(getDrawScaleFactor()));
+    float rotationWandAxeZ=gmtl::makeZRot(mWand->getData(getDrawScaleFactor()));
+    gmtl::Vec3f rotationXYZ(rotationWandAxeX,rotationWandAxeZ ,0);
+    if(rotationWandAxeX>=0.2)
+      rotationWandAxeX-=0.2;
+    if(rotationWandAxeX<=-0.2)
+      rotationWandAxeX+=0.2;
+    if(rotationWandAxeZ>=0.2)
+      rotationWandAxeZ-=0.2;
+    if(rotationWandAxeZ<=-0.2)
+      rotationWandAxeZ+=0.2;
+    mNavigator->setRotation(rotationXYZ);
+  }
 }
 
 static float calculerWAvecY(float y) {
@@ -301,9 +301,9 @@ void Navigation::jouerSonVaisseau()
 {
   if(estEnTrainDAvancer) {
     mSons1.pauseSonCollision();
-    if(estEnTrainDeSArreter) {
+    //if(estEnTrainDeSArreter) {
       mSons1.pauseSonVaisseau();
-    }
+      // }
     mSons1.pauseSonDeceleration();
     if(!estEnTrainDAccelerer) {
       mSons1.pauseSonAcceleration();
