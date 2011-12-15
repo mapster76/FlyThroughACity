@@ -145,7 +145,7 @@ FMOD_RESULT Sons::Initialisation()
 
 
     //  AMBIANCE NATURE
-    result = system->createSound("../fmod/Audio/Ambiance1.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceNature);
+    result = system->createSound("../fmod/Audio/ChantOiseaux.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceNature);
     ERRCHECK(result);
     result = ambianceNature->setMode(FMOD_LOOP_NORMAL);
 
