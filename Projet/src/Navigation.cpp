@@ -25,7 +25,7 @@ void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget:
   mButton1=button1;
   mButton2=button2;
   mWorld=world;
-  mWorld.updateBoundingBox();
+  //mWorld.updateBoundingBox();
 }
 
 void augmenterVitesse(float &vitesseAAccelerer) {
@@ -281,7 +281,8 @@ void Navigation::collisions() {
   osg::Vec3f wandPoint(wandMatrix.getTrans());
   osg::BoundingBox wandBbox;
   wandBbox.set(wandPoint[0]-0.2,wandPoint[1]-0.2,wandPoint[2]-0.2,wandPoint[0]+0.2,wandPoint[1]+0.2,wandPoint[2]+0.2);
-  for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = mWorld.lesBoundingBoxes.begin(); boundingBox != mWorld.lesBoundingBoxes.end(); ++boundingBox) {
+  map < vector<GLfloat> , osg::BoundingBox > *lesBoundingBox=mWorld.getBoundingBoxes();
+  for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = lesBoundingBox->begin(); boundingBox != lesBoundingBox->end(); ++boundingBox) {
     if(boundingBox->second.intersects(wandBbox)) {
       arretBrutal();
       mSons.jouerSonCollision();
