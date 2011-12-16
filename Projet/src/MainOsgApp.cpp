@@ -1,4 +1,4 @@
-#include <Environment.h>
+#include <MainOsgApp.h>
 
 #include <osg/Math>
 #include <osg/Geode>
@@ -19,21 +19,21 @@
 #include "world/Sol.h"
 
 
-Environment::Environment(vrj::Kernel* kern, int& argc, char** argv)
+MainOsgApp::MainOsgApp(vrj::Kernel* kern, int& argc, char** argv)
    : vrj::OsgApp(kern)
 {
 	mWorld=new WorldCreator();
 	mCurrentMatrix=mCurrentMatrix.identity();
 }
 
-void Environment::latePreFrame()
+void MainOsgApp::latePreFrame()
 {
 	//on applique la matrice de transformation calculée dans navigation
 	mNavTrans->setMatrix(mNavigation.getCurrentMatrix());
 	vrj::OsgApp::latePreFrame();
 }
 
-void Environment::preFrame()
+void MainOsgApp::preFrame()
 {
    
    vpr::Interval cur_time = mWand->getTimeStamp();
@@ -57,20 +57,17 @@ void Environment::preFrame()
    // Get the wand matrix in the units of this application.
    const gmtl::Matrix44f wand_mat(mWand->getData(getDrawScaleFactor()));
    
-   // Gestion des collisions
-   //collisions(wand_mat);
-   // Update the navigation using the time delta between
    mNavigation.update(time_delta);
 
 }
 
-void Environment::bufferPreDraw()
+void MainOsgApp::bufferPreDraw()
 {
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Environment::initScene()
+void MainOsgApp::initScene()
 {
    // Initialize devices
    const std::string wand("VJWand");
@@ -95,7 +92,7 @@ void Environment::initScene()
 
 }
 
-void Environment::myInit()
+void MainOsgApp::myInit()
 {
 	mWorld->drawWorld(mRootNode,mNavTrans);
 

@@ -17,13 +17,19 @@
 #include <plugins/ApplicationDataManager/UserData.h>
 
 using namespace gmtl;
-/** Class to wrap the navigation matrix to share across cluster.
+/**
+ * Classe permettant de partager les informations de rotations et de vitesse à travers le cluster
  */
 class NavData : public vpr::SerializableObject
 {
 public:
+	/*
+	 * Méthodes abstraite redéfinie qui permette de sérialisé le vecteur de rotation et de vitesse
+	 */
 
-
+	/**
+	 * permet de lire un objet qui a été encapsulé et envoyer à travers le réseau
+	 */
 	virtual void readObject(vpr::ObjectReader* reader) {
 		float velocity[3];
 		float rotation[3];
@@ -38,6 +44,9 @@ public:
 		mVelocity.set(velocity);
 	}
 
+	/**
+	 * Permet d'écrire un objet pour l'envoyé à travers le réseau
+	 */
 	virtual void writeObject(vpr::ObjectWriter* writer) {
 		const float* velocity = mVelocity.getData();
 		const float* rotation = mRotation.getData();
@@ -49,18 +58,30 @@ public:
 		}
 	}
 
+	/**
+	 * Setter de la vitesse
+	 */
 	void setVelocity(Vec3f velocity) {
 	   mVelocity=velocity;
 	}
 
+	/**
+	 * Accesseur de la vitesse
+	 */
 	Vec3f getVelocity() {
 	   return mVelocity;
 	}
 
+	/**
+	 * Setter de la rotation à affecter
+	 */
 	void setRotation(Vec3f rotation) {
 	   mRotation=rotation;
 	}
 
+	/**
+	 * Accesseur de la rotation
+	 */
 	Vec3f getRotation() {
 	   return mRotation;
 	}

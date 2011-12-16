@@ -1,39 +1,31 @@
-#ifndef _ENVIRONMENT
-#define _ENVIRONMENT
+#ifndef _MAIN_OSG_APP
+#define _MAIN_OSG_APP
 
 #include <vrj/vrjConfig.h>
 #include "DonneesNavigation.h"
 #include "Navigation.h"
 #include <vrj/Draw/OGL/GlApp.h>
 #include <gadget/Type/Position/PositionUnitConversion.h>
-
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/AnalogInterface.h>
 #include <gadget/Type/DigitalInterface.h>
-
-//OSG  includes
 #include <osg/Matrix>
 #include <osg/Transform>
 #include <osg/MatrixTransform>
 #include <osgUtil/SceneView>
 #include <Sons.h>
-
 #include <vrj/Draw/OSG/OsgApp.h>
 #include "world/WorldCreator.h"
 
 
-/**
- * Demonstration Open Scene Graph application class
- */
-class Environment : public vrj::OsgApp
+class MainOsgApp : public vrj::OsgApp
 {
 public:
-   Environment(vrj::Kernel* kern, int& argc, char** argv);
+   MainOsgApp(vrj::Kernel* kern, int& argc, char** argv);
 
-   virtual ~Environment()
+   virtual ~MainOsgApp()
    {
 	   delete mWorld;
-      /* Do nothing. */ ;
    }
 
    // Execute any initialization needed before the API is started<BR><BR>
@@ -41,52 +33,33 @@ public:
    // This is called once before OGL is initialized
    virtual void initScene();
 
+   /**
+    * Méthode permettand de faire des appel pour initialiser tous l'environnement
+    */
    void myInit();
 
+   /**
+    * Méthode qui doit renvoyer le noeud racine du graphe de scène à VRJuggler
+    */
    virtual osg::Group* getScene()
    {
       return mRootNode;
    }
 
+   /**
+    * Permet de paramaétrer le sceneView (la caméra) qui est ensuite géré par
+    * VRJuggler
+    */
    virtual void configSceneView(osgUtil::SceneView* newSceneViewer)
    {
       vrj::OsgApp::configSceneView(newSceneViewer);
+      //On désactive la LIGHT0 activé par défaut
       newSceneViewer->getLight()->setAmbient(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setDiffuse(osg::Vec4(0.0f,0.0f,0.0f,1.0f));
       newSceneViewer->getLight()->setSpecular(osg::Vec4(.0f,.0f,.0f,1.0f));
    }
 
-   float* getEye() {
-	   return eye._v;
-   }
-
-   float* getCenter() {
-   	   return center._v;
-   }
-
-   float* getUp() {
-   	   return up._v;
-   }
-
    void bufferPreDraw();
-
-   // ----- Drawing Loop Functions ------
-   //
-   //  The drawing loop will look similar to this:
-   //
-   //  while (drawing)
-   //  {
-   //        preFrame();
-   //       <Application Data Syncronization>
-   //        latePreFrame();
-   //       draw();
-   //        intraFrame();     // Drawing is happening while here
-   //       sync();
-   //        postFrame();      // Drawing is now done
-   //
-   //       UpdateTrackers();
-   //  }
-   //------------------------------------
 
    //: Function called after tracker update but before start of drawing<BR><BR>
    //
@@ -132,7 +105,6 @@ public:
    //OsgNavigator  mNavigator;
    osg::Matrix mCurrentMatrix;
    Navigation mNavigation;
-   osg::Vec3f eye,center,up;
    double distance;
 
 public:
