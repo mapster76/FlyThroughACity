@@ -25,7 +25,6 @@ void Navigation::init(WorldCreator world,gadget::PositionInterface &wand,gadget:
 	mButton1=button1;
 	mButton2=button2;
 	mWorld=world;
-	//mWorld.updateBoundingBox();
 }
 
 void augmenterVitesse(float &vitesseAAccelerer) {
@@ -286,7 +285,6 @@ void Navigation::collisions() {
 		if(boundingBox->second.intersects(wandBbox)) {
 			arretBrutal();
 			mSons.jouerSonCollision();
-			mSons.jouerSonDeceleration();
 			mSons.pauseSonGrandeVitesse();
 			mSons.pauseSonAcceleration();
 			mSons.pauseSonVaisseau();
@@ -303,6 +301,7 @@ void Navigation::avancerOuArreter() {
 	if(!estEnTrainDAvancer) {
 		droitDeTourner();
 		estEnTrainDAvancer = true;
+		estEnTrainDeSArreter=false;
 	} else {
 		estEnTrainDAvancer = false;
 		estEnTrainDAccelerer=false;

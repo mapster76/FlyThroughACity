@@ -62,33 +62,33 @@ public:
 	 * Setter de la vitesse
 	 */
 	void setVelocity(Vec3f velocity) {
-	   mVelocity=velocity;
+		mVelocity=velocity;
 	}
 
 	/**
 	 * Accesseur de la vitesse
 	 */
 	Vec3f getVelocity() {
-	   return mVelocity;
+		return mVelocity;
 	}
 
 	/**
 	 * Setter de la rotation à affecter
 	 */
 	void setRotation(Vec3f rotation) {
-	   mRotation=rotation;
+		mRotation=rotation;
 	}
 
 	/**
 	 * Accesseur de la rotation
 	 */
 	Vec3f getRotation() {
-	   return mRotation;
+		return mRotation;
 	}
 
 public:
-   Vec3f mRotation;
-   Vec3f mVelocity;
+	Vec3f mRotation;
+	Vec3f mVelocity;
 };
 
 #endif /* _OSG_NAVIGATE_H */

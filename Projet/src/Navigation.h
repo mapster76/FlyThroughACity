@@ -48,27 +48,27 @@ public:
 	 * est relachée
 	 */ 
 	void gestionGachette(long tempsCourant);
-	
+
 	/**
 	 * Permet de deplacer ou arreter l'utilisateur dans le monde appele les méthode se déplacer et avancer
 	 */
 	void gestionBouton2(long tempsCourant);
-	
+
 	/**
 	 * permet de mettre des variables booléennes d'état à vrai ou faux
 	 */ 
 	void avancerOuArreter();
-	
+
 	/**
 	 * Méthode appelée pour ralentir après une accéleration 
 	 */
 	void ralentir(long tempsCourant);
-	
+
 	/**
 	 * Méthode appelée pour s'arreter lorsque qu'il y a une collision
 	 */
 	void arretBrutal();
-	
+
 	/**
 	 * Méthode qui donne le droit de tourner (utilisée au premier déplacement)
 	 */
@@ -100,38 +100,38 @@ public:
 	osg::Matrix getCurrentMatrix();
 
 	/**
-	* Returns the scale factor for this application.  For this sample, we
-	* are handling everything in feet.
-	*/
+	 * Returns the scale factor for this application.  For this sample, we
+	 * are handling everything in feet.
+	 */
 	virtual float getDrawScaleFactor()
 	{
-	 return gadget::PositionUnitConversion::ConvertToFeet;
-	 }
+		return gadget::PositionUnitConversion::ConvertToFeet;
+	}
 
 private:
 
-   bool estEnTrainDAvancer;
-   bool peutTourner;
-   long tempsPourArret;
-   long tempsPourAcceleration;
-   long tempsPourDecceleration;
-   long estEnTrainDAccelerer;
-   long estEnTrainDeDecelerer;
-   bool estEnTrainDeSArreter;
-   bool arretEnDouceur;
-   osg::Vec3 mTranslation;
-   osg::Vec3 mRotation;
-   osg::Matrix mCurrentMatrix;
-   WorldCreator mWorld;
-   cluster::UserData< NavData >  mNavigator;
-   Sons mSons;
+	bool estEnTrainDAvancer;
+	bool peutTourner;
+	long tempsPourArret;
+	long tempsPourAcceleration;
+	long tempsPourDecceleration;
+	long estEnTrainDAccelerer;
+	long estEnTrainDeDecelerer;
+	bool estEnTrainDeSArreter;
+	bool arretEnDouceur;
+	osg::Vec3 mTranslation;
+	osg::Vec3 mRotation;
+	osg::Matrix mCurrentMatrix;
+	WorldCreator mWorld;
+	cluster::UserData< NavData >  mNavigator;
+	Sons mSons;
 
 public:
-   gadget::PositionInterface  mWand;     // the Wand
-   gadget::PositionInterface  mHead;     // the head
-   gadget::DigitalInterface   mButton0;
-   gadget::DigitalInterface   mButton1;
-   gadget::DigitalInterface   mButton2;
+	gadget::PositionInterface  mWand;     // the Wand
+	gadget::PositionInterface  mHead;     // the head
+	gadget::DigitalInterface   mButton0;
+	gadget::DigitalInterface   mButton1;
+	gadget::DigitalInterface   mButton2;
 };
 
 #endif /* NAVIGATION_H_ */

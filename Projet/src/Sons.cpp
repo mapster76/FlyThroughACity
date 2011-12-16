@@ -4,13 +4,99 @@
 using namespace std;
 
 Sons::Sons() {
-	result = Initialisation();
+	result = FMOD::System_Create(&system);
+	ERRCHECK(result);
+	//channel = 0;
 
+	result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
+	ERRCHECK(result);
+
+	/**
+	 * Initialisation
+	 */
+	result = system->init(10, FMOD_INIT_NORMAL, 0);
+	ERRCHECK(result);
+
+	/**
+	 * Initialiastion du positionnement 3D
+	 */
+	result = system->set3DSettings(1.0f, 1.0f, 1.0f);
+	ERRCHECK(result);
+
+
+
+	//  AMBIANCE PLUIE
+	result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiancePluie);
+	ERRCHECK(result);
+	result = ambiancePluie->setMode(FMOD_LOOP_NORMAL);
+
+	//  AMBIANCE ORAGE
+	result = system->createSound("../fmod/Audio/Ambiance2.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceOrage);
+	ERRCHECK(result);
+	result = ambianceOrage->setMode(FMOD_LOOP_NORMAL);
+
+	//  AMBIANCE FOULE
+	result = system->createSound("../fmod/Audio/Ambiance3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceFoule);
+	ERRCHECK(result);
+	result = ambianceFoule->setMode(FMOD_LOOP_NORMAL);
+
+
+	//  AMBIANCE NATURE
+	result = system->createSound("../fmod/Audio/ChantOiseaux.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceNature);
+	ERRCHECK(result);
+	result = ambianceNature->setMode(FMOD_LOOP_NORMAL);
+
+
+	//  MUSIQUE 1
+	result = system->createSound("../fmod/Audio/Ambiance5.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique1);
+	ERRCHECK(result);
+	result = musique1->setMode(FMOD_LOOP_NORMAL);
+
+
+	//  MUSIQUE 2
+	result = system->createSound("../fmod/Audio/Ambiance6.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique2);
+	ERRCHECK(result);
+	result = musique2->setMode(FMOD_LOOP_NORMAL);
+
+
+	// VAISSEAU
+	result = system->createSound("../fmod/Audio/BruitVaisseauAlArret.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonVaisseau);
+	ERRCHECK(result);
+	result = sonVaisseau->setMode(FMOD_LOOP_NORMAL);
+
+	// DECELERATION
+	result = system->createSound("../fmod/Audio/BruitArretVaisseau.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
+	ERRCHECK(result);
+	result = sonDeceleration->setMode(FMOD_LOOP_OFF);
+
+	// ACCELERATION
+	result = system->createSound("../fmod/Audio/Acceleration.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonAcceleration);
+	ERRCHECK(result);
+	result = sonAcceleration->setMode(FMOD_LOOP_OFF);
+
+	// GRANDE VITESSE
+	result = system->createSound("../fmod/Audio/GrandeVitesse.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonGrandeVitesse);
+	ERRCHECK(result);
+	result = sonGrandeVitesse->setMode(FMOD_LOOP_NORMAL);
+
+
+	// COLLISION
+	result = system->createSound("../fmod/Audio/Collision3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonCollision);
+	ERRCHECK(result);
+	result = sonCollision->setMode(FMOD_LOOP_OFF);
+
+	//Initialisation de l'iterateur
+	vAmbianceSonore.push_back("musique1");
+	vAmbianceSonore.push_back("foule");
+	vAmbianceSonore.push_back("nature");
+	vAmbianceSonore.push_back("pluie");
+	vAmbianceSonore.push_back("orage");
+	vAmbianceSonore.push_back("musique2");
+	itAmbianceSonore = vAmbianceSonore.begin();
 }
 
 
 Sons::~Sons() {
-  //printf("destroy");
 	if(ambiancePluie!=NULL) {
 		result = ambiancePluie->release();
 		ERRCHECK(result);
@@ -99,116 +185,17 @@ Sons::~Sons() {
 
 void Sons::ERRCHECK(FMOD_RESULT result)
 {
-    if (result != FMOD_OK)
-    {
-        printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
-    }
-}
-
-FMOD_RESULT Sons::Initialisation()
-{
-    result = FMOD::System_Create(&system);
-    ERRCHECK(result);
-    //channel = 0;
-
-    result = system->setOutput(FMOD_OUTPUTTYPE_ALSA);
-    ERRCHECK(result);
-
-    /**
-     * Initialisation
-     */
-    result = system->init(10, FMOD_INIT_NORMAL, 0);
-    ERRCHECK(result);
-
-    /**
-     * Initialiastion du positionnement 3D
-     */
-    result = system->set3DSettings(1.0f, 1.0f, 1.0f);
-    ERRCHECK(result);
-
-
-
-    //  AMBIANCE PLUIE
-    result = system->createSound("../fmod/Audio/rainandrumble.wav", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambiancePluie);
-    ERRCHECK(result);
-    result = ambiancePluie->setMode(FMOD_LOOP_NORMAL);
-
-    //  AMBIANCE ORAGE
-    result = system->createSound("../fmod/Audio/Ambiance2.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceOrage);
-    ERRCHECK(result);
-    result = ambianceOrage->setMode(FMOD_LOOP_NORMAL);
-
-    //  AMBIANCE FOULE
-    result = system->createSound("../fmod/Audio/Ambiance3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceFoule);
-    ERRCHECK(result);
-    result = ambianceFoule->setMode(FMOD_LOOP_NORMAL);
-
-
-    //  AMBIANCE NATURE
-    result = system->createSound("../fmod/Audio/ChantOiseaux.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &ambianceNature);
-    ERRCHECK(result);
-    result = ambianceNature->setMode(FMOD_LOOP_NORMAL);
-
-
-    //  MUSIQUE 1 
-    result = system->createSound("../fmod/Audio/Ambiance5.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique1);
-    ERRCHECK(result);
-    result = musique1->setMode(FMOD_LOOP_NORMAL);
-
-
-    //  MUSIQUE 2
-    result = system->createSound("../fmod/Audio/Ambiance6.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &musique2);
-    ERRCHECK(result);
-    result = musique2->setMode(FMOD_LOOP_NORMAL);
-
-
-    // VAISSEAU
-   result = system->createSound("../fmod/Audio/BruitVaisseauAlArret.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonVaisseau);
-    ERRCHECK(result);
-    result = sonVaisseau->setMode(FMOD_LOOP_NORMAL);
-
-    // DECELERATION
-   result = system->createSound("../fmod/Audio/BruitArretVaisseau.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonDeceleration);
-    ERRCHECK(result);
-    result = sonDeceleration->setMode(FMOD_LOOP_OFF);
-
-    // ACCELERATION
-   result = system->createSound("../fmod/Audio/Acceleration.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonAcceleration);
-	ERRCHECK(result);
-	result = sonAcceleration->setMode(FMOD_LOOP_OFF);
-
-    // GRANDE VITESSE
-   result = system->createSound("../fmod/Audio/GrandeVitesse.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonGrandeVitesse);
-	ERRCHECK(result);
-	result = sonGrandeVitesse->setMode(FMOD_LOOP_NORMAL);
-
-
-    // COLLISION
-   result = system->createSound("../fmod/Audio/Collision3.mp3", FMOD_SOFTWARE | FMOD_3D | FMOD_CREATESTREAM , 0, &sonCollision);
-    ERRCHECK(result);
-    result = sonCollision->setMode(FMOD_LOOP_OFF);
-
-    //Initialisation de l'iterateur
-    vAmbianceSonore.push_back("musique1");
-    vAmbianceSonore.push_back("foule");
-    vAmbianceSonore.push_back("nature");
-    vAmbianceSonore.push_back("pluie");
-    vAmbianceSonore.push_back("orage");
-    vAmbianceSonore.push_back("musique2");
-    itAmbianceSonore = vAmbianceSonore.begin();
-
-    return result;
-
-
+	if (result != FMOD_OK)
+	{
+		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
+	}
 }
 
 
 void Sons::jouerSonVaisseau()
 {
 	bool currentlyPlaying=false,paused=false;
-	//bool decellerationPlaying=false;
 	channelVaisseau->isPlaying(&currentlyPlaying);
-	//channelDeceleration->isPlaying(&decellerationPlaying);
 	if(!currentlyPlaying) {
 		result = system->playSound(FMOD_CHANNEL_FREE, sonVaisseau, false, &channelVaisseau);
 		ERRCHECK(result);
@@ -233,89 +220,89 @@ void Sons::pauseSonVaisseau()
 
 void Sons::jouerSonDeceleration()
 {
-  bool currentlyPlaying=false,paused=false;
-  channelDeceleration->isPlaying(&currentlyPlaying);
-  if(!currentlyPlaying && !decelerationAlreadyPlayed) {
+	bool currentlyPlaying=false,paused=false;
+	channelDeceleration->isPlaying(&currentlyPlaying);
+	if(!currentlyPlaying && !decelerationAlreadyPlayed) {
 
-    decelerationAlreadyPlayed=true;
-    result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channelDeceleration);
-    ERRCHECK(result);
-    result = channelDeceleration->setPaused(false);
-    ERRCHECK(result);
-  }
-  channelDeceleration->getPaused(&paused);
-  if(paused  && !decelerationAlreadyPlayed) {
-    decelerationAlreadyPlayed=true;
-    result = channelDeceleration->setPaused(false);
-  }
+		decelerationAlreadyPlayed=true;
+		result = system->playSound(FMOD_CHANNEL_FREE, sonDeceleration, false, &channelDeceleration);
+		ERRCHECK(result);
+		result = channelDeceleration->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelDeceleration->getPaused(&paused);
+	if(paused  && !decelerationAlreadyPlayed) {
+		decelerationAlreadyPlayed=true;
+		result = channelDeceleration->setPaused(false);
+	}
 }
 
 void Sons::pauseSonDeceleration()
 {
-  bool playing,pause;
-  decelerationAlreadyPlayed=false;
-  channelDeceleration->getPaused(&pause);
-  channelDeceleration->isPlaying(&playing);
-  if(playing && !pause) {
-    channelDeceleration->setPosition(0,FMOD_TIMEUNIT_MS);
-    channelDeceleration->setPaused(true);
-  }
+	bool playing,pause;
+	decelerationAlreadyPlayed=false;
+	channelDeceleration->getPaused(&pause);
+	channelDeceleration->isPlaying(&playing);
+	if(playing && !pause) {
+		channelDeceleration->setPosition(0,FMOD_TIMEUNIT_MS);
+		channelDeceleration->setPaused(true);
+	}
 }
 
 void Sons::jouerSonAcceleration()
 {
-  bool currentlyPlaying=false,paused=false;
-  channelAcceleration->isPlaying(&currentlyPlaying);
-  if(!currentlyPlaying && !accelerationAlreadyPlayed) {
-    accelerationAlreadyPlayed=true;
-    result = system->playSound(FMOD_CHANNEL_FREE, sonAcceleration, false, &channelAcceleration);
-    ERRCHECK(result);
-    result = channelAcceleration->setPaused(false);
-    ERRCHECK(result);
-  }
-  channelAcceleration->getPaused(&paused);
-  if(paused && !accelerationAlreadyPlayed) {
-    accelerationAlreadyPlayed=true;
-    result = channelAcceleration->setPaused(false);
-  }
+	bool currentlyPlaying=false,paused=false;
+	channelAcceleration->isPlaying(&currentlyPlaying);
+	if(!currentlyPlaying && !accelerationAlreadyPlayed) {
+		accelerationAlreadyPlayed=true;
+		result = system->playSound(FMOD_CHANNEL_FREE, sonAcceleration, false, &channelAcceleration);
+		ERRCHECK(result);
+		result = channelAcceleration->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelAcceleration->getPaused(&paused);
+	if(paused && !accelerationAlreadyPlayed) {
+		accelerationAlreadyPlayed=true;
+		result = channelAcceleration->setPaused(false);
+	}
 }
 
 void Sons::pauseSonAcceleration()
 {
-  bool playing,pause;
-  channelAcceleration->getPaused(&pause);
-  accelerationAlreadyPlayed=false;
-  channelAcceleration->isPlaying(&playing);
-  if(playing && !pause) {
-    channelAcceleration->setPosition(0,FMOD_TIMEUNIT_MS);
-    channelAcceleration->setPaused(true);
-  }
+	bool playing,pause;
+	channelAcceleration->getPaused(&pause);
+	accelerationAlreadyPlayed=false;
+	channelAcceleration->isPlaying(&playing);
+	if(playing && !pause) {
+		channelAcceleration->setPosition(0,FMOD_TIMEUNIT_MS);
+		channelAcceleration->setPaused(true);
+	}
 }
 
 void Sons::jouerSonGrandeVitesse() {
-  bool accelerationPlaying=false,paused=false,accelerationPaused=false,currentlyPlaying=false;
-  channelAcceleration->isPlaying(&accelerationPlaying);
-  channelGrandeVitesse->isPlaying(&currentlyPlaying);
-  channelAcceleration->getPaused(&accelerationPaused);
-  if(!currentlyPlaying && !accelerationPlaying && accelerationAlreadyPlayed) {
-    result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
-    ERRCHECK(result);
-    result = channelGrandeVitesse->setPaused(false);
-    ERRCHECK(result);
-  }
-  channelGrandeVitesse->getPaused(&paused);
-  if(paused && accelerationAlreadyPlayed) {
-    result = channelGrandeVitesse->setPaused(false);
-  }
+	bool accelerationPlaying=false,paused=false,accelerationPaused=false,currentlyPlaying=false;
+	channelAcceleration->isPlaying(&accelerationPlaying);
+	channelGrandeVitesse->isPlaying(&currentlyPlaying);
+	channelAcceleration->getPaused(&accelerationPaused);
+	if(!currentlyPlaying && !accelerationPlaying && accelerationAlreadyPlayed) {
+		result = system->playSound(FMOD_CHANNEL_FREE, sonGrandeVitesse, false, &channelGrandeVitesse);
+		ERRCHECK(result);
+		result = channelGrandeVitesse->setPaused(false);
+		ERRCHECK(result);
+	}
+	channelGrandeVitesse->getPaused(&paused);
+	if(paused && accelerationAlreadyPlayed) {
+		result = channelGrandeVitesse->setPaused(false);
+	}
 }
 
 void Sons::pauseSonGrandeVitesse() {
-  bool pause;
-  channelGrandeVitesse->getPaused(&pause);
-  if(!pause) {
-    channelGrandeVitesse->setPosition(0,FMOD_TIMEUNIT_MS);
-    channelGrandeVitesse->setPaused(true);
-  }
+	bool pause;
+	channelGrandeVitesse->getPaused(&pause);
+	if(!pause) {
+		channelGrandeVitesse->setPosition(0,FMOD_TIMEUNIT_MS);
+		channelGrandeVitesse->setPaused(true);
+	}
 }
 void Sons::jouerSonCollision()
 {
@@ -388,7 +375,6 @@ void Sons::jouerAmbianceOrage()
 void Sons::pauseAmbianceOrage()
 {
 	bool playing,pause;
-	//orageAlreadyPlayed=false;
 	channelOrage->getPaused(&pause);
 	channelOrage->isPlaying(&playing);
 	if(playing && !pause) {
@@ -414,7 +400,6 @@ void Sons::jouerAmbianceFoule()
 void Sons::pauseAmbianceFoule()
 {
 	bool playing,pause;
-	//fouleAlreadyPlayed=false;
 	channelFoule->getPaused(&pause);
 	channelFoule->isPlaying(&playing);
 	if(playing && !pause) {
@@ -439,7 +424,6 @@ void Sons::jouerAmbianceNature()
 void Sons::pauseAmbianceNature()
 {
 	bool playing,pause;
-	//natureAlreadyPlayed=false;
 	channelNature->getPaused(&pause);
 	channelNature->isPlaying(&playing);
 	if(playing && !pause) {
@@ -465,7 +449,6 @@ void Sons::jouerMusique1()
 void Sons::pauseMusique1()
 {
 	bool playing,pause;
-	//musique1AlreadyPlayed=false;
 	channelMusique1->getPaused(&pause);
 	channelMusique1->isPlaying(&playing);
 	if(playing && !pause) {
@@ -490,7 +473,6 @@ void Sons::jouerMusique2()
 void Sons::pauseMusique2()
 {
 	bool playing,pause;
-	//musique2AlreadyPlayed=false;
 	channelMusique2->getPaused(&pause);
 	channelMusique2->isPlaying(&playing);
 	if(playing && !pause) {
@@ -503,37 +485,36 @@ void Sons::pauseMusique2()
 
 void Sons::changerAmbianceSonore(string idAmbianceSonore)
 {
-  std::cout << "itAmbianceSonore   " << idAmbianceSonore << std::endl;
-  if(idAmbianceSonore == "nature") {
-    jouerAmbianceNature();
-  } else {
-    pauseAmbianceNature();
-  }
-  if(idAmbianceSonore == "orage") {
-    jouerAmbianceOrage();
-  } else {
-    pauseAmbianceOrage();
-  }
-  if(idAmbianceSonore == "foule") {
-    jouerAmbianceFoule();
-  } else {
-    pauseAmbianceFoule();
-  }
-  if(idAmbianceSonore == "pluie") {
-    jouerAmbiancePluie();
-  } else {
-    pauseAmbiancePluie();
-  }
-  if(idAmbianceSonore == "musique1") {
-    jouerMusique1();
-  } else {
-    pauseMusique1();
-  }
-  if(idAmbianceSonore == "musique2") {
-    jouerMusique2();
-  } else {
-    pauseMusique2();
-  }
+	if(idAmbianceSonore == "nature") {
+		jouerAmbianceNature();
+	} else {
+		pauseAmbianceNature();
+	}
+	if(idAmbianceSonore == "orage") {
+		jouerAmbianceOrage();
+	} else {
+		pauseAmbianceOrage();
+	}
+	if(idAmbianceSonore == "foule") {
+		jouerAmbianceFoule();
+	} else {
+		pauseAmbianceFoule();
+	}
+	if(idAmbianceSonore == "pluie") {
+		jouerAmbiancePluie();
+	} else {
+		pauseAmbiancePluie();
+	}
+	if(idAmbianceSonore == "musique1") {
+		jouerMusique1();
+	} else {
+		pauseMusique1();
+	}
+	if(idAmbianceSonore == "musique2") {
+		jouerMusique2();
+	} else {
+		pauseMusique2();
+	}
 }
 
 
@@ -546,16 +527,5 @@ void Sons::gestionBouton1(gadget::DigitalInterface mButton) {
 			itAmbianceSonore=vAmbianceSonore.begin();
 		}
 		changerAmbianceSonore(*itAmbianceSonore);
-
-
-		/*
-		pNavTrans->removeChild(noeudSkybox);
-		noeudSkybox->removeDrawable(skybox);
-		cout << *itEmplacementImage << endl;
-		skybox=new Skybox(RAYON_MAX_VILLE*5,*itEmplacementImage);
-		noeudSkybox->addDrawable(skybox);
-		pNavTrans->addChild(noeudSkybox);
-		*/
-
-	 }
+	}
 }
