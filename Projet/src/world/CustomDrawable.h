@@ -8,6 +8,16 @@
 #include <osgDB/ReadFile>
 #include <osg/MatrixTransform>
 #include <osg/Material>
+
+/**
+ * Méthode qui permet de faire des appels OpenGL
+ * Pour cela il faut faire hériter la classe de CustomDrawable
+ * et redéfinir drawImplementation dans laquelle on met nos différents
+ * appels OpenGL.
+ * NB ne pas oublier de mettre le const dans la signature
+ * sinon tu ne redéfinira pas la fonction cela compilera s'executera mais ça
+ * n'affichera rien normal tu n'auras rien redéfini
+ */
 class CustomDrawable: public osg::Drawable
 {
    public:
@@ -25,10 +35,7 @@ class CustomDrawable: public osg::Drawable
       virtual osg::Object* clone(const osg::CopyOp& copyop) const
       { return new CustomDrawable (*this, copyop); }
 
-      virtual void drawImplementation (osg::RenderInfo& renderInfo) const
-      {
-
-      }
+      virtual void drawImplementation (osg::RenderInfo& renderInfo) const {}
 
 
 };

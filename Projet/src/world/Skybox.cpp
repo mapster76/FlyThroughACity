@@ -19,16 +19,11 @@ void Skybox::drawImplementation(osg::RenderInfo& renderInfo) const{
 	boxVertices->push_back(Vec3f(-positionCote,positionCote,positionCote)); //front up left 7
 
 	osg::ref_ptr<osg::Texture2D> texture (new osg::Texture2D(image.get()));
-	//osg::ref_ptr<osg::Texture2D> texture (new osg::Texture2D(osgDB::readImageFile("../Skybox/skybox6.jpg")));
-	//changerSkybox();
-	
 	osg::ref_ptr<osg::StateSet> texSS (new osg::StateSet);
 	texture->setInternalFormat(GL_RGBA);
 	texture->setFilter(osg::Texture2D::MIN_FILTER, osg::Texture2D::LINEAR);
 	texture->setFilter(osg::Texture2D::MAG_FILTER, osg::Texture2D::LINEAR);
-	texSS->setTextureAttributeAndModes (0,   // unit
-                                          texture.get(),
-                                          osg::StateAttribute::ON);
+	texSS->setTextureAttributeAndModes (0, texture.get(), osg::StateAttribute::ON);
 	texSS->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
 
 	renderInfo.getState()->apply(texSS.get());

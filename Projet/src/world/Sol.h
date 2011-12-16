@@ -4,7 +4,13 @@
 #include<iostream>
 #include<CustomDrawable.h>
 
-
+/**
+ * Classe permettant de dessiner le sol et appliqué une texture
+ * Elle n'est plus utilisé car elle ralenti le programme de manière
+ * dramatique à la place on charge un objet Sol déjà texturé grâce à l'UV mapping
+ * dans Blender c'est beaucoup plus efficace.
+ * Pour avoir les textures il vaux mieux exporter en .obj
+ */
 class Sol : public CustomDrawable {
 
 private:

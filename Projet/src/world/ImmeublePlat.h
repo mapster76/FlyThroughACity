@@ -7,6 +7,11 @@
 
 #define COTE_IMMEUBLE 8
 
+/**
+ * Ancienne classe permettant de dessiner un prisme d'une certaine couleur
+ * avec du code OpenGL non utilisé mais je la garde car elle peut etre utile
+ * pour débugguer
+ */
 class ImmeublePlat : public CustomDrawable {
 
 private:

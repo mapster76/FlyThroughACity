@@ -38,8 +38,10 @@ public :
 };
 
 class RandomGenerator {
-public:
+private:
 	cluster::UserData< SharedNumber >  mRandom;
+public:
+
 	RandomGenerator() {
 		vpr::GUID new_guid("d6be4359-e8cf-41fc-a72b-a5b4f3f29aa2");
 		mRandom.init(new_guid);

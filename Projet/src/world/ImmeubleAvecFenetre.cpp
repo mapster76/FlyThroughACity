@@ -11,50 +11,50 @@ osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::toitLow = osgDB::readNodeFile(TOIT_
 osg::ref_ptr<osg::Node> ImmeubleAvecFenetre::lampadaire = osgDB::readNodeFile(LAMPADAIRE);
 
 ImmeubleAvecFenetre::ImmeubleAvecFenetre(int nombreEtages) {
-		mImmeuble=new osg::Group();
-		mImmeubleLow=new osg::Group();
-		mEmptyNode=new osg::Group();
-		mRoute= new osg::Group();
-	   mNombreEtages=nombreEtages;
-	   osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> rdcStateSet (rezDeChausse->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> toitStateSet (toit->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> trotoirStateSet (trotoir->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> routeStateSet (route->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> etageLowStateSet (etageLow->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> rdcLowStateSet (rezDeChausseLow->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> toitLowStateSet (toitLow->getOrCreateStateSet());
-	   osg::ref_ptr<osg::StateSet> lampadaireStateSet (lampadaire->getOrCreateStateSet());
+	mImmeuble=new osg::Group();
+	mImmeubleLow=new osg::Group();
+	mEmptyNode=new osg::Group();
+	mRoute= new osg::Group();
+	mNombreEtages=nombreEtages;
+	osg::ref_ptr<osg::StateSet> etageStateSet (etage->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> rdcStateSet (rezDeChausse->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> toitStateSet (toit->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> trotoirStateSet (trotoir->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> routeStateSet (route->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> etageLowStateSet (etageLow->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> rdcLowStateSet (rezDeChausseLow->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> toitLowStateSet (toitLow->getOrCreateStateSet());
+	osg::ref_ptr<osg::StateSet> lampadaireStateSet (lampadaire->getOrCreateStateSet());
 
-	   //Its shader objects
-	   	osg::ref_ptr<osg::Program> shader (new osg::Program);
-	   	 osg::ref_ptr<osg::Shader> capsulevertexShader(
-	         osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommets.glsl"));
+	//Its shader objects
+	osg::ref_ptr<osg::Program> shader (new osg::Program);
+	osg::ref_ptr<osg::Shader> capsulevertexShader(
+	osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommets.glsl"));
 
-	   	 osg::ref_ptr<osg::Shader> capsulefragShader(
-	         osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragments.glsl"));
+	osg::ref_ptr<osg::Shader> capsulefragShader(
+			osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragments.glsl"));
 
-	   	shader->addShader(capsulevertexShader.get());
-	   	shader->addShader(capsulefragShader.get());
-	   	osg::ref_ptr<osg::Program> shader2 (new osg::Program);
-	   		   	 osg::ref_ptr<osg::Shader> texturevertexShader(
-	   		         osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommetsTexture.glsl"));
+	shader->addShader(capsulevertexShader.get());
+	shader->addShader(capsulefragShader.get());
+	osg::ref_ptr<osg::Program> shader2 (new osg::Program);
+	osg::ref_ptr<osg::Shader> texturevertexShader(
+			osg::Shader::readShaderFile (osg::Shader::VERTEX, "../shaders/nuanceurSommetsTexture.glsl"));
 
-	   		   	 osg::ref_ptr<osg::Shader> texturefragShader(
-	   		         osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragmentsTexture.glsl"));
-	   	//Binding the box shaders to its program
-		shader2->addShader(texturevertexShader.get());
-		shader2->addShader(texturefragShader.get());
+	osg::ref_ptr<osg::Shader> texturefragShader(
+			osg::Shader::readShaderFile (osg::Shader::FRAGMENT, "../shaders/nuanceurFragmentsTexture.glsl"));
+	//Binding the box shaders to its program
+	shader2->addShader(texturevertexShader.get());
+	shader2->addShader(texturefragShader.get());
 
-	   	etageStateSet->setAttribute(shader);
-	   	rdcStateSet->setAttribute(shader);
-	   	toitStateSet->setAttribute(shader);
-	   	trotoirStateSet->setAttribute(shader);
-	   	lampadaireStateSet->setAttribute(shader);
-	   	etageLowStateSet->setAttribute(shader2);
-		rdcLowStateSet->setAttribute(shader2);
-		toitLowStateSet->setAttribute(shader2);
-	   	routeStateSet->setAttribute(shader2);
+	etageStateSet->setAttribute(shader);
+	rdcStateSet->setAttribute(shader);
+	toitStateSet->setAttribute(shader);
+	trotoirStateSet->setAttribute(shader);
+	lampadaireStateSet->setAttribute(shader);
+	etageLowStateSet->setAttribute(shader2);
+	rdcLowStateSet->setAttribute(shader2);
+	toitLowStateSet->setAttribute(shader2);
+	routeStateSet->setAttribute(shader2);
 
 }
 
@@ -83,10 +83,6 @@ void ImmeubleAvecFenetre::placeNodeElement(osg::ref_ptr<osg::Node> element,vecto
 }
 
 void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter) {
-	/*osg::ref_ptr<osg::Geode> noeudSol (new osg::Geode);
-	GLfloat color[3]={0.2,0.2,0.2};
-	osg::ref_ptr<CustomDrawable> sol(new Sol(13,color));
-	noeudSol->addDrawable((osg::Drawable*)sol.get());*/
 	osg::ref_ptr<osg::MatrixTransform> mModel = new osg::MatrixTransform();
 
 	mModel->preMult( osg::Matrix::translate(coordonnees[0], coordonnees[1], coordonnees[2]));
@@ -97,6 +93,9 @@ void creerLeSol(vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjout
 }
 
 void ImmeubleAvecFenetre::construireUnImmeuble() {
+	/**
+	 * Noeud avec tous un maximun de détails dont les lampadaires
+	 */
 	osg::ref_ptr<osg::Group>  rootNode;
 	osg::ref_ptr<osg::MatrixTransform> navTrans;
 	rootNode = new osg::Group();
@@ -129,6 +128,9 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	immeubleStateSet->setAttributeAndModes(cf, osg::StateAttribute::ON);
 	mEnsemble=rootNode;
 
+	/*
+	 * Noeud qui n'affiche pas les lampadaire
+	 */
 	osg::ref_ptr<osg::Group>  rootNodeSansLamp;
 	osg::ref_ptr<osg::MatrixTransform> navTransSansLamp;
 	osg::ref_ptr<osg::Group> immeubleSansLamp;
@@ -148,9 +150,12 @@ void ImmeubleAvecFenetre::construireUnImmeuble() {
 	osg::StateSet* immeubleStateSetSansLamp=immeubleSansLamp->getOrCreateStateSet();
 	immeubleStateSetSansLamp->setAttributeAndModes(cf, osg::StateAttribute::ON);
 
+
 	mEnsembleSansLamp=rootNodeSansLamp;
 
-
+	/*
+	 * Immeuble avec très peu de polygones afficher un peu plus loin
+	 */
 	osg::ref_ptr<osg::Group>  rootNodeLow;
 	osg::ref_ptr<osg::MatrixTransform> navTransLow;
 	rootNodeLow = new osg::Group();

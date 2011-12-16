@@ -125,8 +125,6 @@ private:
 	WorldCreator mWorld;
 	cluster::UserData< NavData >  mNavigator;
 	Sons mSons;
-
-public:
 	gadget::PositionInterface  mWand;     // the Wand
 	gadget::PositionInterface  mHead;     // the head
 	gadget::DigitalInterface   mButton0;

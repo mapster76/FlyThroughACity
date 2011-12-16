@@ -18,7 +18,6 @@ class Skybox : public CustomDrawable {
 private:
 	GLfloat mSize;
 	osg::ref_ptr<osg::Image> image;
-	//vector< ref_ptr<osg::Image> > vImage;
 
 public:
 	Skybox(GLfloat tailleCote,string nomImage);

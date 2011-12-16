@@ -38,30 +38,63 @@ class ImmeubleAvecFenetre {
 private:
 
 	int mNombreEtages;
-public:
-	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route,lampadaire,rezDeChausseLow,etageLow,toitLow;
 	osg::ref_ptr<osg::Group> mImmeuble,mImmeubleLow;
 	osg::ref_ptr<osg::Group> mRoute;
 	osg::ref_ptr<osg::Group> mEnsemble,mEnsembleLow,mEnsembleSansLamp,mEmptyNode;
 	ref_ptr<LOD> lodEnsemble;
-	ImmeubleAvecFenetre() {}
 
-	ImmeubleAvecFenetre(int nombreEtages);
-
-	~ImmeubleAvecFenetre() {}
-
-	osg::ref_ptr<osg::LOD> getNode();
-
+	/**
+	 * permet de placer un noeud dans le graphe de scene de l'immeuble
+	 */
 	void placeNodeElement(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter);
 
-	void construireUnImmeuble();
-
-	int getNombreEtage();
-
+	/**
+	 * Permet de placer des lampadaires
+	 */
 	void placeNodeLampadaire(osg::ref_ptr<osg::Node> element,vector<GLfloat> coordonnees,osg::ref_ptr<osg::Group> noeudAAjouter,float rotationY);
 
+public:
+	static osg::ref_ptr<osg::Node>  rezDeChausse,etage,toit,trotoir,route,lampadaire,rezDeChausseLow,etageLow,toitLow;
+
+	/**
+	 * Constructeur par défaut pour qu'il puisse etre mis dans un vector
+	 */
+	ImmeubleAvecFenetre() {}
+
+	/**
+	 * Constructeur normal qui permet d'initialiser l'immeuble dont les shaders
+	 * et spécifié sont nombre d'étage
+	 */
+	ImmeubleAvecFenetre(int nombreEtages);
+
+	/**
+	 * destructeur rien à faire
+	 */
+	~ImmeubleAvecFenetre() {}
+
+	/**
+	 * Permet de retourner le noeud représentant l'immeuble
+	 */
+	osg::ref_ptr<osg::LOD> getNode();
+
+	/**
+	 * permet de construire l'immeuble
+	 */
+	void construireUnImmeuble();
+
+	/**
+	 * retourne le nombre de l'étage donné à l'immeuble
+	 */
+	int getNombreEtage();
+
+	/**
+	 * retourne la BoundingBox associé à l'immeuble
+	 */
 	osg::BoundingBox getBoundingBox();
 
+	/**
+	 * retourne la taille estimée de la BoundingBox
+	 */
 	int getTaille();
 
 };
