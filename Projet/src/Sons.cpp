@@ -307,10 +307,9 @@ void Sons::pauseSonGrandeVitesse() {
 void Sons::jouerSonCollision()
 {
 	bool currentlyPlaying=false,paused=false;
-	channelCollision->isPlaying(&currentlyPlaying);
+	//channelCollision->isPlaying(&currentlyPlaying);
 	if(!currentlyPlaying && !collisionAlreadyPlayed) {
-		cout << "collision " <<endl;
-		collisionAlreadyPlayed=true;
+	  	collisionAlreadyPlayed=true;
 		result = system->playSound(FMOD_CHANNEL_FREE, sonCollision, false, &channelCollision);
 		ERRCHECK(result);
 		channelCollision->setLoopCount(0);

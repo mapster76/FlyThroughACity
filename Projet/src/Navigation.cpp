@@ -240,16 +240,16 @@ void Navigation::update(float time_delta) {
 	K.makeIdentity();
 
 	osg::Quat rotationActuelle=mCurrentMatrix.getRotate();
-	if(abs(rotationWandAxeZ)<0.2 && abs(rotationWandAxeX)<0.2) {
+	if(abs(rotationWandAxeZ)<0.3 && abs(rotationWandAxeX)<0.3) {
 
 		R.makeIdentity();
 		if(rotationActuelle.y()>0.97) {
 			stabiliserCamera(0.15,+0.00005,rotationActuelle,H);
 		} else {
 			if(rotationActuelle.y()>0.8) {
-				stabiliserCamera(0.05,0.0005,rotationActuelle,H);
+				stabiliserCamera(0.05,0.001,rotationActuelle,H);
 			} else {
-				stabiliserCamera(0.005,0.001,rotationActuelle,H);
+				stabiliserCamera(0.005,0.002,rotationActuelle,H);
 			}
 		}
 	}
@@ -284,6 +284,10 @@ void Navigation::collisions() {
 	for (map< vector<GLfloat> , osg::BoundingBox >::iterator boundingBox = lesBoundingBox->begin(); boundingBox != lesBoundingBox->end(); ++boundingBox) {
 		if(boundingBox->second.intersects(wandBbox)) {
 			arretBrutal();
+			osg::Matrix T;
+			//Recule l'utilisateur lorsqu'il entre en collision pour éviter qu'il ne soit bloquer
+			T.makeTranslate(mTranslation);
+			mCurrentMatrix = mCurrentMatrix*T;
 			mSons.jouerSonCollision();
 			mSons.pauseSonGrandeVitesse();
 			mSons.pauseSonAcceleration();
