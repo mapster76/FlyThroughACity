@@ -243,7 +243,7 @@ void Navigation::update(float time_delta) {
 	if(abs(rotationWandAxeZ)<0.3 && abs(rotationWandAxeX)<0.3) {
 
 		R.makeIdentity();
-		if(rotationActuelle.y()>0.97) {
+		if(rotationActuelle.y()>0.95) {
 			stabiliserCamera(0.15,+0.00005,rotationActuelle,H);
 		} else {
 			if(rotationActuelle.y()>0.8) {
