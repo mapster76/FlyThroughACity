@@ -1,4 +1,4 @@
-#Tue Nov 08 10:03:56 EST 2011
+#Thu Dec 15 21:39:52 EST 2011
 eclipse.preferences.version=1
 environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/CWD/delimiter=\:
 environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/CWD/operation=replace
@@ -8,6 +8,26 @@ environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/PWD/operation
 environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/PWD/value=/media/share/polyMontreal/s1/realiteVirtuelle/inf6802_realite_virtuelle/trunk/Projet
 environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/append=true
 environment/project/cdt.managedbuild.toolchain.gnu.base.1876000892/appendContributed=true
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/CWD/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/CWD/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/CWD/value=/media/share/polyMontreal/s1/realiteVirtuelle/inf6802_realite_virtuelle/trunk/Projet/src
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/FLAGPOLL_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/FLAGPOLL_PATH/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/FLAGPOLL_PATH/value=/usr/lib/pkgconfig\:/usr/lib/flagpoll\:/usr/lib64/pkgconfig\:/usr/lib64/flagpoll\:/usr/share/pkgconfig\:/usr/share/flagpoll\:/usr/local/share/flagpoll\:/usr/local/lib64/flagpoll\:/opt/cppdom/lib64/flagpoll\:/opt/omniorb/lib/pkgconfig\:/usr/lib\:/usr/lib/osg
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/PWD/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/PWD/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/PWD/value=/media/share/polyMontreal/s1/realiteVirtuelle/inf6802_realite_virtuelle/trunk/Projet/src
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_BASE_DIR/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_BASE_DIR/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_BASE_DIR/value=/usr/local
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_CFG_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_CFG_PATH/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_CFG_PATH/value=${VJ_BASE_DIR}/share/vrjuggler-3.0/data/configFiles
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_DATA_DIR/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_DATA_DIR/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/VJ_DATA_DIR/value=${VJ_BASE_DIR}/share/vrjuggler-3.0
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.base.633626092.756927494/appendContributed=true
 environment/project/cdt.managedbuild.toolchain.gnu.base.633626092/CWD/delimiter=\:
 environment/project/cdt.managedbuild.toolchain.gnu.base.633626092/CWD/operation=replace
 environment/project/cdt.managedbuild.toolchain.gnu.base.633626092/CWD/value=/media/share/polyMontreal/s1/realiteVirtuelle/inf6802_realite_virtuelle/trunk/Projet/src

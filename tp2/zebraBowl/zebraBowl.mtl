@@ -1,12 +1,22 @@
-# Blender MTL File: 'zebraBowl.blend'
-# Material Count: 1
-newmtl _spirale2.jpg
-Ns 0
+# Blender MTL File: 'etageSimple.blend'
+# Material Count: 2
+newmtl Fenetre
+Ns 96.078431
 Ka 0.000000 0.000000 0.000000
-Kd 0.8 0.8 0.8
-Ks 0.8 0.8 0.8
-d 1
+Kd 0.296752 0.324643 0.640000
+Ks 0.187421 0.164002 0.816832
+Ni 1.000000
+d 1.000000
 illum 2
-map_Kd spirale2.jpg
+
+
+newmtl Material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.592428 0.577876 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
 
 

@@ -1,12 +1,3 @@
-// les étudiants peuvent utiliser l'exemple du cours pour démarrer:
-//    http://www.cours.polymtl.ca/inf2705/nuanceurs/pointlight.glsl.html
-
-//void main( void )
-//{
-   // transformation standard du sommet (ModelView et Projection)
-//   gl_Position = ftransform();
-//}
-
 varying vec3 normal, lightDir, eyeVec;
 
 void main()

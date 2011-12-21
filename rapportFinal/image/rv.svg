@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="853" height="997" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="264" y="577" width="124" height="408" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="326" y="587">MainOsgApp</text>
+	<line stroke="black" stroke-opacity="1" x1="264" y1="593" x2="388" y2="593" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="603">mNavMatrix</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="618">mRootNode</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="633">mNavTrans</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="648">mLastPreFrameTime</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="663">mCurrentMatrix</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="678">distance</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="693">mWand</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="708">mHead</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="723">mButton0</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="738">mButton1</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="753">mButton2</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="768">mButton3</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="783">mButton4</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="798">mButton5</text>
+	<line stroke="black" stroke-opacity="1" x1="264" y1="804" x2="388" y2="804" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="814">MainOsgApp()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="829">~MainOsgApp()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="844">initScene()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="859">myInit()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="874">getScene()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="889">configSceneView()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="904">bufferPreDraw()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="919">preFrame()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="934">latePreFrame()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="949">intraFrame()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="964">postFrame()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="266" y="979">getDrawScaleFactor()</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="107" y="38" width="76" height="138" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="145" y="48">NavData</text>
+	<line stroke="black" stroke-opacity="1" x1="107" y1="54" x2="183" y2="54" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="64">mRotation</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="79">mVelocity</text>
+	<line stroke="black" stroke-opacity="1" x1="107" y1="85" x2="183" y2="85" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="95">readObject()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="110">writeObject()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="125">setVelocity()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="140">getVelocity()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="155">setRotation()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="109" y="170">getRotation()</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="467" y="695" width="124" height="98" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="529" y="705">CustomDrawable</text>
+	<line stroke="black" stroke-opacity="1" x1="467" y1="711" x2="591" y2="711" />
+	<line stroke="black" stroke-opacity="1" x1="467" y1="716" x2="591" y2="716" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="469" y="726">CustomDrawable()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="469" y="741">CustomDrawable()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="469" y="756">cloneType()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="469" y="771">clone()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="469" y="786">drawImplementation()</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="443" y="118" width="116" height="94" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="501" y="128">SharedNumber</text>
+	<line stroke="black" stroke-opacity="1" x1="443" y1="134" x2="559" y2="134" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="445" y="144">mNombrePartage</text>
+	<line stroke="black" stroke-opacity="1" x1="443" y1="150" x2="559" y2="150" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="445" y="160">readObject()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="445" y="175">writeObject()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="445" y="190">getNombrePartage()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="445" y="205">setNombrePartage()</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="242" y="2" width="152" height="514" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="318" y="12">Sons</text>
+	<line stroke="black" stroke-opacity="1" x1="242" y1="18" x2="394" y2="18" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="28">itAmbianceSonore</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="43">vAmbianceSonore</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="58">system</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="73">result</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="88">key</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="103">version</text>
+	<line stroke="black" stroke-opacity="1" x1="242" y1="109" x2="394" y2="109" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="119">Sons()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="134">~Sons()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="149">jouerAmbiancePluie()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="164">jouerAmbianceNature()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="179">jouerAmbianceFoule()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="194">jouerAmbianceOrage()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="209">jouerMusique1()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="224">jouerMusique2()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="239">pauseAmbiancePluie()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="254">pauseAmbianceOrage()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="269">pauseAmbianceFoule()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="284">pauseAmbianceNature()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="299">pauseMusique1()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="314">pauseMusique2()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="329">changerAmbianceSonore()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="344">jouerSonVaisseau()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="359">jouerSonDeceleration()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="374">jouerSonAcceleration()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="389">jouerSonGrandeVitesse()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="404">jouerSonCollision()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="419">pauseSonVaisseau()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="434">pauseSonDeceleration()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="449">pauseSonAcceleration()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="464">pauseSonGrandeVitesse()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="479">pauseSonCollision()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="494">gestionBouton1()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="244" y="509">ERRCHECK()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="321" y1="516" x2="315" y2="522" />
+	<line stroke="black" stroke-opacity="1" x1="321" y1="516" x2="327" y2="521" />
+	<line stroke="black" stroke-opacity="1" x1="322" y1="576" x2="321" y2="516" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="322,576 315,570 321,564 327,569" />
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="30" y="243" width="140" height="544" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="100" y="253">Navigation</text>
+	<line stroke="black" stroke-opacity="1" x1="30" y1="259" x2="170" y2="259" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="269">estEnTrainDAvancer</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="284">peutTourner</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="299">tempsPourArret</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="314">tempsPourAcceleration</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="329">tempsPourDecceleration</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="344">estEnTrainDAccelerer</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="359">estEnTrainDeDecelerer</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="374">estEnTrainDeSArreter</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="389">arretEnDouceur</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="404">mTranslation</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="419">mRotation</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="434">mCurrentMatrix</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="449">mWand</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="464">mHead</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="479">mButton0</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="494">mButton1</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="509">mButton2</text>
+	<line stroke="black" stroke-opacity="1" x1="30" y1="515" x2="170" y2="515" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="525">Navigation()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="540">~Navigation()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="555">init()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="570">ralentirPuisSAreter()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="585">accelerer()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="600">seDeplacer()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="615">gestionGachette()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="630">gestionBouton2()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="645">avancerOuArreter()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="660">ralentir()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="675">arretBrutal()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="690">droitDeTourner()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="705">collisions()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="720">jouerSonVaisseau()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="735">stabiliserCamera()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="750">update()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="765">getCurrentMatrix()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="32" y="780">getDrawScaleFactor()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="263" y1="701" x2="223" y2="649" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="263,701 254,699 255,691 264,692" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="134" y="203">&lt;&lt;:UserData&gt;&gt;</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="135" y1="176" x2="128" y2="181" />
+	<line stroke="black" stroke-opacity="1" x1="135" y1="176" x2="140" y2="182" />
+	<line stroke="black" stroke-opacity="1" x1="128" y1="242" x2="135" y2="176" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="128,242 122,235 129,230 134,236" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="170" y1="459" x2="166" y2="464" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="170,459 170,467 162,468 161,459" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="241" y1="361" x2="232" y2="362" />
+	<line stroke="black" stroke-opacity="1" x1="241" y1="361" x2="242" y2="369" />
+	<line stroke="black" stroke-opacity="1" x1="166" y1="464" x2="241" y2="361" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="170" y1="592" x2="169" y2="600" />
+	<line stroke="black" stroke-opacity="1" x1="170" y1="592" x2="178" y2="592" />
+	<line stroke="black" stroke-opacity="1" x1="223" y1="649" x2="170" y2="592" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="331" y="533">mSons</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="589" y="529">mWorld</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="145" y="192">mNavigator</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="580" y="318">mRandom</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="513" y="229">mRandom</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="187" y="608">mNavigation</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="198" y="442">mSons</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="738" y="707">mpSkybox</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="588" y="407">mWorld</text>
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="447" y="276" width="122" height="68" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="508" y="286">RandomGenerator</text>
+	<line stroke="black" stroke-opacity="1" x1="447" y1="292" x2="569" y2="292" />
+	<line stroke="black" stroke-opacity="1" x1="447" y1="297" x2="569" y2="297" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="449" y="307">RandomGenerator()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="449" y="322">~RandomGenerator()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="449" y="337">randomParPas()</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="504" y="239">&lt;&lt;:UserData&gt;&gt;</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="502" y1="212" x2="496" y2="218" />
+	<line stroke="black" stroke-opacity="1" x1="502" y1="212" x2="508" y2="217" />
+	<line stroke="black" stroke-opacity="1" x1="506" y1="275" x2="502" y2="212" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="506,275 499,269 505,263 511,268" />
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="641" y="167" width="200" height="408" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="741" y="177">WorldCreator</text>
+	<line stroke="black" stroke-opacity="1" x1="641" y1="183" x2="841" y2="183" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="193">mpRootNode</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="208">mpNavTrans</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="223">mLaCarteBox</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="238">mLesBoundingBoxes</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="253">mvEmplacementImage</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="268">mItEmplacementImage</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="283">mpNoeudSkybox</text>
+	<line stroke="black" stroke-opacity="1" x1="641" y1="289" x2="841" y2="289" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="299">initialiseWorld()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="314">getCarte()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="329">createImmeublePlatNode()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="344">noeudImmeubleExiste()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="359">estUnEmplacementVide()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="374">ajouterImmeubleALaCarte()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="389">ajouterImmeubleAutourPosition()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="404">dessinnerUnQuartier()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="419">createMap()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="434">placeNodeElement()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="449">generateSceneGraph()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="464">illuminateScene()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="479">createImmeubleAvecFenetreNode()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="494">WorldCreator()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="509">gestionBouton1()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="524">~WorldCreator()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="539">drawWorld()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="554">createBoundingsBoxes()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="643" y="569">getBoundingBoxes()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="569" y1="325" x2="573" y2="332" />
+	<line stroke="black" stroke-opacity="1" x1="569" y1="325" x2="576" y2="320" />
+	<line stroke="black" stroke-opacity="1" x1="640" y1="343" x2="569" y2="325" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="640,343 632,347 628,340 635,335" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="640" y1="467" x2="631" y2="466" />
+	<line stroke="black" stroke-opacity="1" x1="640" y1="467" x2="639" y2="475" />
+	<line stroke="black" stroke-opacity="1" x1="388" y1="716" x2="640" y2="467" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="170" y1="535" x2="254" y2="561" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="170,535 177,531 181,538 173,542" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="413" y1="548" x2="598" y2="444" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="254" y1="561" x2="413" y2="548" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="640" y1="420" x2="631" y2="417" />
+	<line stroke="black" stroke-opacity="1" x1="640" y1="420" x2="637" y2="428" />
+	<line stroke="black" stroke-opacity="1" x1="598" y1="444" x2="640" y2="420" />
+</g>
+<g>
+	<rect fill="none" stroke="black" stroke-width="1" stroke-opacity="1" x="665" y="716" width="124" height="94" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="727" y="726">Skybox</text>
+	<line stroke="black" stroke-opacity="1" x1="665" y1="732" x2="789" y2="732" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="667" y="742">mSize</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="667" y="757">image</text>
+	<line stroke="black" stroke-opacity="1" x1="665" y1="763" x2="789" y2="763" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="667" y="773">Skybox()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="667" y="788">~Skybox()</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="667" y="803">drawImplementation()</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="728" y1="715" x2="734" y2="709" />
+	<line stroke="black" stroke-opacity="1" x1="728" y1="715" x2="722" y2="708" />
+	<line stroke="black" stroke-opacity="1" x1="733" y1="575" x2="728" y2="715" />
+	<polygon fill="#000000" stroke="black" stroke-opacity="1" points="733,575 738,581 732,586 726,580" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="738" y="690">&lt;&lt;:ref_ptr&gt;&gt;</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="664" y1="756" x2="596" y2="749" />
+	<line stroke="black" stroke-opacity="1" x1="591" y1="749" x2="596" y2="755" />
+	<line stroke="black" stroke-opacity="1" x1="591" y1="749" x2="597" y2="743" />
+	<line stroke="black" stroke-opacity="1" x1="596" y1="755" x2="597" y2="743" />
+</g>
+</svg>
